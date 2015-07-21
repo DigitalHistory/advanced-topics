@@ -1,0 +1,78 @@
+/* This is a very simple CSS setup that shows the size of the relevant divs and -- important! -- sets the size of the map container */
+
+
+body {
+ background-color:#ACADB5; 
+}
+
+/* center a headline, but only if it's a child of  
+ of a header element
+*/
+header h1 {
+  text-align:center;
+}
+
+/* put the main div in the centre of the page.  
+  div#main means "all divs with the id of main"*/
+div#main {
+  width:960px;
+  margin-left:auto;
+  margin-right:auto;
+  background-color:#9B96B3;
+  border:4px solid #5E5C63;
+  }
+
+
+div#mapcontainer {
+  margin-left:auto;
+  margin-right:auto;
+  width:940px; 
+  font-family:Arial, sans-serif;
+  font-size:11px; 
+  border:6px double #5E5C63;
+}
+
+/* you can change the size of the map here if you want
+   you cna even use percentages instead of pixels.
+
+*/
+div#map_canvas {
+  width:940; 
+  height:450px;
+}
+
+/*just for fun, we can style the buttons using classes
+  button.rounded means "all buttons with the class of
+  rounded".  button#hide meands "the button with the   
+  id of hide" */
+button.rounded {
+  -webkit-border-radius:5px; 
+  -moz-border-radius:5px;
+  border-radius:5px;
+  border: 1px black solid;
+}
+button#hide {
+  background:orange;
+}
+button#show {
+  background:green;
+}
+
+/* use these last three to style the text inside the  
+   infowindows.  They are pretty ugly at the moment,
+   consider making them prettier.
+
+*/
+
+div#map_canvas h1 {
+  font-size:12px; 
+}
+
+div.address  {
+  background-color:grey;
+}
+
+div.description {
+  
+ background-color:pink;
+}

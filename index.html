@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Google Maps Exercise</title>
+  <meta name="description" content="a strapdown-based mapping exercise." />
+  <!-- these script tags load important javascript "libraries"
+  that our own little scripts depend on.  These are complex 
+  programs way beyond our capacities to construct; but we can 
+  make use of them nonetheless -->
+  <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <link rel="stylesheet" href="./style.css" type="text/css" media="screen" />
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+</head>
+
+<!-- note the 'onload' attribute here.  
+  it calls the function "initialize" 
+  when the body has finished loading.  That's because the 
+  Javascript in the JS pane will not run properly unless it
+  waits for the elements inside the bode to load.  Therefore
+  we don't run the most important parts of the code until the page has finished loading.  
+-->
+<body onload="initialize();">
+  <textarea theme="cyborg" style="display:none;">
+
+ # Google Maps 
+    
+ Today in class we have discussed *spatial history*, that is, historical work that focusses closely on spatial categories. In class today, our activity will be to reprogram this map: 
+    
++ Change the title to represent something more intersting.
++ change the geogrpahical co-ordinates of the marker 
++ change the contents of the info-window 
++ write a short "essay" in markdown about the event whose marker you are portrayng.
+
+  </textarea>
+
+  <!-- these are just for fun! -->
+  <button onclick="hideMarkers(my_markers)" class="rounded" id="hide">hide markers</button>
+
+  <button onclick="showMarkers(my_markers, my_map)" id="show"> show markers</button>
+
+
+  <div id="mapcontainer">
+    <div id="map_canvas"></div>
+  </div>
+
+  <!-- this is the makic that makes markdown work for us -->
+  <script src="http://strapdownjs.com/v/0.2/strapdown.js"></script>
+  <script src="./script.js"></script>
+
+</body>
+
+</html>
