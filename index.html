@@ -23,25 +23,24 @@
        we don't run the most important parts of the code until the page has finished loading.  
     -->
   <body onload="initialize();">
-    <textarea theme="cyborg" style="display:none;">
+    <textarea theme="united" style="display:none;">
 
 # Google Maps 
     
  Today in class we have discussed *spatial history*, that is, historical work that focusses closely on spatial categories. In class today, our activity will be to reprogram this map: 
     
 + Change the title to represent something more interesting.
-+ change the geogrpahical co-ordinates of the marker 
++ change the geographical co-ordinates of the marker 
 + change the contents of the info-window 
-+ write a short "essay" in markdown about the event whose marker you are portrayng.
++ replace this text with a short "essay" in markdown about the event whose marker you are portraying.
 
     </textarea>
 
     <!-- these are just for fun! -->
-    <button onclick="hideMarkers(my_markers)" class="rounded" id="hide">hide markers</button>
-
-    <button onclick="showMarkers(my_markers, my_map)" id="show"> show markers</button>
-
     <div class="container">
+      <button onclick="hideMarkers(my_markers)" class="rounded" id="hide">hide markers</button>
+      <button onclick="showMarkers(my_markers, my_map)" id="show"> show markers</button>
+      <p></p>
       <div id="mapcontainer">
         <div id="map_canvas"></div>
       </div>
