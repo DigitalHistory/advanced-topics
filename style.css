@@ -6,13 +6,13 @@ div.container {
 
 div#mapcontainer {
   font-family:Arial, sans-serif;
-  font-size:11px; 
+  font-size:11px;
   border:6px double #5E5C63;
 }
 
 /* you can change the size of the map here if you want
    you can even use percentages instead of pixels.
-   We let the width be set by the containing element, 
+   We let the width be set by the containing element,
    but constrain the height
 */
 div#map_canvas {
@@ -21,11 +21,11 @@ div#map_canvas {
 
 /*just for fun, we can style the buttons using classes
   button.rounded means "all buttons with the class of
-  rounded".  button#hide meands "the button with the   
-  id of hide" 
+  rounded".  button#hide meands "the button with the
+  id of hide"
 */
 button.rounded {
-  -webkit-border-radius:5px; 
+  -webkit-border-radius:5px;
   -moz-border-radius:5px;
   border-radius:5px;
   border: 1px black solid;
@@ -37,7 +37,7 @@ button#show {
   background:green;
 }
 
-/* use these last three to style the text inside the  
+/* use these last three to style the text inside the
    infowindows.  They are pretty ugly at the moment,
    consider making them prettier.
 
