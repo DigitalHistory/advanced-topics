@@ -4,13 +4,13 @@
 var my_map; // this will hold the map
 var my_map_options; // this will hold the options we'll use to create the map 
 var my_center = new google.maps.LatLng(43.653963,-79.389954); // center of map
-var my_markers = []; // we use this in the main loop below to hold the markers
+var my_markers = []; // we use this in the main loop belowa to hold the markers
 // this one is strange.  In google maps, there is usually only one
 // infowindow -- its content and position change when you click on a 
 // marker
 var infowindow = new google.maps.InfoWindow({content: ""});
 
-var my_first_marker; // we'll use this to create a marker by hand.
+
 
 /* a function that will run when the page loads.  It creates the map
  and the initial marker.  If you want to create more markers, do it here. */
@@ -24,33 +24,31 @@ function initialize() {
     // this one line creates the actual map
     my_map = new google.maps.Map(document.getElementById("map_canvas"),
                                  my_map_options);
+    // this is an *array* that holds all the marker info
+    var all_my_markers =
+            [{position: new google.maps.LatLng(43.653963,-79.389954),
+              map: my_map,
+              title: "first Marker",
+              window_content: "<h1>Marker1</h1><p> and this would be the extended description</p>"
+             },
+             {position: new google.maps.LatLng(43.652843,-79.399952),
+              map: my_map,
+              title: "second Marker",
+              window_content: "<h1>Marker2</h1><p> and this would be the extended description</p>"
+             }];
 
-    /* marker definition begins here! to create a new marker, copy/paste and change values */
-    /* ----------------------------------------------------------------------------------- */
-
-    // This is our first, hand-crafted map marker  
-    // Modify all its attributes to replace it with a new marker
-    // copy and rename it to create a second marker
-    my_first_marker = new google.maps.Marker({
-        position: my_center,
-        map: my_map,
-        title: "First Marker",
-        window_content:"<h1>This is the title</h1><p> and this would be the extended description</p>"
-    }); 
-    
-    // this "listener" checks for mouse clicks and opens the info window
-    // you will have to copy, rename, and lighlty modify it if you create a 
-    // second marker
-    var my_first_listener = google.maps.event.addListener(my_first_marker, 'click', function() {
-        infowindow.setContent (this.window_content);
-        infowindow.open(my_map, this); 
-    });
-
-    // add this new marker to the marker array, for our buttons. 
-    my_markers.push({marker:my_first_marker, listener: my_first_listener}); 
-
-    /* ----------------------------------------------------------------------------------- */
-    /* end marker definition!! Be sure to paste new marker code ABOVE the "}" just below this */
+    for (j = 0; j < all_my_markers.length; j++) {
+        var this_marker =  new google.maps.Marker({
+            position: all_my_markers[j].position,
+            map: my_map,
+            title: all_my_markers[j].title,
+            window_content: all_my_markers[j].window_content});
+        var this_listener = google.maps.event.addListener(this_marker, 'click', function() {
+            infowindow.setContent (this_marker.window_content);
+            infowindow.open(my_map, this_marker); 
+        });
+        my_markers.push({marker:this_marker, listener: this_listener});
+    };
 
 }
 
