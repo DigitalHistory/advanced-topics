@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+
+  <!-- comments -->
+  <!-- This is commented text. Your browser will not pay attention to it.  -->
+  <!-- We start with a <head> element. It contains scripts and metadata;  -->
+  <!-- none of this displays directly in the web page.  -->
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title Goes Here | by Your Name</title>
+    <script src="http://code.jquery.com/jquery-2.1.4.js"></script>
+    
+    <!-- The web page starts by loading the complete 
+         popcorn library from our nearby library -->
+    <script src="popcorn-complete.js"></script>
+
+    <!-- Then we also include a small "handmade" script that makes use 
+         of commands that are defined in the first script. This is what you'll
+         edit to create new popcorn events in this page.-->
+    <script src="popcorn-data.js" language="javascript"></script>
+  </head>  
+
+
+  <!-- The body of the web page starts here.  This is the stuff you see -->
+  <!-- The 'class' attribute might affect how the page is displayed, depending on 
+       what's in the css file linked to in the <head> section -->
+  <body>
+<!-- 
+As in our last project, all our text will live inside this "textarea" tag. 
+We'll break the style guide and stop indenting here, because inside the 
+textarea, if text and code are  indented they will not display properly. 
+-->
+<textarea theme="cyborg" style="display:none;">
+
+<!-- this is our audio div.  It's really important -->
+<audio id="media" controls="controls">
+  <!-- this is stolen from a StoryCorps story. I acquired the link by clicking the Download" button
+       here: http://storycorps.org/listen/gay-talese-and-bob-walsh/ -->
+  <source src="http://cdn.storycorps.org/wordpress/wp-content/uploads/walsh2.mp3" type="audio/mp3" />
+</audio>
+
+<div class="sidepanel">
+  <!-- This is the div where all the popcorn action will hapen -->
+  <div id="popcorn-container">
+  </div>
+</div>
+# Since the Title Tag controls what shows up in the titlebar
+
+use the first headline for something else.
+
+
+
+more text
+</textarea>
+
+    <!-- this is the magic that makes markdown work for us -->
+    <script src="http://strapdownjs.com/v/0.2/strapdown.js" language="javascript"></script>
+    <!-- This <link> element controls some style elements for the page.
+         It controls some important elements of presentation, like where
+         the sidebar ends up on the page. We load it after strapdown in case you want to override
+         some of the bootstrap css -->
+    <link rel="stylesheet" type="text/css" media="all" href="style.css" />
+
+
+  </body>
+</html>
