@@ -26,9 +26,7 @@ Controlling Google Maps
 
 For our exercise today, we are really only interested in two layers: the "basemap", that is, the street or satellite map most of us use on an almost-daily basis; and the *marker layer*, in which all of the little pins on a map are stored. We access these layers, and create those markers, with Javascript, by making *calls* to the *Google Maps API*.
 
-\#+BEGIN<sub>ASIDE</sub> An **API** is an "Application Programming Interface": a communications channel that lets programs talk to each other. By "loading" the Google Maps API, our web pages can communicate directly with Google's servers to modify the map that Google is presenting to us. In fact, most of the interesting stuff happening on the web these days happens via these machine-to-machine communication channels.
-
-\#+END<sub>API</sub>
+An **API** is an "Application Programming Interface": a communications channel that lets programs talk to each other. By "loading" the Google Maps API, our web pages can communicate directly with Google's servers to modify the map that Google is presenting to us. In fact, most of the interesting stuff happening on the web these days happens via these machine-to-machine communication channels.
 
 You don't have to understand the Google Maps API very thoroughly to be able to do this assignment. The code comes pre-written; all you have to do is hack at it till it does what you want it to.
 
