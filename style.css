@@ -19,6 +19,23 @@ div#map_canvas {
   height:450px;
 }
 
+/* this is the legend div. Can you make it into a right sidebar? you may
+have to add some extra css to the mapcontainer div */
+div#map_legend {
+
+}
+
+/* if you want, you can make the text in the legend less ugly by adding
+extra css classes */
+div#map_legend h1, div#map_legend h3 {
+
+}
+
+// make it obvious that the legend text is clickable
+div.pointer {
+    cursor:pointer
+}
+
 /*just for fun, we can style the buttons using classes
   button.rounded means "all buttons with the class of
   rounded".  button#hide meands "the button with the
@@ -54,3 +71,4 @@ div.address  {
 div.description {
 
 }
+

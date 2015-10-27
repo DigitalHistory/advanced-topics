@@ -4,12 +4,12 @@
 var my_map; // this will hold the map
 var my_map_options; // this will hold the options we'll use to create the map
 var my_center = new google.maps.LatLng(41.9000,12.5000); // center of map
-var my_markers = []; // we use this in the main loop belowa to hold the markers
+var my_markers = []; // we use this in the main loop below to hold the markers
 // this one is strange.  In google maps, there is usually only one
 // infowindow -- its content and position change when you click on a
 // marker
 var infowindow = new google.maps.InfoWindow({content: ""});
-
+var legendHTML = "";
 
 
 /* a function that will run when the page loads.  It creates the map
@@ -49,6 +49,10 @@ function initialize() {
             map: my_map,
             title: all_my_markers[j].title,
             window_content: all_my_markers[j].window_content});
+
+        // this next line is ugly, and you should change it to be prettier.
+        // be careful not to introduce syntax errors though.  
+        legendHTML += "<div class=\"pointer\" onclick=\"locateMarker(my_markers[" + j + "])\"> <h3>" + marker.title + "</h3><div>" + marker.window_content + "</div></div>";
         marker.info = new google.maps.InfoWindow({content: marker.window_content});
         var listener = google.maps.event.addListener(marker, 'click', function() {
             // if you want to allow multiple info windows, uncomment the next line
@@ -58,7 +62,11 @@ function initialize() {
             infowindow.open(my_map, this);
         });
         my_markers.push({marker:marker, listener:listener});
+        
+        
     }
+    document.getElementById("map_legend").innerHTML = legendHTML;
+   
 }
 
 // this hides all markers in the array
@@ -75,4 +83,12 @@ function showMarkers (marker_array, map) {
     for (var j in marker_array) {
         marker_array[j].marker.setMap(map);
     }
+}
+
+// I added this for fun.  It allows you to trigger the infowindow
+// form outside the map.  
+function locateMarker (marker) {
+    console.log(marker);
+    my_map.panTo(marker.marker.position);
+    google.maps.event.trigger(marker.marker, 'click');
 }
