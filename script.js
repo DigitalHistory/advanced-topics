@@ -11,6 +11,13 @@ var my_markers = []; // we use this in the main loop below to hold the markers
 var infowindow = new google.maps.InfoWindow({content: ""});
 var legendHTML = "";
 
+// I'm complicating things a bit with this next set of variables, which will help us
+// with marker colors
+var blueURL = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
+var redURL = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+var red_markers = [];
+var blue_markers = [];
+
 
 /* a function that will run when the page loads.  It creates the map
  and the initial marker.  If you want to create more markers, do it here. */
@@ -28,16 +35,20 @@ function initialize() {
     var all_my_markers =
             [{position: new google.maps.LatLng(41.9000,12.5000),
               map: my_map,
+              icon: blueURL, // this sets the image that represents the marker in the map to the one
+                             // located at the URL which is given by the variable blueURL, see above
               title: "first Marker",
               window_content: "<h1>Marker1</h1><p> and this would be the extended description</p>"
              },
              {position: new google.maps.LatLng(41.8902,12.4923),
               map: my_map,
+              icon: blueURL, // this sets the image that represents the marker in the map
               title: "second Marker",
               window_content: "<h1>Marker2</h1><p> and this would be the extended description</p>"
             },
             {position: new google.maps.LatLng(41.8986,12.4768),
              map: my_map,
+             icon: redURL, // this sets the image that represents the marker in the map
              title: "third Marker",
              window_content: "<h1>Marker3</h1><p> and this would be the extended description</p>"
            }
@@ -47,6 +58,7 @@ function initialize() {
         var marker =  new google.maps.Marker({
             position: all_my_markers[j].position,
             map: my_map,
+            icon: all_my_markers[j].icon,
             title: all_my_markers[j].title,
             window_content: all_my_markers[j].window_content});
 
@@ -62,7 +74,11 @@ function initialize() {
             infowindow.open(my_map, this);
         });
         my_markers.push({marker:marker, listener:listener});
-        
+        if (all_my_markers[j].icon == blueURL ) {
+            blue_markers.push({marker:marker, listener:listener});
+        } else if (all_my_markers[j].icon == redURL ) {
+            red_markers.push({marker:marker, listener:listener});
+        }
         
     }
     document.getElementById("map_legend").innerHTML = legendHTML;
