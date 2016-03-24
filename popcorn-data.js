@@ -24,7 +24,7 @@ $(window).on('load', function() {
 
     // this event, which is the first one you see, is a little more complicated,
     // because it is running a complex plugin: google maps.
-    pop.googlemap({     // run the googlemap plugin; not the open paren followed by open bracket
+    pop.googlemap({     // run the googlemap plugin; note the open paren followed by open bracket
         "start":0,   // what time, IN SECONDS, to start showing this information 
         "end":30,     // what time to stop
         "target":"popcorn-container", // where to display -- don't forget this!
