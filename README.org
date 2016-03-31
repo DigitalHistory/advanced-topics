@@ -16,6 +16,6 @@ Your popcorn events should be keyed to the rhythms of the clip itself, appearing
 
 If you change the styling, you should not create a terrible mess! Certainly I think the page could be prettier and I welcome your improvements.  
 ** Technical Help
-As usual, I am pretty much available to answer your questions.  I also urge you to read [[http://digital.hackinghistory.ca/2015/07/28/understanding-popcorn/][this post]], which has a fair amount of technical detail and also gives links to further documentation.  
+As usual, I am pretty much available to answer your questions.  I also urge you to read [[http://digital.hackinghistory.ca/2015/07/28/understanding-popcorn/][this post]], which has a fair amount of technical detail and also gives links to further documentation.  [[http://popcornjs.org/popcorn-docs/plugins/][Documentation of the popcorn event plugins is also available online]].
 
 
