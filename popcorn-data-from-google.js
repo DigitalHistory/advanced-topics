@@ -2,37 +2,6 @@ $(window).on('load', function() {
     // Create a popcporn instance by calling Popcorn("#id-of-the-media-element")
     var pop = Popcorn("#media");
 
-
-    // add a footnote at 2 seconds
-    // pop.footnote({
-    //     start: 2,
-    //     end: 20,
-    //     text: "This footnote is the stepping stone of progress!",
-    //     target: "popcorn-container"
-    // });
-    // pop.footnote({
-    //     start: 21,
-    //     end: 40,
-    //     text: "Second Footnote!",
-    //     target: "popcorn-container"
-    // });
-    // pop.googlemap({     // run the googlemap plugin; not the open paren followed by open bracket
-    //     "start":41,   // what time, IN SECONDS, to start showing this information 
-    //     "end":120,     // what time to stop
-    //     "target":"popcorn-container", // where to display -- don't forget this!
-    //     type: "STREETVIEW", //HYBRID (default), ROADMAP, SATELLITE, TERRAIN, STREETVIEW,
-    //     //lat: 43.665429,
-    //     //lng: -79.403323,
-    // 	location: "722 Spadina Ave., Toronto, ON", //  The location we want our map to display at
-    // 	zoom: 15 // Setting the zoom that we would like 
-    // });  // don't forget to close your brackets
-    // pop.footnote({
-    //     start: 121,
-    //     end: 600,
-    //     text: "And yet another footnote",
-    //     target: "popcorn-container"
-    // });
-
     // Next we need to identify which Google spreadsheet we're going to want to use.  
     // You'll need to change the key to match your spreadsheet.  Remember, this is the 
     // part in the spreadsheet URL that comes between "key=" and "&"

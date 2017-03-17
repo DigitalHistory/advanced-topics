@@ -12,7 +12,7 @@ $(window).on('load', function() {
     pop.footnote({
         start: 30,
         end: 50,
-        text: "This footnote is the stepping stone of progress!",
+        text: "The Verrazano-Narrows bridge looks cool!",
         target: "popcorn-container"
     });
     pop.footnote({
@@ -43,6 +43,13 @@ $(window).on('load', function() {
         text: "Verrazano Narrows Bridge",
         target: "popcorn-container"
     });
+  pop.footnote({
+    src:"https://en.wikipedia.org/wiki/Verrazano%E2%80%93Narrows_Bridge",
+    start: 50,
+    end: 90,
+    text: "Verrazano Narrows Bridge",
+    target: "popcorn-container"
+  });
 
     // and, obviously, the image plugin
     pop.image({
@@ -55,7 +62,8 @@ $(window).on('load', function() {
         
     pop.footnote({
         start: 121,
-        end: 600,
+      end: 600,
+      id: "yafn",
         text: "And yet another footnote",
         target: "popcorn-container"
     });
