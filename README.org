@@ -28,7 +28,9 @@ Your project has just a few files:
 
 You should edit your files in Atom and make sure you have the ~htnl-preview~ package installed (go to ~Settings -> Install~ and search for "html preview".  ~Remarkable~ will only be able to access the contents of ~index.md~ properly when ~index.html~ being served by a webserver -- fortunately the html preview runs a tiny server for you inside your editor.  But if you try to just double click on ~index.html~ and open it in Google Chrome, you'll be disappointed. 
 
-
+* Tips and Tricks
+- use the javascript `seek` function I defined to queue the audio file to a specific timecode in the file. You can call it with `<a href="javascript:seek(135)></a>` -- just replace `135` with whatever time you want to seek to, in seconds.  Unfortunaely you'll have to write this in plain old HTML as remarkable has trouble parsing javascript links.
+- load a different Bootstrap theme by copying the CSS link from [[https://www.bootstrapcdn.com/bootswatch/?theme=0][the Bootstrap CDN]]. Feel free to experiment
 
 * Handing this Assignment In
 
