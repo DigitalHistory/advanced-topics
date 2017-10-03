@@ -12,7 +12,7 @@ First, make sure you have installed both [[https://flight-manual.atom.io/getting
 - choose "[[https://services.github.com/on-demand/github-desktop/clone-repository-github-desktop][Open with Github Desktop]]". The repository will be copied to your computer
 - from Github Desktop, click on a file and choose ~Repository --> Open With Editor~. Hopefully Atom will open
 - you are ready to get to work!
->>>>>>> remarkable-2017
+
 
 * How This Project Works
 This is a very small, simple, stand-alone website (consisting of just one page!). It looks pretty good, but most of the heavy lifting is done by outside libraries:
@@ -24,7 +24,7 @@ Using these libraries gets us one step closer to "real-world" web development, w
 Your project has just a few files:
 - [[./index.html][index.html]], which loads the frameworks described above, adds a little extra Javascript which you can change if you want (but don't need to), and sets up a basic HTML framework to give structure to the page (which you're welcome to change and probably will want to).
 - [[./style.css][style.css]], which adds some style information, which, again, you are likely to want to change
-- [[./index.md][index.md]], where you will actually write your assignment! You'll do it in Markdown, introducing fragments of HTML as you go where you need it. The current content of that file has examples of most of the syntax you'llwant to use. ~index.md~ will be loaded by ~remarkable~ and inserted into an otherwise empty ~div~ in ~index.html~.
+- [[./index.md][index.md]], where you will actually write your assignment! You'll do it in Markdown, introducing fragments of HTML as you go where you need them. The current content of that file has examples of most of the syntax you'llwant to use. ~index.md~ will be loaded by ~remarkable~ and inserted into an otherwise empty ~div~ in ~index.html~.
 - *your audio file*, which is not being stored in this repository because it's not such good practice to have a big file like that in the repository if no one's going to use it. You will have to add the file to the repository and make sure the ~<audio> <source>~ points to it.
 
 You should edit your files in Atom and make sure you have the ~htnl-preview~ package installed (go to ~Settings -> Install~ and search for "html preview".  ~Remarkable~ will only be able to access the contents of ~index.md~ properly when ~index.html~ being served by a webserver -- fortunately the html preview runs a tiny server for you inside your editor.  But if you try to just double click on ~index.html~ and open it in Google Chrome, you'll be disappointed.
