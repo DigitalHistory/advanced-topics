@@ -1,22 +1,46 @@
-* Assignment 04: Oral History
+* About this Assignment
 
+Our readings describe some of the distinctive features of oral history as a genre and a mode of historical inquiry. In this exercise we experiment with oral histories on the web, combining your recently-gained coding skills with an analysis of the possibilities and limitations of oral history.
 
-In the final segment of our class, we discuss the use of non-textual media in history, especially /oral histories/. This final, short project asks you to take an existing piece of oral history and build a small web page around it. We will use a very similar set of templates to those we used last assignment; but instead of dealing with Google Maps, we'll use the [[http://popcornjs.org/][Popcorn]] events framework for creating a simple multi-media history essay out of HTML.  As with our last assignment, this is a little bit like using [[https://www.youtube.com/watch?v=Q8gGsuWouDE][hand-carved wooden Emoji]]: obviously there are much more sophisticated ways to interact with video on the web; our aim is to use this simple tool as a way to think about several issues: 
-- How do aural and visual media change the nature of historical narrative?
-- What are the challenges of building an historical narrative around an oral history, especially one that you did not conduct yourself?
-- How does technical infrastructure (like [[http://popcornjs.org/][Popcorn]] and [[http://docs.google.com][Google Docs]]) change the nature of historical narrative?
-** Assignment
-- Choose a short, online oral history audio clip (approximately 3 minutes in length). I recommend [[http://storycorps.org/][StoryCorps]] as a source, though there are many oral history archives online that are equally suitable. You will need to locate the *actual media element in the oral history* -- this may be somewhat hidden, but searching for ~mp3~ or ~<audio>~ in the source code or via the browser developer tools should help.  
-- Listen to it carefully. What historical themes are suggested by it? What kinds of annotations might heighten the impact at crucial moments, or fill in background information at other times?
-- Create a short "video" to accompany the audio clip; use a variety of Popcorn plugins to accomplish this. In general, for 180 seconds you will likely need at least 15 events for the the video to feel approximately "full".
-- Write a short essay, approximately 800 words in length, addressing any of the historical issues raised by the audio clip.  Refer specifically to quotations from the clip.  You may want to provide [[https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Using_HTML5_audio_and_video#Specifying_playback_range][links to specific timecodes]] from the audio, though integrating that with Popcorn playback is unfortunately a little tricky.  As in your last assignment, use simple links for citations, though you should provide page numbers wherever possible).
-** Expectations
-Your essay should meet the ordinary criteria for an historical essay: it should be clearly written, providing adequate evidence, have minimal spelling and grammatical errors, etc. The relationship between topic and clip should not be artificial -- the essay should clarify or enlarge the historical circumstances that are brought to life by the clip.  
+Please see your assignment page for full details about what's expected. THis README describes mostly the technical set-up of the repository & the steps you will need to undertake in order to be successful.
 
-Your popcorn events should be keyed to the rhythms of the clip itself, appearing and disappearing along with the themes that they refer to or address.  They should enhance the impact of the clip rather than distract from it, and provide additional historical background that might not be found in the essay or the clip.
+* Getting Started
 
-If you change the styling, you should not create a terrible mess! Certainly I think the page could be prettier and I welcome your improvements.  
-** Technical Help
-As usual, I am pretty much available to answer your questions.  I also urge you to read [[http://digital.hackinghistory.ca/tools/understanding-popcorn-2/][this post]], which has a fair amount of technical detail and also gives links to further documentation.  [[http://popcornjs.org/popcorn-docs/plugins/][Documentation of the popcorn event plugins is also available online]].
+First, make sure you have installed both [[https://flight-manual.atom.io/getting-started/sections/installing-atom/][Atom Editor]] and [[https://desktop.github.com/][Github Desktop]], and that you have a working [[https://github.com/join][Github Account]]. Then, do the following:
+- fork this repository by clicking on the "fork" button in the top right.
+- from the newly-formed repo, click the green "clone or download this repo" button
+- choose "[[https://services.github.com/on-demand/github-desktop/clone-repository-github-desktop][Open with Github Desktop]]". The repository will be copied to your computer
+- from Github Desktop, click on a file and choose ~Repository --> Open With Editor~. Hopefully Atom will open
+- you are ready to get to work!
+>>>>>>> remarkable-2017
 
+* How This Project Works
+This is a very small, simple, stand-alone website (consisting of just one page!). It looks pretty good, but most of the heavy lifting is done by outside libraries:
+- *[[https://jquery.com/][jQuery]]* is an important piece of web infrastructure, widely used in many projects.
+- *[[https://github.com/jonschlinkert/remarkable][Remarkable]]* is a "markdown parser" -- it allows us to write the body of the essay in markdown and render it directly as HTML.  A really big win.
+- *[[http://getbootstrap.com/][Bootstrap]]* is the most popular "web framework" in the world. It's a sophisticated CSS & Javascript system that gets a lot of work done out of the box, and saves a huge amount of time
+Using these libraries gets us one step closer to "real-world" web development, where HTML and CSS is just a small part of your development time
 
+Your project has just a few files:
+- [[./index.html][index.html]], which loads the frameworks described above, adds a little extra Javascript which you can change if you want (but don't need to), and sets up a basic HTML framework to give structure to the page (which you're welcome to change and probably will want to).
+- [[./style.css][style.css]], which adds some style information, which, again, you are likely to want to change
+- [[./index.md][index.md]], where you will actually write your assignment! You'll do it in Markdown, introducing fragments of HTML as you go where you need it. The current content of that file has examples of most of the syntax you'llwant to use. ~index.md~ will be loaded by ~remarkable~ and inserted into an otherwise empty ~div~ in ~index.html~.
+- *your audio file*, which is not being stored in this repository because it's not such good practice to have a big file like that in the repository if no one's going to use it. You will have to add the file to the repository and make sure the ~<audio> <source>~ points to it.
+
+You should edit your files in Atom and make sure you have the ~htnl-preview~ package installed (go to ~Settings -> Install~ and search for "html preview".  ~Remarkable~ will only be able to access the contents of ~index.md~ properly when ~index.html~ being served by a webserver -- fortunately the html preview runs a tiny server for you inside your editor.  But if you try to just double click on ~index.html~ and open it in Google Chrome, you'll be disappointed.
+
+* Tips and Tricks
+- use the javascript `seek` function I defined to queue the audio file to a specific timecode in the file. You can call it with `<a href="javascript:seek(135)"></a>` -- just replace `135` with whatever time you want to seek to, in seconds.  Unfortunaely you'll have to write this in plain old HTML as remarkable has trouble parsing javascript links.
+- load a different Bootstrap theme by copying the CSS link from [[https://www.bootstrapcdn.com/bootswatch/?theme=0][the Bootstrap CDN]]. Feel free to experiment
+
+* Handing this Assignment In
+
+Please hand this in by means of Github Pull Request:
+- check all your code  to make sure you're happy with it.
+- "stage" and then commit your changes (you can now [[https://github.atom.io/][do this]] directly [[http://blog.atom.io/2017/05/16/git-and-github-integration-comes-to-atom.html][in Atom]] -- so you don't really need Github Desktop anymore!)
+- make *sure* that you have added your audio file to the repository, otherwise I won't have access to it!
+- submit a pull request to my repo. That's it!
+
+* More Info
+
+For details about marking, content, etc. please see the assignment page in the class website.

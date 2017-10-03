@@ -15,12 +15,3 @@
    float: right;
 }
 
-#popcorn-container {
-   border: 4px solid #aa0000;
-   width: 425px;
-   height: 640px;
-   overflow: scroll;
-   background-color: #F4F4F4;
-   padding: 10px;
-}
-
