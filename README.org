@@ -6,17 +6,17 @@ In the final segment of our class, we discuss the use of non-textual media in hi
 - What are the challenges of building an historical narrative around an oral history, especially one that you did not conduct yourself?
 - How does technical infrastructure (like [[http://popcornjs.org/][Popcorn]] and [[http://docs.google.com][Google Docs]]) change the nature of historical narrative?
 ** Assignment
-- Choose a short, online oral history audio clip (approximately 3 minutes in length). I recommend [[http://storycorps.org/][StoryCorps]] as a source, though there are many oral history archives online that are equally suitable.
-- Listen to it carefully. What historical themes are suggested by it? What kinds of annotatins might heighten the impact at crucial moments, or fill in background information at other times?
+- Choose a short, online oral history audio clip (approximately 3 minutes in length). I recommend [[http://storycorps.org/][StoryCorps]] as a source, though there are many oral history archives online that are equally suitable. You will need to locate the *actual media element in the oral history* -- this may be somewhat hidden, but searching for ~mp3~ or ~<audio>~ in the source code or via the browser developer tools should help.  
+- Listen to it carefully. What historical themes are suggested by it? What kinds of annotations might heighten the impact at crucial moments, or fill in background information at other times?
 - Create a short "video" to accompany the audio clip; use a variety of Popcorn plugins to accomplish this. In general, for 180 seconds you will likely need at least 15 events for the the video to feel approximately "full".
 - Write a short essay, approximately 800 words in length, addressing any of the historical issues raised by the audio clip.  Refer specifically to quotations from the clip.  You may want to provide [[https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Using_HTML5_audio_and_video#Specifying_playback_range][links to specific timecodes]] from the audio, though integrating that with Popcorn playback is unfortunately a little tricky.  As in your last assignment, use simple links for citations, though you should provide page numbers wherever possible).
 ** Expectations
-Your essay should meet the ordinary criteria for an historical essay: clearly written, providing adequate evidence, minimal spelling and grammatical errors, etc. The relationship between topic and clip should not be artificial -- the essay should clarify or enlarge the historical circumstances that are brought to life by the clip.  
+Your essay should meet the ordinary criteria for an historical essay: it should be clearly written, providing adequate evidence, have minimal spelling and grammatical errors, etc. The relationship between topic and clip should not be artificial -- the essay should clarify or enlarge the historical circumstances that are brought to life by the clip.  
 
-Your popcorn events should be keyed to the rhythms of the clip itself, appearing and disappearing along with the themes that they refer to or address.  They should enhance the impact of the clip rather than distract form it, and provide additional historical background that might not be found in the essay or the clip.
+Your popcorn events should be keyed to the rhythms of the clip itself, appearing and disappearing along with the themes that they refer to or address.  They should enhance the impact of the clip rather than distract from it, and provide additional historical background that might not be found in the essay or the clip.
 
 If you change the styling, you should not create a terrible mess! Certainly I think the page could be prettier and I welcome your improvements.  
 ** Technical Help
-As usual, I am pretty much available to answer your questions.  I also urge you to read [[http://digital.hackinghistory.ca/lecture-notes/understanding-popcorn-2/][this post]], which has a fair amount of technical detail and also gives links to further documentation.  [[http://popcornjs.org/popcorn-docs/plugins/][Documentation of the popcorn event plugins is also available online]].
+As usual, I am pretty much available to answer your questions.  I also urge you to read [[http://digital.hackinghistory.ca/tools/understanding-popcorn-2/][this post]], which has a fair amount of technical detail and also gives links to further documentation.  [[http://popcornjs.org/popcorn-docs/plugins/][Documentation of the popcorn event plugins is also available online]].
 
 
