@@ -1,4 +1,4 @@
-# Your Title should go in the appropriate place in `index.html`, not here!
+# Your Title should go in the appropriate place in `index.html`, not here! Title is itself set only in the `<head>` element
 
 ## Use headings only if you want to have subsections in your essay
 
