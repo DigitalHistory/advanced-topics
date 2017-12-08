@@ -8,6 +8,8 @@ div#mapcontainer {
   font-family:Arial, sans-serif;
   font-size:11px;
   border:6px double #5E5C63;
+  width:66%;
+  float:left;
 }
 
 /* you can change the size of the map here if you want
@@ -22,7 +24,8 @@ div#map_canvas {
 /* this is the legend div. Can you make it into a right sidebar? you may
 have to add some extra css to the mapcontainer div */
 div#map_legend {
-
+    max-width:30%;
+    float:left;
 }
 
 /* if you want, you can make the text in the legend less ugly by adding
@@ -72,6 +75,12 @@ div.description {
 
 }
 
+div.gm-style-iw {
+    max-height: 75px;
+}
+div.gm-style-iw img {
+    max-width: 75% !important;
+}
 
 div.gm-style-iw blockquote {
     font-family:cursive;
