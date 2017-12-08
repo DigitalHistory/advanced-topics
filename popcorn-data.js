@@ -1,9 +1,13 @@
+// define a new function that pauses media when required
+
+
+
 // everything in this file happens inside the window.on(load) function
 // it runs when the rest of the window has been loaded
 $(window).on('load', function() {
     // Create a popcporn instance by calling Popcorn("#id-of-the-media-element")
     // the "pop" object has the full power of the popcorn framework
-    var pop = Popcorn("#media");
+  var pop = Popcorn("#media", {pauseOnLinkClicked: true});
 
 
     // popcorn events are accomplished with plugins.
@@ -21,6 +25,7 @@ $(window).on('load', function() {
         text: "Second Footnote!",
         target: "popcorn-container"
     });
+  
 
     // this event, which is the first one you see, is a little more complicated,
     // because it is running a complex plugin: google maps.
@@ -72,5 +77,7 @@ $(window).on('load', function() {
     // the final brackets.
     // full documentation of all the Popcorn plugins is here:
     // http://popcornjs.org/popcorn-docs/plugins/
-    // we are using an outdated version of popcorn, so 
+  // we are using an outdated version of popcorn, so
+
+  // new functio
 });

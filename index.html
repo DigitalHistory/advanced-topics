@@ -25,11 +25,11 @@
          you would like to use.
          
          If you want to make your events by hand, as we did in class, use this script: -->
-    <script src="popcorn-data.js" language="javascript"></script>
+    <!-- <script src="popcorn-data.js" language="javascript"></script> -->
 
     <!-- If you would prefer to create your events in a Google Spreadsheet, use this script 
          as a base instead: -->
-    <!-- <script src="popcorn-data-from-google.js"></script> -->
+    <script src="popcorn-data-from-google.js"></script>
   </head>  
 
 
@@ -61,9 +61,15 @@ textarea, if text and code are  indented they will not display properly.
   <div id="popcorn-container">
   </div>
 </div>
+# here's a heading
+
+I'll write some text here, and [add a link](https://google.com).
+
 # Since the Title Tag controls what shows up in the titlebar
 
-use the first headline for something else.
+use the first [headline for something else](javascript:setTime(30%29).
+
+<a href="javascript:setTime(30)"> set the time to 30 seconds </a>
 
 
 
@@ -78,6 +84,11 @@ more text
          some of the bootstrap css -->
     <link rel="stylesheet" type="text/css" media="all" href="style.css" />
 
-
+    <script>
+      var setTime = function (time) {
+        var a = document.getElementById("media");
+        a.currentTime = time;
+      }
+    </script>
   </body>
 </html>
