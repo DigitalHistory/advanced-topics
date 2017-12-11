@@ -16,15 +16,14 @@ It makes sense to put an introductory paragraph here, above the map and buttons.
 
 <a id="#one">1: </a> some text here
 
-<
 
-<div class="">
+<div class="markers">
   <!-- these buttons hide/show all the markers  -->
   <!-- to hide/show blue or red markers instead, change my_markers below to blue_markers
        to red_markers.  If you have defined your own color (or other) arrays, use those instead -->
   <button onclick="toggleMarkers(my_markers, my_map)" class="rounded" id="hide">Toggle markers</button>
   <button onclick="showMarkers(my_markers, my_map)" id="show"> show markers</button>
-  <p></p>
+</div>
   <div id="mapcontainer">
     <div id="map_canvas"></div>
   </div>
