@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+
+  <!-- comments -->
+  <!-- This is commented text. Your browser will not pay attention to it.  -->
+  <!-- We start with a <head> element. It contains scripts and metadata;  -->
+  <!-- none of this displays directly in the web page.  -->
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title Goes Here | by Your Name</title>
+    <!-- load some big magic scripts  -->
+    <!-- jQuery is an important framework used by many web projects  -->
+    <script src="http://code.jquery.com/jquery-2.1.4.js"></script>
+
+
+    <!-- a small monster -- Tabletop -- that allows us to call a big monster --
+         Google Spreadsheets -->
+    <script src="tabletop.js"></script>
+
+    <!-- remarkable is our markdown parser, which translates markdown into HTML -->
+    <script src="https://cdn.jsdelivr.net/remarkable/1.7.1/remarkable.min.js"></script>
+    <!-- Our Bootstrap theme. To use another copy the appropriate URL from  -->
+    <!-- https://www.bootstrapcdn.com/bootswatch/?theme=0 -->
+    <link rel="stylesheet" type="text/css" media="all"
+          href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/solar/bootstrap.min.css" />
+
+
+    <!-- The web page starts by loading the complete 
+         popcorn library from our nearby library -->
+    <script src="popcorn-complete.js"></script>
+
+    <!-- Then we also include a small "handmade" script that makes use 
+         of commands that are defined in the earlier/dongwoo
+         script. 
+         You should uncomment one of these two scripts, depending on which method 
+         you would like to use.
+         
+         If you want to make your events by hand, as we did in class, use this script: -->
+    <!-- <script src="popcorn-data.js" language="javascript"></script> -->
+
+    <!-- If you would prefer to create your events in a Google Spreadsheet, use this script 
+         as a base instead: -->
+    <script src="popcorn-data-from-google.js"></script>
+
+  </head>  
+
+
+  <!-- The body of the web page starts here.  This is the stuff you see -->
+  <!-- The "onload" attribute tells the page to wait until all resources have been loaded before running the initialize function defined below. -->
+  <body onload="initializePage()">
+
+      <!-- these next 2 divs place the main content inside a box with margins from the screen edge -->
+      <div class="container">
+        <div class = "row">
+          <!-- this is our audio element.  It holds the audio file. -->
+          <audio id="media" controls="controls">
+            <!-- Make sure this points to the actual mp3 file you are analyzing -->
+            <source src="https://storycorpsorg-staging.s3.amazonaws.com/uploads/walsh2-1.mp3"
+                    type="audio/mp3" />
+          </audio>
+
+          <div id="contentdiv">
+            <!-- Please don't add content to this div manually unless you're abolutely sure you want to. the ocntentts of index.md wil lbe rendered here, and you can include raw HTML in that file, too, if you wish.   -->
+
+
+
+          </div>
+        </div>
+      </div>
+
+      <!-- this short script dumps the contents of index.md into the
+           #contentdiv div element, and renders them as HTML. Also
+           declares a function to be used in links, to seek to a
+           timecode in #media 
+        -->
+      <script>
+        // we define the main actions of the script as a function which wil lbe run when the
+        // page resources have been completely loaded. 
+        var initializePage = function() {
+          // instantiate the parser object and declare the
+          // placeholder variable for the rendered content
+          // while storing the original content so as not to lose it
+          var md = new Remarkable({
+              html: true,
+              linkify: true}),
+              renderedcontent = "",
+              origContent = $("#contentdiv").html();
+          
+          md.block.ruler.enable([
+            'footnote',
+            'deflist'
+          ]);
+          md.inline.ruler.enable([
+            'footnote_inline',
+            'ins',
+            'mark',
+            'sub',
+            'sup'
+          ]);
+          //retrieve the markdown file, parse it,
+          // and use it to replace the content of #contentdiv.
+          // wait till that's fine before attempting to load popcorn
+          $.get("./index.md", function (response) {
+            content = response;
+            renderedcontent = md.render(content);
+            $("#contentdiv").html(origContent + renderedcontent);
+            loadPopcorn();
+          });
+        }
+        // declare a function to seek to a timecode in the #media object
+        var seek = function (time) {
+        document.getElementById("media").currentTime= time;
+        };
+        // seek(75);
+      </script>
+
+
+
+      <!-- This <link> element controls some style elements for the page.
+           It controls some important elements of presentation.
+           We load it after strapdown in case you want to override
+           some of the bootstrap css -->
+      <link rel="stylesheet" type="text/css" media="all"
+            href="style.css" />
+
+    <script>
+      var setTime = function (time) {
+        var a = document.getElementById("media");
+        a.currentTime = time;
+      }
+    </script>
+  </body>
+</html>
