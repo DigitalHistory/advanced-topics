@@ -1,4 +1,5 @@
-$(window).on('load', function() {
+//$(window).on('load', function() {
+var loadPopcorn = function(){
     // Create a popcporn instance by calling Popcorn("#id-of-the-media-element")
     var pop = Popcorn("#media");
 
@@ -92,4 +93,5 @@ $(window).on('load', function() {
     // play the video right away
     // pop.play();
 
-});
+  // });
+};
