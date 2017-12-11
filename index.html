@@ -2,13 +2,23 @@
 <html>
 
   <head>
-    <title>Brief Toronto Tour</title>
-    <meta name="description" content="a strapdown-based mapping exercise." />
+    <title>Title Here | by Your Name</title>
+    <meta name="description" content="a markdown-based mapping exercise." />
     <!-- these script tags load important javascript "libraries"
          that our own little scripts depend on.  These are complex
          programs way beyond our capacities to construct; but we can
          make use of them nonetheless -->
-    <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+    <!-- jQuery is an important framework used by many web projects  -->
+    <script src="http://code.jquery.com/jquery-2.1.4.js"></script>
+    <!-- remarkable is our markdown parser, which translates markdown into HTML -->
+    <script src="https://cdn.jsdelivr.net/remarkable/1.7.1/remarkable.min.js"></script>
+    <!-- Our Bootstrap theme. To use another copy the appropriate URL from  -->
+    <!-- https://www.bootstrapcdn.com/bootswatch/?theme=0 -->
+    <link rel="stylesheet" type="text/css" media="all"
+          href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/solar/bootstrap.min.css" />
+
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false&key=AIzaSyCVtRhi_zYbrx6XcR6c5Wu_VKmXWvnYz5E"></script>
 
     <!-- this line is NOT present in the jsbin version -->
     <link rel="stylesheet" href="./style.css" type="text/css" media="screen" />
@@ -18,62 +28,58 @@
   <!-- note the 'onload' attribute here.
        it calls the function "initialize"
        when the body has finished loading.  That's because the
-       Javascript in the JS pane will not run properly unless it
-       waits for the elements inside the bode to load.  Therefore
+       Javascript will not run properly unless it
+       waits for the elements inside the body to load.  Therefore
        we don't run the most important parts of the code until the page has finished loading.
     -->
-  <body onload="initialize();">
-    <textarea theme="united" style="display:none;">
+  <body onload="initializePage();">
+    <!-- these next 2 divs place the main content inside a box with margins from the screen edge -->
+    <div class="container">
+      <div class = "row">
 
-# This Map will eventually Become some kind of tour of Toronto.
-
-Your first task will be to locate some real places.  You can get the precise locations at various services, e.g [latlong.net](http://www.latlong.net/).
-
-Then add those places to the marker array in [script.js](./script.js) (see instructions there).
-
-replace this text and the text with your essay. But be sure not to eliminate the html elements that
-are contained inside this textarea, or [your map won't work at all!][1] [1](#one)
-<figure>
-![](https://upload.wikimedia.org/wikipedia/commons/a/ab/Lolcat_in_folder.jpg "this is the alt text")<figcaption>caption</figcaption>
-</figure>
-It makes sense to put an introductory paragraph here, above the map and buttons. To change the bootswatch thenme, change "united" to one of the other theme names listed at [strapdownjs.com](http://strapdownjs.com/).
-
-[1]: http://hello.com
-[^1]: This is my first footnote
-
-<a id="#one">1: </a> some text here
-
-<
-
-<div class="">
-  <!-- these buttons hide/show all the markers  -->
-  <!-- to hide/show blue or red markers instead, change my_markers below to blue_markers
-       to red_markers.  If you have defined your own color (or other) arrays, use those instead -->
-  <button onclick="toggleMarkers(my_markers, my_map)" class="rounded" id="hide">Toggle markers</button>
-  <button onclick="showMarkers(my_markers, my_map)" id="show"> show markers</button>
-  <p></p>
-  <div id="mapcontainer">
-    <div id="map_canvas"></div>
-  </div>
-  <div id="map_legend"></div>
-</div>
-
-# Next Section
-
-The rest of your essay should go under the map, probably.
-
-## in sections like this
-also _italics_ and __bold__ which can also be written *like this* or **like this**
-etc. Be sure to [make use of links](http://digital.hackinghistory.ca) -- that's one of the reasons we write on the Web, and I've asked you to use links for all yor footnotes/references as well.  
-    </textarea>
-
-
-
-    <!-- this is the magic that makes markdown and Twitter Bootstrap styles work for us -->
-    <script src="http://strapdownjs.com/v/0.2/strapdown.js"></script>
+        <div id="contentdiv">
+          <!-- Please don't add content to this div manually unless you're abolutely sure you want to. the contents of index.md will be rendered here, and you can include raw HTML in that file, too, if you wish.   -->
+        </div>
+      </div>
+    </div>
 
     <!-- this line is NOT present in the jsbin version, and calls your custom js -->
     <script src="./script.js"></script>
+      <script>
+        // we define the main actions of the script as a function which wil lbe run when the
+        // page resources have been completely loaded. 
+        var initializePage = function() {
+          // instantiate the parser object and declare the
+          // placeholder variable for the rendered content
+          // while storing the original content so as not to lose it
+          var md = new Remarkable({
+              html: true,
+              linkify: true}),
+              renderedcontent = "",
+              origContent = $("#contentdiv").html();
+          
+          md.block.ruler.enable([
+            'footnote',
+            'deflist'
+          ]);
+          md.inline.ruler.enable([
+            'footnote_inline',
+            'ins',
+            'mark',
+            'sub',
+            'sup'
+          ]);
+          //retrieve the markdown file, parse it,
+          // and use it to replace the content of #contentdiv.
+          // wait till that's fine before attempting to load popcorn
+          $.get("./index.md", function (response) {
+            content = response;
+            renderedcontent = md.render(content);
+            $("#contentdiv").html(origContent + renderedcontent);
+            initializeMap();
+          });
+        }
+      </script>
 
   </body>
 
