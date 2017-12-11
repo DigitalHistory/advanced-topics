@@ -43,7 +43,7 @@ var myGeoJSON= {
 
 /* a function that will run when the page loads.  It creates the map
  and the initial marker.  If you want to create more markers, do it here. */
-function initialize() {
+function initializeMap() {
     my_map_options = {
         center:  my_center, // to change this value, change my_center above
         zoom: 13,  // higher is closer-up
