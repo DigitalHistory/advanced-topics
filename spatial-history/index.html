@@ -33,7 +33,21 @@
        we don't run the most important parts of the code until the page has finished loading.
     -->
   <body onload="initializePage();">
+
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Title Here | by Your Name</a> <!-- should be descriptive -->
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+
     <!-- these next 2 divs place the main content inside a box with margins from the screen edge -->
+    
     <div class="container">
       <div class = "row">
 
@@ -47,7 +61,8 @@
     <script src="../js/maps-setup.js"></script>
       <script>
         // we define the main actions of the script as a function which wil lbe run when the
-        // page resources have been completely loaded. 
+        // page resources have been completely loaded.
+        window.
         var initializePage = function() {
           // instantiate the parser object and declare the
           // placeholder variable for the rendered content
@@ -78,7 +93,7 @@
             $("#contentdiv").html(origContent + renderedcontent);
             initializeMap();
           });
-        }
+        };
       </script>
 
   </body>
