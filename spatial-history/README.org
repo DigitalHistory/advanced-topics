@@ -1,0 +1,112 @@
+* Spatial History with Google Maps
+  :PROPERTIES:
+  :CUSTOM_ID: spatial-history-with-google-maps
+  :END:
+*Due Date: March 10, 2018*
+
+** Google Maps and Spatial History
+   :PROPERTIES:
+   :CUSTOM_ID: google-maps-and-spatial-history
+   :END:
+
+In class we have discussed /spatial history/, that is, history which focuses very strongly on the cultural history of space and place. There is nothing /intrinsically digital/ about spatial history, nor is it necessarily quantitative in nature; but the incredible development of Geographical Information Systems (GIS) in the last 15 years has made the use of interactive digital maps an attractive target for historians.  
+
+Sophisticated works such as the [[http://web.stanford.edu/group/spatialhistory/cgi-bin/site/pub.php?id=29][Spatial History Project]] and Ben Schmidt's [[http://sappingattention.blogspot.co.uk/2012/10/data-narratives-and-structural.html][Whaling Maps Project]] take substantial technical effort to achieve their effects; in general, lengthy training in the use of specialized GIS software is required. We have our own example in the [[http://decima.chass.utoronto.ca/][DECIMA Project]] run by Prof. Terpstra in our department.
+
+Our approach will be decidedly more lightweight. In class today, we will build a very simple "Geographical Information System" around a Google Map. Google Maps are, in fact, highly sophisticated GIS's, with powerful tools for accessing various layers of information; but in order to work
+with them, we will need to use a very small amount of Javascript. Today's exercise is also something of a test. We will once again be working in the [[https://help.github.com/articles/markdown-basics/][markdown]] syntax ([[https://help.github.com/articles/github-flavored-markdown/][github flavour]]), and you will also be able to choose between working in the [[http://sbin.com/jusena/edit?html,js,output][JSBin Online Editor]], which we saw briefly in the first class, and [[https://github.com/titaniumbones/maps-with-markdown][a copy you can download and work with on your own]].
+** What is a GIS?
+   :PROPERTIES:
+   :CUSTOM_ID: what-is-a-gis
+   :END:
+
+GIS is just a name for any system that tries to capture, manipulate, and represent geographical data. There are many GIS tools; the history department uses [[http://www.arcgis.com/features/][ArcGIS]], which is expensive and something of an industry standard, while many independent scholars use [[http://www.qgis.org/en/site/][QGIS]], which is free, open source, and not quite as powerful as Arc.
+
+The data in a GIS is all [[https://en.wikipedia.org/wiki/Geotagging][geotagged]], that is, assigned a set of geographical co-ordinates. This sounds simple but it is actually quite complex, since any co-ordinate system is a /simplified
+projection/ of real, disordered, 3-dimensional space. Many of the frustrations of working with GIS comes from the difficulty of rendering (say) historical map images /commensurate/ with modern,
+satellite-derived maps. 
+
+Within a GIS, information is generally accessed as a set of *layers*. Data of specific types is /stratified/ in layers, in much the same way that one creates image layers in photoshop. This image gives a typical example. Note that the creation of layers is itself an intellectual
+decision, relying on judgments about the relationships between individual bits of data.
+[[http://iolandarch.com/wp-content/uploads/2014/09/overlay-analysis.jpg]]
+
+** Controlling Google Maps
+   :PROPERTIES:
+   :CUSTOM_ID: controlling-google-maps
+   :END:
+
+For our exercise today, we are really only interested in two layers: the "basemap", that is, the street or satellite map most of us use on an almost-daily basis; and the /marker layer/, in which all of the little pins on a map are stored. We access these layers, and create those markers, with Javascript, by making /calls/ to the /Google Maps API/.  An *API* is an "Application Programming Interface": a communications channel that lets programs talk to each other. By "loading" the Google
+Maps API, our web pages can communicate directly with Google's servers to modify the map that Google is presenting to us. In fact, most of the interesting stuff happening on the web these days happens via these
+machine-to-machine communication channels. 
+
+You don't have to understand the Google Maps API very thoroughly to be able to do this assignment. The code comes pre-written; all you have to do is hack at it till it does what you want it to.
+
+** Using Markdown
+   :PROPERTIES:
+   :CUSTOM_ID: using-markdown
+   :END:
+
+It was useful to learn HTML but it is a pain to generate it by hand. You do have to do some hand-coding of HTML for this exercise, because some of the work actually happens in Javascript; but the rest of it can be done in markdown. To review:
+
+#+BEGIN_SRC markdown
+# one or more '#' marks indicates a headline
+
+### this one is "level 3"
+
+*a single asterisk is emphasis, or italics*
+
+**two are strong, or bold**
+
+An empty line separates paragraphs. [Links are written this way](http://someurl.com) 
+and images this way: ![image alt text goes here, while](http://the.image.url.goes/here.jpg)
+
+> blockquotes are made with angle brackets
+> like this
+#+END_SRC
+
+You can also mix HTML in with markdown and it will generally render perfectly well. This is important for us because we have to create some ~<div>~ elements, which markdown can't do for us.
+
+** The Assignment
+   :PROPERTIES:
+   :CUSTOM_ID: the-exercise
+   :END:
+
+For this assignment you will create a web page containing a Google Map and *also* a short essay to accompany the map. 
+
+- The map will contain, at minimum, *5 markers* and *one other feature*. 
+- The essay will be approximately 600-800 words in length (a "short paper" length of approximately 2-3 double-space typed pages). It should deal with a historical topic *with a strong spatial component*, and the map should *add substantively to the analysis in the paper.* That is, while the paper is short, it should demonstrate an understanding of the principles of spatial history. 
+
+** Expectations
+Push your code to the master branch as usual. The state of the master branch on Github at the due date will constitute your submission!
+
+- Your code should work!
+- The map should provide *substantive information* on the topic of your essay, not merely pretty illustration
+- the essay should meet the criteria for a B or B+ essay: it should be well-organized; it should make a compelling argument for a coherent thesis; it should display a level of historical understanding appropriate for a mid-level undergraduate course.
+- As it stands, there are some minor ugly spots in the CSS for the project. You should try to improve these at least a little bit, using [[../css/extra-styles.css]]. 
+
+** The code
+   :PROPERTIES:
+   :CUSTOM_ID: the-code
+   :END:
+
+*** Javascript
+    :PROPERTIES:
+    :CUSTOM_ID: javascript
+    :END:
+
+I have made the Javascript as simple as I can. There are more efficient and interesting ways to do this, but they are a little more complex. To make your markers -- and to re-centre your map -- you will need to modify the Javascript directly. The file you are looking for will be [[../js/mmaps-setup.js]]. 
+
+
+*** HTML
+    :PROPERTIES:
+    :CUSTOM_ID: html
+    :END:
+
+I /think/ the only modifications you will need to make to the HTML are within the special "textarea" block containing the markdown syntax. The rest you can probably safely ignore, though you might learn something from looking at it.
+
+*** CSS
+    :PROPERTIES:
+    :CUSTOM_ID: css
+    :END:
+
+The CSS for this exercise is deceptively simple. We make only a few small changes tothe defaults, /but/ we are cheating here. The [[https://github.com/jonschlinkert/remarkable][remarkable]] library marses markdown for us dynamically, making it possible to write markdown in [[index.md]] and have it appear in [[index.html]]. We  /also/ magically load the incredible [[http://getbootstrap.com/][bootstrap]] web development framework, which includes some sophisticated CSS. We use [[https://bootswatch.com/][bootswatch]] to switch between bootstrap color themes. Feel Free to switch around as you like.  
