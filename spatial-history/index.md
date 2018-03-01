@@ -1,8 +1,8 @@
-# This Map will eventually Become some kind of tour of Toronto.
+# This Map Should Deal with a Historical Topic You Care About
 
 Your first task will be to locate some real places.  You can get the precise locations at various services, e.g [latlong.net](http://www.latlong.net/).
 
-Then add those places to the marker array in [script.js](./script.js) (see instructions there).
+Then add those places to the marker array in [../js/maps-setup.js](../js/maps-setup.js) (see instructions there).
 
 replace this text and the text with your essay. But be sure not to eliminate the html elements that
 are contained inside this textarea, or [your map won't work at all!][1] [1](#one)

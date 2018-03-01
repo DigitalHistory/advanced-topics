@@ -115,6 +115,8 @@ function initializeMap() {
     strokeWeight: 2,
     fillColor: '#FF0000',
     fillOpacity: 0.35,
+    // in general, we always have to *set the map* when we
+    // add features. 
     map: my_map,
     bounds: {
       north: 42.685,
@@ -170,7 +172,7 @@ function toggleMarkers (marker_array, map) {
 
 
 // I added this for fun.  It allows you to trigger the infowindow
-// form outside the map.  
+// from outside the map.  
 function locateMarker (marker) {
     console.log(marker);
     my_map.panTo(marker.marker.position);

@@ -2,6 +2,7 @@
   :PROPERTIES:
   :CUSTOM_ID: spatial-history-with-google-maps
   :END:
+*Due Date: March 10, 2018*
 
 ** Google Maps and Spatial History
    :PROPERTIES:
@@ -57,7 +58,7 @@ It was useful to learn HTML but it is a pain to generate it by hand. You do have
 **two are strong, or bold**
 
 An empty line separates paragraphs. [Links are written this way](http://someurl.com) 
-and ![image alt text goes here, while](http://the.image.url.goes/here.jpg)
+and images this way: ![image alt text goes here, while](http://the.image.url.goes/here.jpg)
 
 > blockquotes are made with angle brackets
 > like this
@@ -65,13 +66,24 @@ and ![image alt text goes here, while](http://the.image.url.goes/here.jpg)
 
 You can also mix HTML in with markdown and it will generally render perfectly well. This is important for us because we have to create some ~<div>~ elements, which markdown can't do for us.
 
-** The Exercise
+** The Assignment
    :PROPERTIES:
    :CUSTOM_ID: the-exercise
    :END:
 
-Today you will create a web page containing a Google Map. The Google Map will contain 1-3 markers related to one of the themes we wrote on the blackboard in our last class. It will also contain a VERY brief essay
-that discusses the historical significance of the events represented by those markers, all the while paying homage to the project of spatial history: foregrounding the spatial elements of the historical narrative at hand. You're not handing in your work, so don't fret too much. Try to enjoy yourself; but also work hard, as this is good preparation for our next assignment, which will be handed out in class on Thursday. 
+For this assignment you will create a web page containing a Google Map and *also* a short essay to accompany the map. 
+
+- The map will contain, at minimum, *5 markers* and *one other feature*. 
+- The essay will be approximately 600-800 words in length (a "short paper" length of approximately 2-3 double-space typed pages). It should deal with a historical topic *with a strong spatial component*, and the map should *add substantively to the analysis in the paper.* That is, while the paper is short, it should demonstrate an understanding of the principles of spatial history. 
+
+** Expectations
+Push your code to the master branch as usual. The state of the master branch on Github at the due date will constitute your submission!
+
+- Your code should work!
+- The map should provide *substantive information* on the topic of your essay, not merely pretty illustration
+- the essay should meet the criteria for a B or B+ essay: it should be well-organized; it should make a compelling argument for a coherent thesis; it should display a level of historical understanding appropriate for a mid-level undergraduate course.
+- As it stands, there are some minor ugly spots in the CSS for the project. You should try to improve these at least a little bit, using [[../css/extra-styles.css]]. 
+
 ** The code
    :PROPERTIES:
    :CUSTOM_ID: the-code
@@ -82,9 +94,8 @@ that discusses the historical significance of the events represented by those ma
     :CUSTOM_ID: javascript
     :END:
 
-I have made the Javascript as simple as I can. There are more efficient and interesting ways to do this, but they are a little more complex. To make your markers -- and to re-centre your map -- you will need to modify the Javascript directly. 
+I have made the Javascript as simple as I can. There are more efficient and interesting ways to do this, but they are a little more complex. To make your markers -- and to re-centre your map -- you will need to modify the Javascript directly. The file you are looking for will be [[../js/mmaps-setup.js]]. 
 
-In the assignment version of this 
 
 *** HTML
     :PROPERTIES:
@@ -98,4 +109,4 @@ I /think/ the only modifications you will need to make to the HTML are within th
     :CUSTOM_ID: css
     :END:
 
-The CSS for this exercise is deceptively simple. We make only a few small changes tothe defaults, /but/ we are cheating here. The [[http://strapdownjs.com/][strapdown]] javascript library which enables us to magically write using markdown, /also/ magically loads the incredible [[http://getbootstrap.com/][bootstrap]] web development framework, which includes some sophisticated CSS. Try changing the first =textarea='s =theme=united= to one of the other supported "swatches" -- I'm a fan of "cyborg" and "slate", myself.
+The CSS for this exercise is deceptively simple. We make only a few small changes tothe defaults, /but/ we are cheating here. The [[https://github.com/jonschlinkert/remarkable][remarkable]] library marses markdown for us dynamically, making it possible to write markdown in [[index.md]] and have it appear in [[index.html]]. We  /also/ magically load the incredible [[http://getbootstrap.com/][bootstrap]] web development framework, which includes some sophisticated CSS. We use [[https://bootswatch.com/][bootswatch]] to switch between bootstrap color themes. Feel Free to switch around as you like.  
