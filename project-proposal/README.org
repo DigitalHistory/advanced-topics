@@ -1,0 +1,45 @@
+* Assignment 05: Project Proposal
+:PROPERTIES:
+:PARENT:   Assignments
+:ID:       o2b:9c3ea2d8-28ce-4a11-aa3d-7513c92f93fd
+:POST_DATE: [2017-03-10 Fri 13:12]
+:POSTID:   629
+:EXPORT_FILE_NAME: assignment-05-project-proposal
+:END:
+
+For your final assignment, respond to the following /call for proposals/ with an application approximately 2000 words in length, plus a provisional budget in the form of a spreadsheet (includea PDF, or provide a link to a *viewable* google sheet) or Markdown table. There's a nice [[https://chrome.google.com/webstore/detail/markdowntablemaker/cofkbgfmijanlcdooemafafokhhaeold?hl=en][Google Sheets Extension]] that will convert a Google sheet to markdown for you. 
+
+You should write your essay in Markdown format in ~index.md~. 
+
+See below for details.
+
+** Call for Proposals: Digital History Initiative Grants
+
+- Student Development Grant :: This grant of $15,000, to be spend within a period of 12 months, funds small or preliminary projects developed by undergraduate or graduate students.
+- Small Team Grant :: This grant funds up to $50,000 of work by a small team, in a period of 1-3 years.
+- Large Grant :: This fund, which has no fixed upper limit of funding, funds long-term projects over a period of 3-5 years.
+- of genuine historical interest
+- technically feasible
+- appropriate to the DH methods that might be discussed e.g. in a course such as "Digital History" at the University of Toronto
+- of real personal or professional interest to you, the applicant.
+
+The Hacking History Foundation is pleased to announce a new /Digital History Initiative/, intended to advance the field of digital historical studies in Canada. We are grateful to an anonymous donor from Qatar who has agreed to underwrite three levels of grant:
+We invite applications for all three categories, to be submitted by <2018-04-02 Mon>. Be sure to identify the category of grant you are applying for. Regardless of the project's scale, the proposal should be:
+
+The Hacking History Foundation strongly values honesty. It is not necessary for you yourself to possess all the skills to complete the project; but you should be able to clearly articulate the nature of the technical challenges and have a realistic assessment of what is required to overcome them. You should also be able to articulate the /historical import/ of the project, and its worthiness for public funding, because even though we are funded by shadowy carbon-spewing billionaires, our Foundation has a strong sense of civic duty.  
+
+** Structure
+The proposal should be composed of the following elements (word lengths are approximate): 
+- Introduction (500 words) :: In broad strokes, describe the project, the questions it is intended to answer, and the role of Digital History methods within the project
+- Methods (500 words) :: Describe the tools you intend to use, and your plans for both research and dissemination of results
+- Timeline (500 words) :: Describe the work that will be required to complete this project, and how much time you and your potential collaborators or research assistants will require to bring it to completion
+- Importance (500 words) :: Discuss the importance of this research, and its place in a broader historical conversation
+- Budget (1 Spreadsheet page) :: Outline and justify the costs of the project. [Note to students of Hacking History: we recognize that your costs may be, er, rough ballpark estimates. You won't be graded on the accuracy of your budget, but make a serious effort to include all the categories of cost.]
+
+** Expectations
+This is a difficult assignment. As usual, you should turn in a lucidly-written paper with minimal grammatical or spelling errors, written in accordance with scholarly standards for citation and originality.  Your project should be of genuine historical interest, and your text should convince me of that importance. Your methods section should describe the challenges inherent in the project, and provide a provisional plan for overcoming them.  You should demonstrate awareness both of the difficulties of DH research, and of the existing resources that are available to scholars undertaking this kind of work.  
+
+/If you wish, you may certainly build upon other work you have done this semester./
+
+Good luck! I look forward to the results.
+
