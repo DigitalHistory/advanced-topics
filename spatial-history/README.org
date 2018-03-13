@@ -60,16 +60,18 @@ It was useful to learn HTML but it is a pain to generate it by hand. You do have
 An empty line separates paragraphs. [Links are written this way](http://someurl.com) 
 and images this way: ![image alt text goes here, while](http://the.image.url.goes/here.jpg)
 
+You write a footnote using the `^` inside angle brackets [^1]
+
+Then you create the footnote down at the end of the paper like this:
+
+[^1]: This is the footnote content. It will include a link back to the footnote in the text.
+
 > blockquotes are made with angle brackets
 > like this
 #+END_SRC
 
-You can also mix HTML in with markdown and it will generally render perfectly well. This is important for us because we have to create some ~<div>~ elements, which markdown can't do for us.
+You can also mix HTML in with markdown and it will generally render perfectly well. This is important for us because we have to create some ~<div>~ elements, which markdown can't do for us. *NOTE:* markdown /inside/ of an HTML tag will *not* be rendered.  So, only use HTMl when you need to.  
 
-** The Assignment
-   :PROPERTIES:
-   :CUSTOM_ID: the-exercise
-   :END:
 ** Assignment
 Build a web page that includes a Google Map (complete with markers) as part of a short but substantive historical exploration of a historical topic of interest to you.  We discussed a number of such themes in the class (you should remember them from our discussion). The final product should meet the following criteria:
 
@@ -92,10 +94,20 @@ Build a web page that includes a Google Map (complete with markers) as part of a
 
      In class, we cut and paste to create multiple markers. The assignment template uses a [[http://www.w3schools.com/js/js_loop_for.asp][/for/ loop]] to /iterate/, that is, repeat, a set of actions for a group of markers.  See the template for details.  Each marker's info-window contents should contain a brief headline and some explanatory text.  Your essay should refer back to the markers, and you are free to refer to your essay in the marker text itself.
 
-- Styling :: As was also the case with our in-class assignment, the bulk of the styling work is accomplished for us by the /strapdown.js/ script that we call at the bottom of the page. Remember that you can use any of several /bootswatch/ themes if you would like to try a different overall look. If you like, you can also customize the CSS further by using  the /style.css/ file in the project folder
+- Styling :: As was also the case with our in-class assignment, the bulk of the styling work is accomplished for us by the /remarkable/ script that we call at the bottom of the page. Remember that you can use any of several /bootswatch/ themes if you would like to try a different overall look. If you like, you can also customize the CSS further by using  the /extra_style.css/ file in the ~/css~ folder. 
 
 
 
+** Checking Your Work
+As we move closer to a real-world task, we start to encounter more real-world problems. ~Remarkable~ needs to acquire the contents of ~index.md~ so that that file can be processed and fed to ~index.html~. But for [[https://en.wikipedia.org/wiki/JavaScript#Security][many good reasons]], the browser does not allow JavaScript to access local files. So our project will only work inside a web server.  This makes debugging your work much harder!
+
+Fortunately, there are many solutions. One is to use the ~Preview HTML~ functionality in Atom. You can even open a DevTools window (right click in the preview pane) to look at your error messages.  However, sometimes it's easier to just work in the full browser environment. That's why I've added a server to the  ~npm~ dependencies of this repository.  This allows you to see your work in a regular browser tab. Simply navigate to the repository root directory in a terminal, and run ~npm install~ one more time, to fetch the new dependencies. Now whenever you want to look at your work, you can just run:
+
+#+begin_src sh
+npm run server
+#+end_src
+
+Then point your browser at ~localhost:8080~ and all the assignments in this repository will be available for you to browse. 
 ** Expectations
 Push your code to the master branch as usual. The state of the master branch on Github at the due date will constitute your submission!
 

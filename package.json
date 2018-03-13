@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha --reporter mochawesome --reporter-options reportDir=TestResults,reportFilename=testresults || true",
     "watch": "mocha --reporter mochawesome --reporter-options reportDir=TestResults,reportFilename=testresults -w",
-    "collectjson": "node collectjson-teacher.js"
+    "collectjson": "node collectjson-teacher.js",
+    "server": "node node_modules/http-server/bin/http-server"
   },
   "author": "Matt Price",
   "license": "AGPL-3.0",
@@ -18,6 +19,7 @@
     "git-config": "0.0.7",
     "git-state": "4.0.0",
     "html-word-count": "2.0.0",
+    "http-server": "^0.11.1",
     "jsdom": "^11.5.1",
     "json-validation": "1.0.4",
     "jsonlint": "1.6.2",
