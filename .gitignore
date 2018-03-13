@@ -1,3 +1,5 @@
 obsolete/
 /no-popcorn-sta/
 node_modules
+package-lock.json
+/package-lock.json
