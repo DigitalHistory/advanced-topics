@@ -6,7 +6,7 @@ In the final segment of our class, we discuss the use of non-textual media in hi
 - How does technical infrastructure (like [[http://popcornjs.org/][Popcorn]] and [[http://docs.google.com][Google Docs]]) change the nature of historical narrative?
 
 ** How This Project Works
-This is a very small website organized around an audio element. Though it's intended to be used as apart of a larger project, it can also stand on its own.  It looks pretty good, but most of the heavy lifting is done by outside libraries:
+This is a very small website organized around an audio element. Though it's intended to be used as a part of a larger project, it can also stand on its own.  It looks pretty good, but most of the heavy lifting is done by outside libraries:
 - *[[https://jquery.com/][jQuery]]* is an important piece of web infrastructure, widely used in many projects.
 - *[[https://github.com/jonschlinkert/remarkable][Remarkable]]* is a "markdown parser" -- it allows us to write the body of the essay in markdown and render it directly as HTML.  A really big win.
 - *[[http://getbootstrap.com/][Bootstrap]]* is the most popular "web framework" in the world. It's a sophisticated CSS & Javascript system that gets a lot of work done out of the box, and saves a huge amount of time
@@ -18,12 +18,23 @@ Using these libraries gets us one step closer to "real-world" web development, w
 Your project has just a few files:
 - [[./index.html][index.html]], which loads the frameworks described above, adds a little extra Javascript which you can change if you want (but don't need to), and sets up a basic HTML framework to give structure to the page (which you're welcome to change and probably will want to).
 - [[./index.md][index.md]], where you will actually write your assignment! You'll do it in Markdown, introducing fragments of HTML as you go where you need them. The current content of that file has examples of most of the syntax you'll want to use (though obviously you'll have to write the content yourself). ~index.md~ will be loaded by ~remarkable~ and inserted into an otherwise empty ~div~ in ~index.html~.
-- [[./style.css][style.css]], which adds some style information, which, again, you are likely to want to change
+- [[../css/extra-styles.css][extra-styles.css]], which adds some style information, which, again, you are likely to want to change
 - [[popcorn-data.js]] or [[popcorn-data-from-google.js]], at your discretion (I recommend using the Google sheets method)
 - *your audio file*, which is not being stored in this repository because it's not such good practice to have a big file like that in the repository if no one's going to use it. You will have to add the file to the repository and make sure the ~<audio> <source>~ points to it.
-- I also include local copies of [[popcorn-complete.js][the popcorn]] and [[tabletop.js][tabletop libraries]].  
+- I also include local copies of [[popcorn-complete.js][the popcorn]] and [[tabletop.js][tabletop libraries]].  The local popcorn, in particular, contains some small updates to keep the plugins working.  
 
 You should edit your files in Atom and make sure you have the ~htnl-preview~ package installed (go to ~Settings -> Install~ and search for "html preview".  ~Remarkable~ will only be able to access the contents of ~index.md~ properly when ~index.html~ being served by a webserver -- fortunately the html preview runs a tiny server for you inside your editor.  But if you try to just double click on ~index.html~ and open it in Google Chrome, you'll be disappointed.
+
+** Checking Your Work
+As we move closer to a real-world task, we start to encounter more real-world problems. ~Remarkable~ needs to acquire the contents of ~index.md~ so that that file can be processed and fed to ~index.html~. But for [[https://en.wikipedia.org/wiki/JavaScript#Security][many good reasons]], the browser does not allow JavaScript to access local files. So our project will only work inside a web server.  This makes debugging your work much harder!
+
+Fortunately, there are many solutions. One is to use the ~Preview HTML~ functionality in Atom. You can even open a DevTools window (right click in the preview pane) to look at your error messages.  However, sometimes it's easier to just work in the full browser environment. That's why I've added a server to the  ~npm~ dependencies of this repository.  This allows you to see your work in a regular browser tab. Simply navigate to the repository root directory in a terminal, and run ~npm install~ one more time, to fetch the new dependencies. Now whenever you want to look at your work, you can just run:
+
+#+begin_src sh
+npm run server
+#+end_src
+
+Then point your browser at ~localhost:8080~ and all the assignments in this repository will be available for you to browse. 
 
 ** Tips and Tricks
 - use the javascript `seek` function I defined to queue the audio file to a specific timecode in the file. You can call it with `<a href="javascript:seek(135)"></a>` -- just replace `135` with whatever time you want to seek to, in seconds.  Unfortunaely you'll have to write this in plain old HTML as remarkable has trouble parsing javascript links.
@@ -42,6 +53,6 @@ Your popcorn events should be keyed to the rhythms of the clip itself, appearing
 
 If you change the styling, you should not create a terrible mess! Certainly I think the page could be prettier and I welcome your improvements.  
 ** Technical Help
-As usual, I am pretty much available to answer your questions.  I also urge you to read [[http://digital.hackinghistory.ca/tools/understanding-popcorn-2/][this post]], which has a fair amount of technical detail and also gives links to further documentation.  [[http://popcornjs.org/popcorn-docs/plugins/][Documentation of the popcorn event plugins is also available online]].
+As usual, I am pretty much available to answer your questions.  I also urge you to read [[http://digital.hackinghistory.ca/tools/understanding-popcorn-2/][this post]], which has a fair amount of technical detail and also gives links to further documentation.  [[http://popcornjs.org/popcorn-docs/plugins/][Documentation of the popcorn event plugins used to be available online, but all that's left now is the sourcecode on Github]].
 
 
