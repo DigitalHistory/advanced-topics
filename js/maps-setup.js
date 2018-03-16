@@ -12,33 +12,44 @@ var infowindow = new google.maps.InfoWindow({content: ""});
 var legendHTML = "<h1>Legend</h1>";
 
 // I'm complicating things a bit with this next set of variables, which will help us
-// to make multi-colored markers
-var blueURL = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
-var redURL = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+// to make multi-colored markers.
+// notice how palegreenarrow is not a string vlaue, but an object.
+// we're using the symbol api:
+//     https://developers.google.com/maps/documentation/javascript/symbols
+var blueURL = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+    redURL = "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
+    paleGreenArrow  =  {
+      path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+      strokeColor: "palegreen",
+      strokeWeight: 1,
+      fillColor: "palegreen",
+      fillOpacity: 0.5,
+      scale: 4};
+
 var red_markers = [];
 var blue_markers = [];
 
 // this is for fun, if you want it.  With this powerful feature you can add arbitrary
 // data layers to your map.  It's cool. Learn more at:
 // https://developers.google.com/maps/documentation/javascript/datalayer#load_geojson
-var myGeoJSON= {
-  "type":"FeatureCollection",
-  "features":
-  [{"type":"Feature",
-    "properties":{myColor: 'red'},
-    "myColor" : "red",
-    "geometry":{"type":"Polygon",
-                "coordinates":[[[-85.60546875,49.03786794532644],[-96.6796875,40.713955826286046],
-                                [-79.62890625,37.71859032558816],[-81.2109375,49.26780455063753],
-                                [-85.60546875,49.03786794532644]]]}},
-   {"type":"Feature",
-    "properties":{myColor: 'green'},
-    "myColor" : "green",
-     "geometry":{"type":"Polygon",
-                 "coordinates":[[[-113.203125,58.35563036280967],[-114.78515624999999,51.944264879028765],
-                                 [-101.6015625,51.944264879028765],[-112.32421875,58.263287052486035],
-                                 [-113.203125,58.35563036280967]]]
-                }}]};
+// var myGeoJSON= {
+//   "type":"FeatureCollection",
+//   "features":
+//   [{"type":"Feature",
+//     "properties":{myColor: 'red'},
+//     "myColor" : "red",
+//     "geometry":{"type":"Polygon",
+//                 "coordinates":[[[-85.60546875,49.03786794532644],[-96.6796875,40.713955826286046],
+//                                 [-79.62890625,37.71859032558816],[-81.2109375,49.26780455063753],
+//                                 [-85.60546875,49.03786794532644]]]}},
+//    {"type":"Feature",
+//     "properties":{myColor: 'green'},
+//     "myColor" : "green",
+//      "geometry":{"type":"Polygon",
+//                  "coordinates":[[[-113.203125,58.35563036280967],[-114.78515624999999,51.944264879028765],
+//                                  [-101.6015625,51.944264879028765],[-112.32421875,58.263287052486035],
+//                                  [-113.203125,58.35563036280967]]]
+//                 }}]};
 
 
 /* a function that will run when the page loads.  It creates the map
@@ -64,7 +75,7 @@ function initializeMap() {
              },
              {position: new google.maps.LatLng(41.8902,12.4923),
               map: my_map,
-              icon: blueURL, // this sets the image that represents the marker in the map
+              icon: paleGreenArrow, // this sets the image that represents the marker in the map
               title: "second Marker",
               window_content: "<h1>Marker2</h1><p> and <a href='http://something'>this would</a> be the extended description</p>"
             },
@@ -107,9 +118,10 @@ function initializeMap() {
         
     }
     document.getElementById("map_legend").innerHTML = legendHTML;
-  my_map.data.addGeoJson(myGeoJSON);
+//  my_map.data.addGeoJson(myGeoJSON);
 
-  var romeCircle = new google.maps.Rectangle({
+  // adding some shapes
+  var romeCircle = new google.maps.Circle({
     strokeColor: '#FF0000',
     strokeOpacity: 0.8,
     strokeWeight: 2,
@@ -118,16 +130,78 @@ function initializeMap() {
     // in general, we always have to *set the map* when we
     // add features. 
     map: my_map,
+    center: {"lat": 41.9000, "lng":12.5000},
+    radius: 1000,
+    window_content: "<h4>Circle</h4><p>This is a circle!</p>"
+  });
+
+  
+  google.maps.event.addListener(romeCircle, 'click', function (evt) {
+    infowindow.setContent(this.window_content);
+    infowindow.setPosition(this.getCenter());
+    infowindow.open(my_map);
+  });
+
+  
+  var romeRectangle = new google.maps.Rectangle({
+    strokeColor: 'purple',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: 'purple',
+    fillOpacity: 0.35,
+    // in general, we always have to *set the map* when we
+    // add features. 
+    map: my_map,
     bounds: {
-      north: 42.685,
-      south: 40.671,
+      north: 41.910,
+      south: 41.890,
       east: 12.501,
       west: 12.485
     },
+    window_content: "<h4>Rectangle</h4><p>This is a rectangle!</p>"
+  });
 
-    center: {"lat": 41.9000, "lng":12.5000},
-    radius: 1000
-  });  
+  google.maps.event.addListener(romeRectangle, 'click', function (evt) {
+    infowindow.setContent(this.window_content);
+    infowindow.setPosition(this.getBounds().getCenter());
+    infowindow.open(my_map);
+  });
+
+
+  // add some misisng code to google!
+  if (!google.maps.Polygon.prototype.getBounds) {
+    google.maps.Polygon.prototype.getBounds = function () {
+      var bounds = new google.maps.LatLngBounds();
+      this.getPath().forEach(function (element, index) { bounds.extend(element); });
+      return bounds;
+    };
+  }
+  // polygons
+  var triangleCoords = [
+    {lat: 25.774, lng: -80.190},
+    {lat: 18.466, lng: -66.118},
+    {lat: 32.321, lng: -64.757},
+    {lat: 25.774, lng: -80.190}
+  ];
+  // Construct the polygon.
+  var bermudaTriangle = new google.maps.Polygon({
+    paths: triangleCoords,
+    strokeColor: '#FF0000',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#FF0000',
+    fillOpacity: 0.35,
+    window_content: "<h4>Bermuda Triangle</h4><p>This is a polygon!</p>"
+      });
+  bermudaTriangle.setMap(my_map);
+
+  google.maps.event.addListener(bermudaTriangle, 'click', function (evt) {
+    infowindow.setContent(this.window_content);
+    infowindow.setPosition(this.getBounds().getCenter());
+    infowindow.open(my_map);
+  });
+
+  
   my_map.data.setStyle(function (feature) {
     var thisColor = feature.getProperty("myColor");
     return {
