@@ -3,3 +3,17 @@ obsolete/
 node_modules
 package-lock.json
 /package-lock.json
+mochawesome-report
+mochawesome-report/**
+TestResults/
+node_modules_security_vuln/
+/package-lock-sec-vuln.json
+/Reflection/titaniumbones.md
+/package-lock.json
+.DS_Store
+.DS_Store?
+._*
+**/.DS_Store
+/coverage
+/.nyc_output
+package-lock.json
