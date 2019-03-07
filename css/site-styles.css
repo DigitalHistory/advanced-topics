@@ -28,6 +28,7 @@
     --color-custom-borders: rgb(110,30,30);
     --color-highlight1: rgba(30,30,110,0.2);
     --color-highlight2: rgba(110,30,30,0.2);
+    --default-bg: white;
 }
 
 
@@ -47,7 +48,7 @@ section, article, aside {
 .main-container {
     flex-grow: 1;               /*all this item to grow*/
     display: grid;
-    background-color: white;    /*reset so that it's obvious when child elements have CSS issues*/    
+    background-color: var(--default-bg);    /*reset so that it's obvious when child elements have CSS issues*/    
 }
 
 footer#page-footer {
