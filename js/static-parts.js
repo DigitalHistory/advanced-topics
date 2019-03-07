@@ -14,14 +14,14 @@ let menuEntries = [
 
 
 let authorName='YOUR NAME HERE',
-    footerHtml=`HTML projects by ${authorName}, originally written for <a href="https://digitalhistory.github.io/dh-website/">HIS355: Digital History</a>`;
+    footerHtml=`HTML projects by ${authorName}, originally written for <a href="https://digitalhistory.github.io/dh-website/">HIS393: Digital History</a>`;
 
 
 function makeMenu (items= menuEntries, path = location.pathname) {
   let allPaths = [],
       prefix = '',
       html = '',
-      basedir = window.location.pathname.split(/\\//g).splice(-2)[0]; // check which dir we're in
+      basedir = window.location.pathname.split(/\\\//g).splice(-2)[0]; // check which dir we're in
   if (basedir !== 'advanced-topics') {
     prefix = '../';
   }
