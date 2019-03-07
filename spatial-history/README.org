@@ -2,75 +2,7 @@
   :PROPERTIES:
   :CUSTOM_ID: spatial-history-with-google-maps
   :END:
-*Due Date: March 10, 2018*
-
-** Google Maps and Spatial History
-   :PROPERTIES:
-   :CUSTOM_ID: google-maps-and-spatial-history
-   :END:
-
-In class we have discussed /spatial history/, that is, history which focuses very strongly on the cultural history of space and place. There is nothing /intrinsically digital/ about spatial history, nor is it necessarily quantitative in nature; but the incredible development of Geographical Information Systems (GIS) in the last 15 years has made the use of interactive digital maps an attractive target for historians.  
-
-Sophisticated works such as the [[http://web.stanford.edu/group/spatialhistory/cgi-bin/site/pub.php?id=29][Spatial History Project]] and Ben Schmidt's [[http://sappingattention.blogspot.co.uk/2012/10/data-narratives-and-structural.html][Whaling Maps Project]] take substantial technical effort to achieve their effects; in general, lengthy training in the use of specialized GIS software is required. We have our own example in the [[http://decima.chass.utoronto.ca/][DECIMA Project]] run by Prof. Terpstra in our department.
-
-Our approach will be decidedly more lightweight. In class today, we will build a very simple "Geographical Information System" around a Google Map. Google Maps are, in fact, highly sophisticated GIS's, with powerful tools for accessing various layers of information; but in order to work
-with them, we will need to use a very small amount of Javascript. Today's exercise is also something of a test. We will once again be working in the [[https://help.github.com/articles/markdown-basics/][markdown]] syntax ([[https://help.github.com/articles/github-flavored-markdown/][github flavour]]), and you will also be able to choose between working in the [[http://sbin.com/jusena/edit?html,js,output][JSBin Online Editor]], which we saw briefly in the first class, and [[https://github.com/titaniumbones/maps-with-markdown][a copy you can download and work with on your own]].
-** What is a GIS?
-   :PROPERTIES:
-   :CUSTOM_ID: what-is-a-gis
-   :END:
-
-GIS is just a name for any system that tries to capture, manipulate, and represent geographical data. There are many GIS tools; the history department uses [[http://www.arcgis.com/features/][ArcGIS]], which is expensive and something of an industry standard, while many independent scholars use [[http://www.qgis.org/en/site/][QGIS]], which is free, open source, and not quite as powerful as Arc.
-
-The data in a GIS is all [[https://en.wikipedia.org/wiki/Geotagging][geotagged]], that is, assigned a set of geographical co-ordinates. This sounds simple but it is actually quite complex, since any co-ordinate system is a /simplified
-projection/ of real, disordered, 3-dimensional space. Many of the frustrations of working with GIS comes from the difficulty of rendering (say) historical map images /commensurate/ with modern,
-satellite-derived maps. 
-
-Within a GIS, information is generally accessed as a set of *layers*. Data of specific types is /stratified/ in layers, in much the same way that one creates image layers in photoshop. This image gives a typical example. Note that the creation of layers is itself an intellectual
-decision, relying on judgments about the relationships between individual bits of data.
-[[http://iolandarch.com/wp-content/uploads/2014/09/overlay-analysis.jpg]]
-
-** Controlling Google Maps
-   :PROPERTIES:
-   :CUSTOM_ID: controlling-google-maps
-   :END:
-
-For our exercise today, we are really only interested in two layers: the "basemap", that is, the street or satellite map most of us use on an almost-daily basis; and the /marker layer/, in which all of the little pins on a map are stored. We access these layers, and create those markers, with Javascript, by making /calls/ to the /Google Maps API/.  An *API* is an "Application Programming Interface": a communications channel that lets programs talk to each other. By "loading" the Google
-Maps API, our web pages can communicate directly with Google's servers to modify the map that Google is presenting to us. In fact, most of the interesting stuff happening on the web these days happens via these
-machine-to-machine communication channels. 
-
-You don't have to understand the Google Maps API very thoroughly to be able to do this assignment. The code comes pre-written; all you have to do is hack at it till it does what you want it to.
-
-** Using Markdown
-   :PROPERTIES:
-   :CUSTOM_ID: using-markdown
-   :END:
-
-It was useful to learn HTML but it is a pain to generate it by hand. You do have to do some hand-coding of HTML for this exercise, because some of the work actually happens in Javascript; but the rest of it can be done in markdown. To review:
-
-#+BEGIN_SRC markdown
-# one or more '#' marks indicates a headline
-
-### this one is "level 3"
-
-*a single asterisk is emphasis, or italics*
-
-**two are strong, or bold**
-
-An empty line separates paragraphs. [Links are written this way](http://someurl.com) 
-and images this way: ![image alt text goes here, while](http://the.image.url.goes/here.jpg)
-
-You write a footnote using the `^` inside angle brackets [^1]
-
-Then you create the footnote down at the end of the paper like this:
-
-[^1]: This is the footnote content. It will include a link back to the footnote in the text.
-
-> blockquotes are made with angle brackets
-> like this
-#+END_SRC
-
-You can also mix HTML in with markdown and it will generally render perfectly well. This is important for us because we have to create some ~<div>~ elements, which markdown can't do for us. *NOTE:* markdown /inside/ of an HTML tag will *not* be rendered.  So, only use HTMl when you need to.  
+*Due Date: March 18, 2019*
 
 ** Assignment
 Build a web page that includes a Google Map (complete with markers) as part of a short but substantive historical exploration of a historical topic of interest to you.  We discussed a number of such themes in the class (you should remember them from our discussion). The final product should meet the following criteria:
@@ -80,43 +12,58 @@ Build a web page that includes a Google Map (complete with markers) as part of a
      Here are some plausible examples of appropriate topics:
   - Corridor of Power: Berlin's Friedrichstrasse in the Nazi Era
   - End of an Era: Toronto's last meatpacking plants
-  - An Empire at Home: conservative Think Tanks in Washington, D.C.
+  - An Empire at Home: Conservative Think Tanks in Washington, D.C.
 
-  I just made these up, of course. You should pick something that you (a) know something about already, and (b) are interested in. Ideally, you will already have done some research into this topic, and will have a small number of sources ready to hand. The essay should introduce the reader to the topic, and make a not-too-complex argument which, again, highlights the spatial component.  ("Think tanks, so important in the construction of policy in today's United States, are a relatively new feature of American politics. In this paper, I will discuss the early history of this now-paramount institutional form, and argue that the /geographical proximity/ of these think tanks is actually an important feature.")
+  I just made these up, of course. You should pick something that you (a) know something about already, and (b) are interested in. Ideally, you will already have done some research into this topic, and will have a small number of sources ready to hand. The essay should introduce the reader to the topic, and make a not-too-complex argument which, again, highlights the spatial component.  ("Think tanks, so important in the construction of policy in today's United States, are a relatively new feature of American politics. In this paper, I will discuss the early history of this now-paramount institutional form, and argue that the /geographical proximity/ of these think tanks along [[https://goo.gl/maps/Z74f1xY9ah72][K Street]] in Washington, D.C. contributes to the insular nature of the intellectual culture at these institutions.")
 
-  You may notice that most of my examples are drawn from a kind of urban history. Urban history is obviously well-suited to spatial analysis, but there's no reason you can't describe, for instance, more widespread networks (e.g., to take some examples at random, networks of hippies, underground bus networks, comparative suffrage movements. etc.)
+  You may notice that some of my examples are drawn from a kind of urban history. Urban history is obviously well-suited to spatial analysis, but there's no reason you can't describe, for instance, more widespread networks (e.g., to take some examples at random, networks of hippies, underground bus networks, comparative suffrage movements. etc.)
 
   Take this opportunity to think about the effect of /form/ on /content/.  How does the present of the map change the way you express your thoughts? Are new kinds of arguments possible? On the flip side, does the map lead you to ignore or downplay any important elements?
 
-  The essay will be written in [[http://markdowntutorial.com/lesson/1/][Markdown]], which makes traditional citations a little complicated ([[http://scholdoc.scholarlymarkdown.com/][Scholarly Markdown]] solves that problem, but it's fairly difficult to set up).  So please use simple links for your citations; in Markdown, these take the form ~[I'm an inline-style link](https://www.google.com)~. So, for instance: ~[Latour, p. 97](http://search.library.utoronto.ca/details?5484640&uuid=4f41639c-43d4-45e8-81f2-d8acd9263f8a)~.  Don't worry about a bibliography.  
+  The essay will be written in [[http://markdowntutorial.com/lesson/1/][Markdown]], which makes traditional citations a little complicated ([[https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html][pandoc and R Markdown]] solve that issue but take a lot of work to set up).  So please use simple links for your citations; in Markdown, these take the form ~[I'm an inline-style link](https://www.google.com)~. So, for instance: ~[Latour, p. 97](http://search.library.utoronto.ca/details?5484640&uuid=4f41639c-43d4-45e8-81f2-d8acd9263f8a)~.  Don't worry about a bibliography. [[./index.md]] has some more details about markdown. 
 
-- Map :: Your map should have at least 5 markers, and could have many more.  You can explore more complex objects -- such as polygons -- using the geoJSON import feature sof Google Maps.  There are links to the API documentation in the code.  
+- Map :: Your map should have at least 5 markers, and could have many more.  You can explore more complex objects -- such as polygons -- using the geoJSON import features of Google Maps, or the native Rectangle, Circle, and Polygon classes.  There are links to the API documentation in the code, as well as to https://geojson.io, where you can create geoJSON interactively. This is convenient for e.g. mapping complex borders. [[https://github.com/tmcw/awesome-geojson][There are lots of other geoJSON resources out there as well]].
 
-     In class, we cut and paste to create multiple markers. The assignment template uses a [[http://www.w3schools.com/js/js_loop_for.asp][/for/ loop]] to /iterate/, that is, repeat, a set of actions for a group of markers.  See the template for details.  Each marker's info-window contents should contain a brief headline and some explanatory text.  Your essay should refer back to the markers, and you are free to refer to your essay in the marker text itself.
+     The assignment template uses a [[http://www.w3schools.com/js/js_loop_for.asp][/for/ loop]] to /iterate/, that is, repeat, a set of actions for a group of markers.  See the template for details.  Each marker's info-window contents should contain a brief headline and some explanatory text.  Your essay should refer back to the markers, and you are free to refer to your essay in the marker text itself.
 
-- Styling :: As was also the case with our in-class assignment, the bulk of the styling work is accomplished for us by the /remarkable/ script that we call at the bottom of the page. Remember that you can use any of several /bootswatch/ themes if you would like to try a different overall look. If you like, you can also customize the CSS further by using  the /extra_style.css/ file in the ~/css~ folder. 
+- Styling :: As was also the case with our in-class assignment, the bulk of the work is accomplished for us by the /markdown-it/ script that we load at the top of the page, and hten initialize in our onload script. We also use the tiny [[https://jenil.github.io/chota/][Chota CSS framework]] to give us some reasonable CSS defaults for font styles and sizes.  It also adds a number of utility classes which you can [[https://jenil.github.io/chota/#docs][read about in the docs]] and use as you see fit.  The classes [[https://jenil.github.io/chota/#utilities][are described here]]. In addition, there are two small style files that you can edit, [[../css/site-styles.css]] and [[../css/map-styles.css]]. You may e.g. wnat ot edit some of the color variables at the top of ~site-styles.css~, and/or edit some of the grid areas or devault layouts in ~map-styles.css~. 
 
+** Controlling Google Maps
+   :PROPERTIES:
+   :CUSTOM_ID: controlling-google-maps
+   :END:
 
+As you will remember, we access the google Map to create & modify markers and other objects, with Javascript, by making /calls/ to the /Google Maps API/.  An *API* is an "Application Programming Interface": a communications channel that lets programs talk to each other. By "loading" the Google Maps API, our web pages can communicate directly with Google's servers to modify the map that Google is presenting to us. In fact, most of the interesting stuff happening on the web these days happens via these
+machine-to-machine communication channels. 
+
+You don't have to understand the Google Maps API very thoroughly to be able to do this assignment. The code comes pre-written; all you have to do is hack at it till it does what you want it to.
+
+** Using Markdown
+   :PROPERTIES:
+   :CUSTOM_ID: using-markdown
+   :END:
+
+See the hints in [[./index.md]] for advanced markdown syntax. 
 
 ** Checking Your Work
-As we move closer to a real-world task, we start to encounter more real-world problems. ~Remarkable~ needs to acquire the contents of ~index.md~ so that that file can be processed and fed to ~index.html~. But for [[https://en.wikipedia.org/wiki/JavaScript#Security][many good reasons]], the browser does not allow JavaScript to access local files. So our project will only work inside a web server.  This makes debugging your work much harder!
+As we move closer to a real-world task, we start to encounter more real-world problems. ~markdown-it~ needs to acquire the contents of ~index.md~ so that that file can be processed and fed to ~index.html~. But for [[https://en.wikipedia.org/wiki/JavaScript#Security][many good reasons]], the browser does not allow JavaScript to access local files. So our project will only work inside a web server.  This makes debugging your work much harder!
 
-Fortunately, there are many solutions. One is to use the ~Preview HTML~ functionality in Atom. You can even open a DevTools window (right click in the preview pane) to look at your error messages.  However, sometimes it's easier to just work in the full browser environment. That's why I've added a server to the  ~npm~ dependencies of this repository.  This allows you to see your work in a regular browser tab. Simply navigate to the repository root directory in a terminal, and run ~npm install~ one more time, to fetch the new dependencies. Now whenever you want to look at your work, you can just run:
+Fortunately, there are many solutions. One is to use the ~Preview HTML~ functionality in VSCode. However, sometimes it's easier to just work in the full browser environment, especially when you want access to your Dev Tools. That's why I've added a server to the  ~npm~ dependencies of this repository.  This allows you to see your work in a regular browser tab. Simply navigate to the repository root directory in a terminal, and run ~npm install~. Now whenever you want to look at your work, you can just run:
 
 #+begin_src sh
 npm run server
 #+end_src
 
-Then point your browser at ~localhost:8080~ and all the assignments in this repository will be available for you to browse. 
+Then point your browser at ~localhost:8080~ and all the assignments in this repository will be available for you to browse.  
 ** Expectations
 Push your code to the master branch as usual. The state of the master branch on Github at the due date will constitute your submission!
 
 - Your code should work!
 - The map should provide *substantive information* on the topic of your essay, not merely pretty illustration
 - the essay should meet the criteria for a B or B+ essay: it should be well-organized; it should make a compelling argument for a coherent thesis; it should display a level of historical understanding appropriate for a mid-level undergraduate course.
-- As it stands, there are some minor ugly spots in the CSS for the project. You should try to improve these at least a little bit, using [[../css/extra-styles.css]]. 
+- As it stands, there are some minor ugly spots in the CSS for the project. You should try to improve these at least a little bit, using [[../css/map-styles.css and ../css/site-styles.css]]. 
 
-** The code
+** Further brief notes on the code
    :PROPERTIES:
    :CUSTOM_ID: the-code
    :END:
@@ -126,19 +73,17 @@ Push your code to the master branch as usual. The state of the master branch on 
     :CUSTOM_ID: javascript
     :END:
 
-I have made the Javascript as simple as I can. There are more efficient and interesting ways to do this, but they are a little more complex. To make your markers -- and to re-centre your map -- you will need to modify the Javascript directly. The file you are looking for will be [[../js/mmaps-setup.js]]. 
-
+I have made the Javascript as simple as I can, and documented it extensively. There are more efficient and interesting ways to do this, but most of them are a little more complex. To make your markers -- and to re-centre your map -- you will need to modify the Javascript directly. The file you are looking for will be [[../js/maps-setup.js]]. You'll also want to take a look at the function ~initializePage~, which is defined in index.html; and finally, please just set your name in [[../js/static-parts.js]], so it will appear properly in the footer. 
 
 *** HTML
     :PROPERTIES:
     :CUSTOM_ID: html
     :END:
-
-I /think/ the only modifications you will need to make to the HTML are within the special "textarea" block containing the markdown syntax. The rest you can probably safely ignore, though you might learn something from looking at it.
+I /think/ you will not need to make many modifications to the HTML, but if you want to change the layout around, you may wnat to do so. You should in any case take a look at the javascript, so you know what's going on.
 
 *** CSS
     :PROPERTIES:
     :CUSTOM_ID: css
     :END:
 
-The CSS for this exercise is deceptively simple. We make only a few small changes tothe defaults, /but/ we are cheating here. The [[https://github.com/jonschlinkert/remarkable][remarkable]] library marses markdown for us dynamically, making it possible to write markdown in [[index.md]] and have it appear in [[index.html]]. We  /also/ magically load the incredible [[http://getbootstrap.com/][bootstrap]] web development framework, which includes some sophisticated CSS. We use [[https://bootswatch.com/][bootswatch]] to switch between bootstrap color themes. Feel Free to switch around as you like.  
+The CSS for this exercise is deceptively simple. We make only a few small changes to the defaults, /but/ we are cheating here. The [[https://markdown-it.github.io/][markdown-it]] library parses markdown for us dynamically, making it possible to write markdown in [[index.md]] and [[intro.md]] and have it appear in [[index.html]]. We  /also/ load [[https://jenil.github.io/chota/#docs][Chota]] for sensible defaults, and make small modifications.  This would be a good time to investigate [[https://codeburst.io/css-variables-explained-with-5-examples-84adaffaa5bd][CSS variables]], or [[https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables][custom properties]], as they are properly called.
