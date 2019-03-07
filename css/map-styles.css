@@ -1,0 +1,154 @@
+
+/* We start with the spatial history assignment */
+
+.main-container {
+    grid-template-areas: "intro map legend" "main main main";
+    grid-auto-columns: 1fr;
+}
+
+section#intro {
+    grid-area: intro;
+    background-color: var(--color-highlight1);
+    border: 1px solid var(--color-custom-borders);
+}
+
+
+section#map_canvas {
+    grid-area: map;
+    background-color: var(--color-highlight2);
+    border: 1px solid var(--color-custom-borders);
+}
+
+section#legend {
+    grid-area: legend;
+    background-color: var(--color-highlight2);
+    border: 1px solid var(--color-custom-borders);
+}
+
+section#maintext {
+    grid-area: main;
+    background-color: var(--color-highlight1);
+    border: 1px solid var(--color-custom-borders);
+}
+
+/* we use an extra div here to allow the "legend" text to sit by itself */
+/* arrange the legend elements using flexbox (just for fun) */
+div#map_legend {
+    width: 100%;
+    display: grid;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 5px;
+    flex-wrap: wrap;
+    grid-template-columns: repeat(auto-fit, 300px);
+
+}
+div#map_legend div.pointer {
+    border: 1px black solid;
+    border-radius: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    /* flex-basis: 500px; */
+    cursor:pointer;
+}
+
+div.pointer h1 {
+    font-size: 1.5em;
+    image
+}
+
+div.pointer img {
+    max-width: 250px;
+    border: 1px solid black;
+    padding: 5px;
+    margin: 5px;
+}
+
+@media only screen and (max-width:1200px) {
+    .main-container {
+        grid-template-areas: "intro intro" "map legend" "main main";
+    }
+}
+
+@media only screen and (max-width:600px) {
+    .main-container {
+        grid-template-areas: "intro" "map" "legend" "main";
+    }
+}
+
+
+/* @media all and (max-width: 75em) { */
+/*     .newcontainer { */
+/*         grid-template-areas: "intro intro" "map legend" "main main"; */
+/*     } */
+/*     #markdown-toc { */
+/*         position: static; */
+/*         padding: 0; */
+/*         background: none; */
+/*     }  */
+/* } */
+
+
+
+
+/* if you want, you can make the text in the legend less ugly by adding
+extra css instructions here, or adding classes when you create the 
+legneds in javascript. Advisable! */
+
+div#map_legend h1 {
+    
+}
+
+div#map_legend h3 {
+
+}
+
+
+/*just for fun, we can style the buttons using classes
+  button.rounded means "all buttons with the class of
+  rounded".  button#hide meands "the button with the
+  id of hide"
+*/
+button.rounded {
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  border-radius:5px;
+  border: 1px black solid;
+}
+button#hide {
+  background:orange;
+}
+button#show {
+  background:green;
+}
+
+/* use these last few to style the text inside the
+   infowindows.  They are pretty ugly at the moment,
+   consider making them prettier.
+
+*/
+
+div#map_canvas h1 {
+
+}
+
+div.address  {
+
+}
+
+div.description {
+
+}
+
+div.gm-style-iw {
+    max-height: 75px;
+}
+div.gm-style-iw img {
+    max-width: 75% !important;
+}
+
+div.gm-style-iw blockquote {
+    font-family:cursive;
+}
+
+

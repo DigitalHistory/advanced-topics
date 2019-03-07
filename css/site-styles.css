@@ -1,0 +1,66 @@
+/* In order to keep the 'look and feel' of your projects consistent,
+   we keep as much CSS as possible in a single file. Use this file for
+   CSS that will apply to more than one of your pages. You can do this
+   by using class names instead of id attributes wherever appropriate.
+*/
+
+
+/* These are CSS "custom properties" -- essential, variables that we
+   can use when writing CSS. Set them here, in the main CSS file, and
+   look at the examples below to see you you can use them yourself.
+   See the chota docs: https://jenil.github.io/chota/ and the MDN help
+   page:
+   https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables
+ */
+:root {
+    --color-primary: #1a9f60;
+    --color-lightGrey: #d2d6dd;
+    --color-grey: #7e818b;
+    --color-darkGrey: #3f4144;
+    --color-error: #d43939;
+    --color-success: #28bd14;
+    --grid-maxWidth: 120rem;
+    --grid-gutter: 2rem;
+    --font-size: 1.6rem;
+    --font-family: -apple-system, BlinkMacSystemFont, Avenir, "Avenir Next",
+                   "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+                   "Droid Sans", "Helvetica Neue", sans-serif;
+    --color-custom-borders: rgb(110,30,30);
+    --color-highlight1: rgba(30,30,110,0.2);
+    --color-highlight2: rgba(110,30,30,0.2);
+}
+
+
+/* flex on the body element lets us grow the main item as nec */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* add some padding --  */
+section, article, aside {
+    padding: 1rem;
+}
+
+/* set display:grid here, but use sub-files to set up grid items on indiv pages */
+.main-container {
+    flex-grow: 1;               /*all this item to grow*/
+    display: grid;
+    background-color: white;    /*reset so that it's obvious when child elements have CSS issues*/    
+}
+
+footer#page-footer {
+    flex-grow: 0;               /*keep footer nice and short*/
+    flex-basis: 3rem;           /*give small default*/
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+
+/* since this is a simple site, use of variables here is a little overkill. */
+/* However, it may still be in your interest to use them.  */
+header#page-header, footer#page-footer {
+    background-color: var(--color-lightGrey);
+}
