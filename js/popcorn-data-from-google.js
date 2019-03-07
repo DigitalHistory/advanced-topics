@@ -8,7 +8,7 @@ var loadPopcorn = function(){
     // part in the spreadsheet URL that comes between "key=" and "&"
     // It's very important, though, to keep the same column headers as in our example spreadsheet!
     var public_spreadsheet_key = 'https://docs.google.com/spreadsheets/d/1pL_Lj62_ZcW7iawTCQ_5BQsmdynCtC8y5BCNy3k2LOM/pubhtml?gid=0&single=true';
-    
+    // public_spreadsheet_key = 'https://docs.google.com/spreadsheets/d/1KXRaHkTxCku5yJ6Khi-9MMc6fmJkH74B1GQjfuyeU6E/edit?usp=sharing';
     // now we are going to use the tabletop.js library, which was called in our 
     // HTML file, to grab the date from the spreadsheet and process it so that 
     // popcorn can use it.  
@@ -44,7 +44,8 @@ var loadPopcorn = function(){
                 "src" : data[i].src,
                 "location" : data[i].location, // obviousy not all of the columns are used by each plugin type!
                 "zoom": data[i].zoom,
-                "type" : data[i].type
+              "type" : data[i].type,
+              "apiKey" : data[i].apiKey
             }); // if you want to use some of the other plugins -- like Wikipedia -- you will have to add the columns to the spreadsheet & then add some code to this function!
 
 
@@ -60,15 +61,15 @@ var loadPopcorn = function(){
     // added some comments so you can follow it. 
     function getTimestampInSeconds(ts) {
         if (ts.length == 0)
-            return 0;
+            {return 0}
         var timeParts = ts.split(':'); // divides the timecode up into parts and returns an array of the parts.
         realTimeParts = [];
         timeParts.forEach(function(number) { // for each part of the array, run this function
             if (number.length == 0)
-                number = '00';
+                {number = '00'}
             var floatNumber = parseFloat(number); // turn the array part into a 'float', which is a number with a decimal point
             if (isNaN(floatNumber))  // if it is not a number you're in trouble
-                throw new ParseError('unable to parse time: ' + ts);
+                {throw new ParseError('unable to parse time: ' + ts)}
             realTimeParts.push(floatNumber);
         });
         switch (realTimeParts.length) {  // the 'switch/case' structure performs a different action depending on the length of the array
@@ -82,7 +83,7 @@ var loadPopcorn = function(){
             
         case 3:
             // It's in HH:MM:SS format.
-            return ((realTimeParts[0] * 60) + realTimeParts[1]) * 60 +
+            return (realTimeParts[0] * 60 + realTimeParts[1]) * 60 +
                 realTimeParts[2];
             
         default:

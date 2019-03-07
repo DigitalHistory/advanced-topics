@@ -14,10 +14,10 @@ jsdom.defaultDocumentFeatures = {
 };
 
 
-var repoPath = path.resolve(process.env.REPO || (__dirname + '/../.git'));
+var repoPath = path.resolve(process.env.REPO || __dirname + '/../.git');
 var ignoreCommitEmails = "matt.price@utoronto.ca";
 const matchesProfEmail = function (email, profEmails) {
-return (profEmails.indexOf(email) > -1);
+return profEmails.indexOf(email) > -1;
 };
 
 var studentCommits = 0,
@@ -33,10 +33,10 @@ var indexFile = 'spatial-history/index.html',
 
 var window, jq;
 gitConfig(function (err, config) {
-  if (err) return done(err);
-  if (config.user.name) {name = config.user.name;}
-  if (config.user.email) {email = config.user.email;}
-  if (config.github.user) {githubid = config.github.user;}
+  if (err) {return done(err)}
+  if (config.user.name) {name = config.user.name}
+  if (config.user.email) {email = config.user.email}
+  if (config.github.user) {githubid = config.github.user}
   
 });
 
@@ -214,7 +214,7 @@ var Remarkable = require('remarkable');
 var md = new Remarkable({
   html: true,
   linkify: true}),
-    renderedcontent = ""
+    renderedcontent = "";
     // origContent = $("#contentdiv").html();
 
 md.block.ruler.enable([
@@ -267,7 +267,7 @@ var fixture = `  <body>
       </div>
     </div>
 </body>
-`
+`;
 describe('Test if map divs are contained in markdown file', function() {
   before(function() {
     // set up dom with google maps and jquery
@@ -278,7 +278,7 @@ describe('Test if map divs are contained in markdown file', function() {
     dom = new JSDOM(parsedMD);
     window=dom.window;
     document=window.document;
-    console.log(dom.window.document.querySelector('div#mapcontainer'))
+    console.log(dom.window.document.querySelector('div#mapcontainer'));
   });
   
   it('should contain mapcontainer element with map_canvas and map_legend', function() {
@@ -303,7 +303,7 @@ describe('Test if map divs are contained in markdown file', function() {
 //     window=dom.window;
 //     document=window.document;
 //     var jqel = document.createElement("script");
-//     jqel.src = "http://code.jquery.com/jquery-2.1.4.js";
+//     jqel.src = "http://code.jquery.com/jquery-3.3.1.js";
 //     document.body.appendChild(jqel);
 
 //     var mapsel = document.createElement("script");

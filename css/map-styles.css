@@ -1,5 +1,5 @@
 
-/* We start with the spatial history assignment */
+/* Styles *exclusively* for the spatial history assignment */
 
 .main-container {
     grid-template-areas: "intro map legend" "main main main";
