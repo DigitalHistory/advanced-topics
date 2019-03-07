@@ -1,22 +1,22 @@
 // initialize the variables we need
 // we do this here to make sure we can access them
 // whenever we need to -- they have 'global scope'
-var my_map; // this will hold the map
-var my_map_options; // this will hold the options we'll use to create the map
-var my_center = new google.maps.LatLng(41.8986,12.4768); // center of map
-var my_markers = []; // we use this in the main loop below to hold the markers
-// this one is strange.  In google maps, there is usually only one
-// infowindow object -- its content and position change when you click on a
-// marker.  This is counterintuitive, but we need to live with it.  
-var infowindow = new google.maps.InfoWindow({content: ""});
-var legendHTML = "";
+let my_map, // this will hold the map
+    my_map_options, // this will hold the options we'll use to create the map
+    my_center = new google.maps.LatLng(41.8986,12.4768), // center of map
+    my_markers = [], // we use this in the main loop below to hold the markers
+    // this one is strange.  In google maps, there is usually only one
+    // infowindow object -- its content and position change when you click on a
+    // marker.  This is counterintuitive, but we need to live with it.  
+    infowindow = new google.maps.InfoWindow({content: ""}),
+    legendHTML = "";
 
 // I'm complicating things a bit with this next set of variables, which will help us
 // to make multi-colored markers
-var blueURL = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
-var redURL = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
-var red_markers = [];
-var blue_markers = [];
+const blueURL = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+      redURL = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+let red_markers = [],
+    blue_markers = [];
 
 // this is for fun, if you want it.  With this powerful feature you can add arbitrary
 // data layers to your map.  It's cool. Learn more at:
@@ -25,7 +25,7 @@ var blue_markers = [];
 // you can create geoJSON layers here: http://geojson.io/
 // and learn more about the format here: https://en.wikipedia.org/wiki/GeoJSON
 // to get a fill color, you will need to set the `myColor` property as below. 
-var myGeoJSON= {
+let myGeoJSON= {
   "type":"FeatureCollection",
   "features":
   [{"type":"Feature",
@@ -60,7 +60,7 @@ function initializeMap() {
   // YOU NEED TO CHANGE THESE! //
   ///////////////////////////////
 
-  var all_my_markers =
+  let all_my_markers =
       [{position: new google.maps.LatLng(41.9000,12.5000),
         map: my_map,
         icon: blueURL, // this sets the image that represents the marker in the map to the one
@@ -85,7 +85,7 @@ function initializeMap() {
 
   // iterate over the marker array, adding to map
   for (j = 0; j < all_my_markers.length; j++) {
-    var marker =  new google.maps.Marker({
+    let marker =  new google.maps.Marker({
       position: all_my_markers[j].position,
       map: my_map,
       icon: all_my_markers[j].icon,
@@ -99,7 +99,7 @@ function initializeMap() {
       "<div class=\"pointer\" onclick=\"locateMarker(my_markers[" + j + "])\"> " +
       marker.window_content + "</div>";
     marker.info = new google.maps.InfoWindow({content: marker.window_content});
-    var listener = google.maps.event.addListener(marker, 'click', function() {
+    let listener = google.maps.event.addListener(marker, 'click', function() {
       // if you want to allow multiple info windows, uncomment the next line
       // and comment out the two lines that follow it
       
@@ -125,7 +125,7 @@ function initializeMap() {
   // to actually set the color of the jeogson features
   // strokeWeight "5" is awfully thick and probalby not what you want!
   my_map.data.setStyle(function (feature) {
-    var thisColor = feature.getProperty("myColor");
+   let thisColor = feature.getProperty("myColor");
     return {
       fillColor: thisColor,
       strokeColor: thisColor,
@@ -138,7 +138,7 @@ function initializeMap() {
   // API docs: https://developers.google.com/maps/documentation/javascript/examples/polygon-simple
   // https://developers.google.com/maps/documentation/javascript/examples/rectangle-simple
   // etc. 
-  var romeRectangle = new google.maps.Rectangle({
+  let romeRectangle = new google.maps.Rectangle({
     strokeColor: 'maroon',
     strokeOpacity: 0.8,
     strokeWeight: 2,
@@ -155,7 +155,7 @@ function initializeMap() {
     }
   });
 
-  var romeCircle = new google.maps.Circle({
+  let romeCircle = new google.maps.Circle({
     strokeColor: 'darkgreen',
     strokeOpacity: 0.8,
     strokeWeight: 2,
@@ -174,24 +174,21 @@ function initializeMap() {
 // passed to it, by attaching them to
 // an empty object (instead of a real map)
 function hideMarkers (marker_array) {
-  for (var j in marker_array) {
+  for (let j in marker_array) {
     marker_array[j].marker.setMap(null);
   }
 }
 // by contrast, this attaches all the markers to
 // a real map object, so they reappear
 function showMarkers (marker_array, map) {
-  for (var j in marker_array) {
+  for (let j in marker_array) {
     marker_array[j].marker.setMap(map);
   }
 }
 
-//global variable to track state of markers
-
-var markersHidden = false;
-
+// probably always want to use this toggle function instead!!
 function toggleMarkers (marker_array, map) {
-  for (var j in marker_array) {
+  for (let j in marker_array) {
     if (markersHidden) {
       marker_array[j].marker.setMap(map);
     } else {
@@ -200,6 +197,9 @@ function toggleMarkers (marker_array, map) {
   }
   markersHidden = !markersHidden;
 }
+
+//global variable to track state of markers
+let markersHidden = false;
 
 
 // I added this for fun.  It allows you to trigger the infowindow
