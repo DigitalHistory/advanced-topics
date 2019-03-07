@@ -2,11 +2,6 @@
 
 ## Use headings only if you want to have subsections in your essay
 
-<div class="sidepanel">
-              <!-- This is the div where all the popcorn action will hapen -->
-              <div id="popcorn-container">
-              </div>
-            </div>
 
 
 

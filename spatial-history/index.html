@@ -1,104 +1,117 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-    <title>Title Here | by Your Name</title>
-     <meta charset="UTF-8"> 
-    <meta name="description" content="a markdown-based mapping exercise." />
-    <!-- these script tags load important javascript "libraries"
-         that our own little scripts depend on.  These are complex
-         programs way beyond our capacities to construct; but we can
-         make use of them nonetheless -->
-    <!-- jQuery is an important framework used by many web projects  -->
-    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
-    <!-- remarkable is our markdown parser, which translates markdown into HTML -->
-    <script src="https://cdn.jsdelivr.net/remarkable/1.7.1/remarkable.min.js"></script>
-    <!-- Our Bootstrap theme. To use another copy the appropriate URL from  -->
-    <!-- https://www.bootstrapcdn.com/bootswatch/?theme=0 -->
-    <link rel="stylesheet" type="text/css" media="all"
-          href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/solar/bootstrap.min.css" />
+    <head>
+        <title>Title Here | by Your Name</title>
+        <meta charset="UTF-8"> 
+        <meta name="description" content="a markdown-based mapping exercise." />
+        <!-- these script tags load important javascript "libraries"
+             that our own little scripts depend on.  These are complex
+             programs way beyond our capacities to construct; but we can
+             make use of them nonetheless -->
+        <!-- jQuery is an important framework used by many web projects  -->
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?sensor=false&key=AIzaSyCVtRhi_zYbrx6XcR6c5Wu_VKmXWvnYz5E"></script>
+        <!-- markdown-it is our markdown parser, which translates markdown into HTML -->
+        <script src="https://cdn.jsdelivr.net/npm/markdown-it@8.4.2/dist/markdown-it.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/markdown-it-attrs@2.3.2/markdown-it-attrs.browser.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/markdown-it-footnote@3.0.1/dist/markdown-it-footnote.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/markdown-it-emoji@1.4.0/dist/markdown-it-emoji.js"></script>
+        <!-- load google map API -->
+        <!-- consider adding your own API key if you want to keep using this -->
+        <!-- https://developers.google.com/maps/documentation/javascript/get-api-key -->
+        <!-- my key will *only* work on github.io and your local computer  -->
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJxAlu3l5sKbilIJst2_0RFF7ATv0jTuA"></script>
 
-    <!-- this line is NOT present in the jsbin version -->
-    <link rel="stylesheet" href="../css/extra-styles.css" type="text/css" media="screen" />
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-  </head>
+        <!-- call all our CSS files: chota, site-wide mods, and page-specific mods -->
+       
+        <link rel="stylesheet" href="../css/chota.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="../css/site-styles.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="../css/map-styles.css" type="text/css" media="screen" />
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    </head>
 
-  <!-- note the 'onload' attribute here.
-       it calls the function "initialize"
-       when the body has finished loading.  That's because the
-       Javascript will not run properly unless it
-       waits for the elements inside the body to load.  Therefore
-       we don't run the most important parts of the code until the page has finished loading.
+    <!-- note the 'onload' attribute here.
+         it calls the function "initialize" (defined below)
+         when the body has finished loading.  That's because the
+         Javascript will not run properly unless it
+         waits for the elements inside the body to load.  Therefore
+         we don't run the most important parts of the code until the page has finished loading.
     -->
-  <body onload="initializePage();">
+    <body onload="initializePage();">
 
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">Title Here | by Your Name</a> <!-- should be descriptive -->
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
-    </nav>
+        <header id="page-header" class="nav">
+            <a class="navbar-brand pull-right" href="#">Title Here | by Your Name</a> <!-- title should be descriptive -->
+            <!-- menu content is set in ../js/static-parts.js and appended here -->
+        </header>
 
+        <main class="main-container">
+            <!-- will be filled with markdown from intro.md -->
+            <section id="intro"></section>
+            <!-- will house the map itself -->
+            <section id="map_canvas"></section>
+            <section id="legend">
+                <!-- these buttons hide/show all the markers  -->
+                <!-- to hide/show blue or red markers instead, change my_markers below to blue_markers
+                     to red_markers.  If you have defined your own color (or other) arrays, use those instead -->
+                <h1>Legend <button onclick="toggleMarkers(my_markers, my_map)" class="rounded" id="hide">Toggle markers</button> </h1>
+                <!-- this will be auto-populated with info from your marker array -->
+                <div id="map_legend"></div>
+            </section>
+            <!-- will be filled with markdown from index.md -->
+            <section id="maintext"></section>
+            
+        </main>
 
-    <!-- these next 2 divs place the main content inside a box with margins from the screen edge -->
-    
-    <div class="container">
-      <div class = "row">
+        <!-- footer content is set in ../js/static-parts.js -->
+        <footer id="page-footer">
+            
+        </footer> 
+       
+        <!-- this line calls your custom js -->
+        <script src="../js/maps-setup.js"></script>
+        <script>
+         // we define the main actions of the script as a function which wil lbe run when the
+         // page resources have been completely loaded.
+         //window.
+         const initializePage = function() {
+             // instantiate the parser object and declare the
+             // placeholder variable for the rendered content
+             // while storing the original content so as not to lose it
+             let md = window.markdownit('commonmark', {
+                 html: true,
+                 linkify: true}),
+                 renderedcontent = "",
+                 introContent = $("#intro").html(),
+                 mainContent = $("#maintext").html();
 
-        <div id="contentdiv">
-          <!-- Please don't add content to this div manually unless you're abolutely sure you want to. the contents of index.md will be rendered here, and you can include raw HTML in that file, too, if you wish.   -->
+             /* ause footnote and attribute plugins */
+             md.use(window.markdownItAttrs)
+             md.use(window.markdownitFootnote)
+             md.use(window.markdownitEmoji);
 
-        </div>
-      </div>
-    </div>
+             //retrieve the markdown files, parse them,
+             // and use it to replace the contents of #intro and #maintext
+             // also load the google map
+             $.get("./intro.md", function (response) {
+                 let content = response,
+                     renderedcontent = md.render(content);
+                 console.log(typeof(response));
+                 $("#intro").html(introContent + renderedcontent);
+                 $.get("./index.md", function (response2) {
+                     let content = response2,
+                         renderedcontent2 = md.render(content);
+                     $("#maintext").html(mainContent + renderedcontent2);
+                 }, 'text')
+                 initializeMap();
+             }, 'text');
+             
+         };
+        </script>
+        
+        <!-- generate header and footer using simple site-wide script -->
+        <script src="../js/static-parts.js"></script>
 
-    <!-- this line is NOT present in the jsbin version, and calls your custom js -->
-    <script src="../js/maps-setup.js"></script>
-      <script>
-        // we define the main actions of the script as a function which wil lbe run when the
-        // page resources have been completely loaded.
-        //window.
-        var initializePage = function() {
-          // instantiate the parser object and declare the
-          // placeholder variable for the rendered content
-          // while storing the original content so as not to lose it
-          var md = new Remarkable({
-              html: true,
-              linkify: true}),
-              renderedcontent = "",
-              origContent = $("#contentdiv").html();
-          
-          md.block.ruler.enable([
-            'footnote',
-            'deflist'
-          ]);
-          md.inline.ruler.enable([
-            'footnote_inline',
-            'ins',
-            'mark',
-            'sub',
-            'sup'
-          ]);
-          //retrieve the markdown file, parse it,
-          // and use it to replace the content of #contentdiv.
-          // wait till that's fine before attempting to load popcorn
-          $.get("./index.md", function (response) {
-            content = response;
-            renderedcontent = md.render(content);
-            $("#contentdiv").html(origContent + renderedcontent);
-            initializeMap();
-          });
-        };
-      </script>
-
-      <script src="../js/menu.js"></script>
-
-  </body>
+    </body>
 
 </html>
