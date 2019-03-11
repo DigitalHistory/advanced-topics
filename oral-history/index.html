@@ -22,13 +22,13 @@
         -->
         <script src="https://cdn.jsdelivr.net/npm/markdown-it@8.4.2/dist/markdown-it.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/markdown-it-attrs@2.3.2/markdown-it-attrs.browser.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/markdown-it-footnote@3.0.1/dist/markdown-it-footnote.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/markdown-it-emoji@1.4.0/dist/markdown-it-emoji.js"></script>
 
         
         <!-- The web page starts by loading the complete 
              popcorn library from our nearby library -->
         <script src="../js/popcorn-complete.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJxAlu3l5sKbilIJst2_0RFF7ATv0jTuA&callback=initMap"
-                async defer></script>
 
         <!-- Then we also include a small "handmade" script that makes use 
              of commands that are defined in the earlier    script. 
@@ -92,31 +92,21 @@
              // instantiate the parser object and declare the
              // placeholder variable for the rendered content
              // while storing the original content so as not to lose it
-             var md = new Remarkable({
+             let md = window.markdownit('commonmark', {
                  html: true,
                  linkify: true}),
                  renderedcontent = "",
                  introContent = $("#intro").html(),
                  mainContent = $("#maintext").html();
 
-             
-             md.block.ruler.enable([
-                 'footnote',
-                 'deflist'
-             ]);
-             md.inline.ruler.enable([
-                 'footnote_inline',
-                 'ins',
-                 'mark',
-                 'sub',
-                 'sup'
-             ]);
+             /* ause footnote and attribute plugins */
+             md.use(window.markdownItAttrs)
+             md.use(window.markdownitFootnote)
+             md.use(window.markdownitEmoji);
 
- 
-             //retrieve the markdown file, parse it,
-             // and use it to replace the content of #contentdiv.
-             // wait till that's fine before attempting to load popcorn
-
+             //retrieve the markdown files, parse them,
+             // and use it to replace the contents of #intro and #maintext
+             // also load Popcorn
              $.get("./intro.md", function (response) {
                  let content = response,
                      renderedcontent = md.render(content);
@@ -129,6 +119,7 @@
                  }, 'text')
                  loadPopcorn();
              }, 'text');
+
          }
          // declare a function to seek to a timecode in the #media object
          var seek = function (time) {

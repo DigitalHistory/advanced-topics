@@ -1,7 +1,13 @@
 //$(window).on('load', function() {
 var loadPopcorn = function(){
     // Create a popcporn instance by calling Popcorn("#id-of-the-media-element")
-    var pop = Popcorn("#media");
+    let pop = Popcorn("#media");
+    pop.defaults ('googlemap', {
+        target: 'popcorn-container',
+        apiKey: "AIzaSyAJxAlu3l5sKbilIJst2_0RFF7ATv0jTuA"
+    });
+
+    
 
     // Next we need to identify which Google spreadsheet we're going to want to use.  
     // You'll need to change the key to match your spreadsheet.  Remember, this is the 
@@ -44,8 +50,7 @@ var loadPopcorn = function(){
                 "src" : data[i].src,
                 "location" : data[i].location, // obviousy not all of the columns are used by each plugin type!
                 "zoom": data[i].zoom,
-              "type" : data[i].type,
-              "apiKey" : data[i].apiKey
+              "type" : data[i].type
             }); // if you want to use some of the other plugins -- like Wikipedia -- you will have to add the columns to the spreadsheet & then add some code to this function!
 
 
