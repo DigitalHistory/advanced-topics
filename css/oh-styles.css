@@ -1,0 +1,49 @@
+
+/* We start with the spatial history assignment */
+
+.main-container {
+    grid-template-areas: "intro popcorn" "main main";
+    grid-auto-columns: 1fr;
+    grid-template-rows: 50vh 1fr;
+}
+
+section#intro {
+    grid-area: intro;
+    background-color: var(--color-highlight1);
+    border: 1px solid var(--color-custom-borders);
+}
+
+
+aside#popcorn-container {
+    grid-area: popcorn;
+    background-color: var(--color-highlight2);
+    border: 1px solid var(--color-custom-borders);
+}
+
+
+#popcorn-container img {
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;    
+}
+
+#popcorn-container a {
+    display: contents;
+}
+
+
+section#maintext {
+    grid-area: main;
+    background-color: var(--color-highlight1);
+    border: 1px solid var(--color-custom-borders);
+}
+
+
+@media only screen and (max-width:1200px) {
+    .main-container {
+        grid-template-areas: "popcorn" "intro" "main";
+    }
+}
+
+
+
