@@ -24,4 +24,4 @@ That's it! You're Live! [You can read more about Github Pages here](https://help
 At this point, you have a functioning website. If you want to keep it permanently as a personal website, you should probably assume contorl of it. You have two choices. 
 
 - from the settings page (see above) scrol ldown to `Danger Zone` and choose `Transfer ownership`. Go through the multi-stage confirmation process. Once you're done, the repo will belong entirely to you -- there will no longer be a copy in the class Github Roganization. **You probably shouldn't do this before the end of the semster!**
-- alternativley, just fork your repo using the `Fork` button near the top of the page on the **root page** of your repository (probably this page!). You will probably have to set publishing bakc up again -- see [viewing the live repo](#viewing-the-live-repo), above. 
+- alternatively, just fork your repo using the `Fork` button near the top of the page on the **root page** of your repository (probably this page!). You will probably have to set up publishing again -- see [viewing the live repo](#viewing-the-live-repo), above. 
