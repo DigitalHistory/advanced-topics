@@ -1,32 +1,32 @@
 * Assignment 04: Oral History
 
-In the final segment of our class, we discuss the use of non-textual media in history, especially /oral histories/. This final, short project asks you to take an existing piece of oral history and build a small web page around it. We will use a very similar set of templates to those we used last assignment; but instead of dealing with Google Maps, we'll use the [[http://popcornjs.org/][Popcorn]] events framework for creating a simple multi-media history essay out of HTML.  As with our last assignment, this is a little bit like using [[https://www.youtube.com/watch?v=Q8gGsuWouDE][hand-carved wooden Emoji]]: obviously there are much more sophisticated ways to interact with video on the web; our aim is to use this simple tool as a way to think about several issues: 
+In the final segment of our class, we discuss the use of non-textual media in history, especially /oral histories/. This final, short project asks you to take an existing piece of oral history and build a small web page around it. We will use a very similar set of templates to those we used last assignment; but instead of dealing with Google Maps, we'll use the [[https://github.com/menismu/popcorn-js][Popcorn]] events framework for creating a simple multi-media history essay out of HTML.  As with our last assignment, this is a little bit like using [[https://www.youtube.com/watch?v=Q8gGsuWouDE][hand-carved wooden Emoji]]: obviously there are much more sophisticated ways to interact with video on the web; our aim is to use this simple tool as a way to think about several issues: 
 - How do aural and visual media change the nature of historical narrative?
 - What are the challenges of building an historical narrative around an oral history, especially one that you did not conduct yourself?
-- How does technical infrastructure (like [[http://popcornjs.org/][Popcorn]] and [[http://docs.google.com][Google Docs]]) change the nature of historical narrative?
+- How does technical infrastructure (like [[https://github.com/menismu/popcorn-js][Popcorn]] and [[http://docs.google.com][Google Docs]]) change the nature of historical narrative?
 
 ** How This Project Works
 This is a very small(single-page!) website organized around an audio element. Though it might be used as a part of a larger project, it can also stand on its own.  It looks pretty good, but most of the heavy lifting is done by outside libraries:
 - *[[https://jquery.com/][jQuery]]* is an important piece of web infrastructure, widely used in many projects.
-- *[[https://github.com/jonschlinkert/remarkable][Remarkable]]* is a "markdown parser" -- it allows us to write the body of the essay in markdown and render it directly as HTML.  A really big win.
-- *[[http://getbootstrap.com/][Bootstrap]]* is the most popular "web framework" in the world. It's a sophisticated CSS & Javascript system that gets a lot of work done out of the box, and saves a huge amount of time
-- *[[https://github.com/menismu/popcorn-js][Popcorn.js]]* was a Mozilla project in the early days of HTML5. It has some neat features that I haven't been able to find in any more recent project so we're still using it here.
+- *[[https://github.com/markdown-it/markdown-it][Markdown-it]]* is a "markdown parser" -- it allows us to write the body of the essay in markdown and render it directly as HTML.  A really big win.
+- *[[https://jenil.github.io/chota/][Chota.css]]* is a minimal CSS framework that gives decent defaults for most CSS features.
+- *[[https://github.com/menismu/popcorn-js][Popcorn.js]]* was a Mozilla project in the early days of HTML5. It has some neat features that I haven't been able to find in any more recent project so we're still using it here. Included directly in the repo as maintenance of this project is somewhat haphazard and I've had to make a number of changes to the upstream version. 
 - *[[https://github.com/jsoma/tabletop][Tabletop.js]]* makes it very easy to use Google Docs spreadsheets as a data source.  
 
 Using these libraries gets us one step closer to "real-world" web development, where HTML and CSS is just a small part of your development time.
 
 Your project has just a few files:
 - [[./index.html][index.html]], which loads the frameworks described above, adds a little extra Javascript which you can change if you want (but don't need to), and sets up a basic HTML framework to give structure to the page (which you're welcome to change and probably will want to).
-- [[./index.md][index.md]], where you will actually write your assignment! You'll do it in Markdown, introducing fragments of HTML as you go where you need them. The current content of that file has examples of most of the syntax you'll want to use (though obviously you'll have to write the content yourself). ~index.md~ will be loaded by ~remarkable~ and inserted into an otherwise empty ~div~ in ~index.html~.
-- [[../css/extra-styles.css][extra-styles.css]], which adds some modest additional style information, which, again, you are likely to want to change
-- [[popcorn-data.js]] or [[popcorn-data-from-google.js]], at your discretion (I recommend using the Google sheets method)
-- *your audio file*, which is not being stored in this repository because it's not such good practice to have a big file like that in the repository if no one's going to use it. You will have to add the file to the repository and make sure the ~<audio> <source>~ points to it.
+- [[./index.md][index.md]] and [[./intro.md][intro.md]], where you will actually write your assignment! You'll do it in Markdown, introducing fragments of HTML as you go where you need them. The current content of that file has examples of most of the syntax you'll want to use (though obviously you'll have to write the content yourself). Markdown file will be loaded by ~markdown-it~ and inserted into otherwise empty ~sections~ in ~index.html~.
+- [[../css/oh-styles.css][oh-styles.css]] and [[../css/site-styles.css][site-styles.css]], which add some modest additional style information, and which, again, you are likely to want to change
+- [[popcorn-data.js]] or [[popcorn-data-from-google.js]], at your discretion (I strongly recommend using the Google sheets method)
+- *your audio file*, which is not being stored in this repository because it's not such good practice to have a big file like that in the repository if no one's going to use it. You will have to either (a) add the file to the repository, or (b) find an existing audio file form the web (recommended). In either case, make sure the ~<audio> <source>~ points to it.
 - I also include local copies of [[popcorn-complete.js][the popcorn]] and [[tabletop.js][tabletop libraries]].  The local popcorn, in particular, contains some small updates to keep the plugins working.  
 
 You should edit your files in Atom and make sure you have the ~htnl-preview~ package installed (go to ~Settings -> Install~ and search for "html preview".  ~Remarkable~ will only be able to access the contents of ~index.md~ properly when ~index.html~ being served by a webserver -- fortunately the html preview runs a tiny server for you inside your editor.  But if you try to just double click on ~index.html~ and open it in Google Chrome, you'll be disappointed.
 
 ** Checking Your Work
-As we move closer to a real-world task, we start to encounter more real-world problems. ~Remarkable~ needs to acquire the contents of ~index.md~ so that that file can be processed and fed to ~index.html~. But for [[https://en.wikipedia.org/wiki/JavaScript#Security][many good reasons]], the browser does not allow JavaScript to access local files. So our project will only work inside a web server.  This makes debugging your work much harder!
+As we move closer to a real-world task, we start to encounter more real-world problems. ~Markdown-it~ needs to acquire the contents of ~index.md~ so that that file can be processed and fed to ~index.html~. But for [[https://en.wikipedia.org/wiki/JavaScript#Security][many good reasons]], the browser does not allow JavaScript to access local files. So our project will only work inside a web server.  This makes debugging your work much harder!
 
 Fortunately, there are many solutions. One is to use the ~Preview HTML~ functionality in Atom. You can even open a DevTools window (right click in the preview pane) to look at your error messages.  However, sometimes it's easier to just work in the full browser environment. That's why I've added a server to the  ~npm~ dependencies of this repository.  This allows you to see your work in a regular browser tab. Simply navigate to the repository root directory in a terminal, and run ~npm install~ one more time, to fetch the new dependencies. Now whenever you want to look at your work, you can just run:
 
@@ -37,10 +37,9 @@ npm run server
 Then point your browser at ~localhost:8080~ and all the assignments in this repository will be available for you to browse. 
 
 ** Tips and Tricks
-- use the javascript ~seek~ function I defined to queue the audio file to a specific timecode in the file. You can call it with ~<a href="javascript:seek(135)"></a>~ -- just replace ~135~ with whatever time you want to seek to, in seconds.  Unfortunaely you'll have to write this in plain old HTML as remarkable has trouble parsing javascript links.
-- load a different Bootstrap theme by copying the CSS link from [[https://www.bootstrapcdn.com/bootswatch/?theme=0][the Bootstrap CDN]]. Feel free to experiment
-
-
+- use the javascript ~seek~ function I defined to queue the audio file to a specific timecode in the file. You can call it with ~<a href="javascript:seek(135)"></a>~ -- just replace ~135~ with whatever time you want to seek to, in seconds.  Unfortunaely you'll have to write this in plain old HTML as markdown-it has trouble parsing javascript links.
+- change the theme colors as you wish by changing the CSS variables in ~site-styles.css~. In any case, this can be useful when you want to refer to/quote form the audio in your essay. 
+- read the documentation in [[../spatial-history/README.org]] for a few more details
 ** Assignment
 - Choose a short, online oral history audio clip (approximately 3 minutes in length). I recommend [[http://storycorps.org/][StoryCorps]] as a source, though there are many oral history archives online that are equally suitable. You will need to locate the *actual media element in the oral history* -- this may be somewhat hidden, but searching for ~mp3~ or ~<audio>~ in the source code or via the browser developer tools should help.  
 - Listen to it carefully. What historical themes are suggested by it? What kinds of annotations might heighten the impact at crucial moments, or fill in background information at other times?
@@ -53,8 +52,8 @@ Your popcorn events should be keyed to the rhythms of the clip itself, appearing
 
 If you change the styling, you should not create a terrible mess! Certainly I think the page could be prettier and I welcome your improvements.  
 ** Technical Help
-As usual, I am pretty much available to answer your questions.  I also urge you to read [[http://digital.hackinghistory.ca/tools/understanding-popcorn-2/][this post]], which has a fair amount of technical detail and also gives links to further documentation.  [[http://popcornjs.org/popcorn-docs/plugins/][Documentation of the popcorn event plugins used to be available online, but all that's left now is the sourcecode on Github]].
+As usual, I am pretty much available to answer your questions.  I also urge you to read [[http://digital.hackinghistory.ca/tools/understanding-popcorn-2/][this post]], which has a fair amount of technical detail and also gives links to further documentation.  [[https://menismu.github.io/popcorn-docs/][Documentation of the popcorn event plugins is once again online, though some of it is a little out of date]]. See [[https://github.com/menismu/popcorn-docs/pulls][my open pull requests on the docs repo]] for a couple of small updates.  
 ** Submission
 As usual, I will mark your assignment on the basis of *the state of the master branch at the submission deadline*. If you finish your work in on time, there's no need to make any special branches.  
 
-For late work or resubmission of non-passing assignments, please create a new branch for me to look over. Because this repository contains several assignments, please name your resubmission branch ~resubmit-oh-1~. Subsequent branches should be called ~resubmit-oh-2~, ~resubmit-oh-3~, etc.  
++For late work or resubmission of non-passing assignments, please create a new branch for me to look over. Because this repository contains several assignments, please name your resubmission branch ~resubmit-oh-1~. Subsequent branches should be called ~resubmit-oh-2~, ~resubmit-oh-3~, etc.+ Since we havne't used resubmit branches much this smester, don't try to learn them this late i n the game. However, bear in mind that I will have limited time to do regrades this time around. I'll check in for updated repos at regular intervals and will only be able to give limite dfeedback.   
