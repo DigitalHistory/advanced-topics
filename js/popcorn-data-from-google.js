@@ -4,7 +4,7 @@ var loadPopcorn = function(){
     let pop = Popcorn("#media");
     pop.defaults ('googlemap', {
         target: 'popcorn-container',
-        apiKey: "AIzaSyAJxAlu3l5sKbilIJst2_0RFF7ATv0jTuA"
+        apiKey: "AIzaSyAJxAlu3l5sKbilIJst2_0RFF7ATv0jTuA" // replace w/ yr own key if you have one!!
     });
 
     
