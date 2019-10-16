@@ -2,7 +2,6 @@
   :PROPERTIES:
   :CUSTOM_ID: spatial-history-with-google-maps
   :END:
-*Due Date: March 18, 2019*
 
 ** Assignment
 Build a web page that includes a Google Map (complete with markers) as part of a short but substantive historical exploration of a historical topic of interest to you.  We discussed a number of such themes in the class (you should remember them from our discussion). The final product should meet the following criteria:
