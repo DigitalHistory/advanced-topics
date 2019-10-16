@@ -75,10 +75,12 @@
                  introContent = $("#intro").html(),
                  mainContent = $("#maintext").html();
 
-             /* ause footnote and attribute plugins */
+             /* use footnote, attribute and emoji plugins */
              md.use(window.markdownItAttrs)
              md.use(window.markdownitFootnote)
              md.use(window.markdownitEmoji);
+             /* enable tables */
+             md.enable('table')
 
              //retrieve the markdown files, parse them,
              // and use it to replace the contents of #intro and #maintext
