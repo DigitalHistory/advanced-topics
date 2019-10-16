@@ -50,7 +50,6 @@ function sleep ( ms) {
 ///  tests start here
 ///
 ////////////////////////////
-let name,email,githubid;
 
 // describe('Git Checks', function() {
 //   var  gitCheck;
@@ -209,7 +208,7 @@ var dom;
   
 // });
 
-var options, dom, parsedMD,mdFile, document,window;
+var options, dom, parsedMD, document;
 var Remarkable = require('remarkable');
 var md = new Remarkable({
   html: true,
