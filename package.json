@@ -4,9 +4,12 @@
   "description": "exercises for learning Digital History",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --reporter mochawesome --reporter-options reportDir=TestResults,reportFilename=testresults || true",
-    "watch": "mocha --reporter mochawesome --reporter-options reportDir=TestResults,reportFilename=testresults -w",
-    "collectjson": "node collectjson-teacher.js",
+    "test": "mocha -t 0 test/test.js  --reporter mochawesome --reporter-options reportDir=TestResults,reportFilename=testresults",
+    "test-less-confusing": "mocha -t 0 test/test.js --reporter mochawesome --reporter-options reportDir=TestResults,reportFilename=testresults || true",
+    "watch": "mocha -t 0 test/test.js   --reporter mochawesome --reporter-options reportDir=TestResults,reportFilename=testresults -w",
+    "test-maps": "mocha -t 0 test/test.js --grep \"Spatial History\" --reporter mochawesome --reporter-options reportDir=TestResults,reportFilename=testresults",
+    "test-oh": "mocha -t 0 test/test.js --grep \"Oral History\" --reporter mochawesome --reporter-options reportDir=TestResults,reportFilename=testresults",
+    "test-proposal": "mocha -t 0 test/test.js --grep \"Proposal\" --reporter mochawesome --reporter-options reportDir=TestResults,reportFilename=testresults",
     "server": "node node_modules/http-server/bin/http-server"
   },
   "author": "Matt Price",
