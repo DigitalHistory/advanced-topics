@@ -14,24 +14,24 @@ jsdom.defaultDocumentFeatures = {
 };
 
 
-var repoPath = path.resolve(process.env.REPO || __dirname + '/../.git');
-var ignoreCommitEmails = "matt.price@utoronto.ca";
+let repoPath = path.resolve(process.env.REPO || __dirname + '/../.git');
+let ignoreCommitEmails = "matt.price@utoronto.ca";
 const matchesProfEmail = function (email, profEmails) {
 return profEmails.indexOf(email) > -1;
 };
 
-var studentCommits = 0,
+let studentCommits = 0,
 minCommits = 5;
-var chai=require('chai'),
+let chai=require('chai'),
 expect=chai.expect;
 chai.use(require('chai-fs'));
 
-var name,email,githubid;
+let name,email,githubid;
 
-var indexFile = 'spatial-history/index.html',
+let indexFile = 'spatial-history/index.html',
     mdFile = 'spatial-histoyr/index.md';
 
-var window, jq;
+let window, jq;
 gitConfig(function (err, config) {
   if (err) {return done(err)}
   if (config.user.name) {name = config.user.name}
@@ -50,7 +50,7 @@ function sleep ( ms) {
 ///  tests start here
 ///
 ////////////////////////////
-var name,email,githubid;
+let name,email,githubid;
 
 // describe('Git Checks', function() {
 //   var  gitCheck;
