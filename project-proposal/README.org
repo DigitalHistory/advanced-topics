@@ -22,7 +22,7 @@ The Hacking History Foundation is pleased to announce a new /Digital History Ini
 - Small Team Grant :: This grant funds up to $50,000 of work by a small team, in a period of 1-3 years.
 - Large Grant :: This fund, which has no fixed upper limit of funding, funds long-term projects over a period of 3-5 years.
 
-We invite applications for all three categories, to be submitted by <2019-04-09 Tue>. Be sure to identify the category of grant you are applying for. Regardless of the project's scale, the proposal should be:
+We invite applications for all three categories, to be submitted by <2019-12-06 Fri>. Be sure to identify the category of grant you are applying for. Regardless of the project's scale, the proposal should be:
 
 - of genuine historical interest
 - technically feasible
