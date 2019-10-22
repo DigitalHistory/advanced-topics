@@ -23,8 +23,6 @@ Your project has just a few files:
 - *your audio file*, which is not being stored in this repository because it's not such good practice to have a big file like that in the repository if no one's going to use it. You will have to either (a) add the file to the repository, or (b) find an existing audio file from the web (recommended). In either case, make sure the ~<audio> <source>~ points to it.
 - I also include local copies of [[popcorn-complete.js][the popcorn]] and [[tabletop.js][tabletop libraries]].  The local popcorn, in particular, contains some small updates to keep the plugins working.  
 
-# Should be updated for VSCode instead of Atom
-
 You should edit your files in Atom and make sure you have the ~htnl-preview~ package installed (go to ~Settings -> Install~ and search for "html preview".  ~Remarkable~ will only be able to access the contents of ~index.md~ properly when ~index.html~ being served by a webserver -- fortunately the html preview runs a tiny server for you inside your editor.  But if you try to just double click on ~index.html~ and open it in Google Chrome, you'll be disappointed.
 
 ** Checking Your Work
