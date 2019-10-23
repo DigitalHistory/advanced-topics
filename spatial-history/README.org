@@ -1,4 +1,4 @@
-* Spatial History with Google Maps
+* Assignment 04: Spatial History with Google Maps
   :PROPERTIES:
   :CUSTOM_ID: spatial-history-with-google-maps
   :END:

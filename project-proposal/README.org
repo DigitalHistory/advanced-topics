@@ -1,10 +1,10 @@
-* Assignment 05: Project Proposal
+* Assignment 06: Project Proposal
 :PROPERTIES:
 :PARENT:   Assignments
 :ID:       o2b:9c3ea2d8-28ce-4a11-aa3d-7513c92f93fd
 :POST_DATE: [2017-03-10 Fri 13:12]
 :POSTID:   629
-:EXPORT_FILE_NAME: assignment-05-project-proposal
+:EXPORT_FILE_NAME: assignment-06-project-proposal
 :END:
 
 For your final assignment, respond to the following /call for proposals/ with an application approximately 2000 words in length, plus a provisional budget in the form of a spreadsheet (includea PDF, or provide a link to a *viewable* google sheet) or Markdown table. There's a nice [[https://chrome.google.com/webstore/detail/markdowntablemaker/cofkbgfmijanlcdooemafafokhhaeold?hl=en][Google Sheets Extension]] that will convert a Google sheet to markdown for you. 
