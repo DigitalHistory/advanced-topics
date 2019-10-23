@@ -22,7 +22,7 @@ The Hacking History Foundation is pleased to announce a new /Digital History Ini
 - Small Team Grant :: This grant funds up to $50,000 of work by a small team, in a period of 1-3 years.
 - Large Grant :: This fund, which has no fixed upper limit of funding, funds long-term projects over a period of 3-5 years.
 
-We invite applications for all three categories, to be submitted by <2019-04-09 Tue>. Be sure to identify the category of grant you are applying for. Regardless of the project's scale, the proposal should be:
+We invite applications for all three categories, to be submitted by <2019-12-06 Fri>. Be sure to identify the category of grant you are applying for. Regardless of the project's scale, the proposal should be:
 
 - of genuine historical interest
 - technically feasible
@@ -37,7 +37,7 @@ The proposal should be composed of the following elements (word lengths are appr
 - Methods (500 words) :: Describe the tools you intend to use, and your plans for both research and dissemination of results
 - Timeline (500 words) :: Describe the work that will be required to complete this project, and how much time you and your potential collaborators or research assistants will require to bring it to completion
 - Importance (500 words) :: Discuss the importance of this research, and its place in a broader historical conversation
-- Budget (1 Spreadsheet page) :: Outline and justify the costs of the project. [Note to students of Hacking History: we recognize that your costs may be, er, rough ballpark estimates. You won't be graded on the accuracy of your budget, but make a serious effort to include all the categories of cost.]
+- Budget (1 Spreadsheet page) :: Outline and justify the costs of the project. [Note to students of Digital History: we recognize that your costs may be, er, rough ballpark estimates. You won't be graded on the accuracy of your budget, but make a serious effort to include all the categories of cost.]
 
 ** Expectations
 This is a difficult assignment. As usual, you should turn in a lucidly-written paper with minimal grammatical or spelling errors, written in accordance with scholarly standards for citation and originality.  Your project should be of genuine historical interest, and your text should convince me of its importance. Your methods section should describe the challenges inherent in the project, and provide a provisional plan for overcoming them.  You should demonstrate awareness both of the difficulties of DH research, and of the existing resources that are available to scholars undertaking this kind of work.

@@ -5,13 +5,13 @@ Congratulations, you have finished all the "basic skills" assignments. All of th
 
 These three assignments share some basic infrastructure.  This is on purpose.  If you do all three of them, you should be able to very easily turn this repository into a small "digital portfolio" showcasing your work for this class. Not all of you will want to do this, but it's nice to have the option.
 
-There's a lot more to read here, but for now what you probably want is [a link to assignment 3](./spatial-history/README.org).
+There's a lot more to read here, but for now what you probably want is [a link to assignment 4](./spatial-history/README.org).
 
-And doubtless also [a link to assignment 4](./oral-history).
+And doubtless also [a link to assignment 5](./oral-history).
 
-[Assignment 5](./project-proposal) remains somewhat skeletally defined for now. 
+[Assignment 6](./project-proposal) remains somewhat skeletally defined for now. 
 
-## **PLEASE DO NOT MAKE CHANGES OUTSIDE OF ASSIGNMENT 3-RELATED FILES UNTIL I TELL YOU IT'S SAFE TO DO SO!**
+## **PLEASE DO NOT MAKE CHANGES OUTSIDE OF ASSIGNMENT 4-RELATED FILES UNTIL I TELL YOU IT'S SAFE TO DO SO!**
 
 ## Viewing the repo
 Because of browser security settings, this repository will not display properly when you try to view the files directly in your browser.  **This is good -- you don't want your browser to read and write sensitive files on your computer!** However, it's a bit inconvenient for us. In order to check your work, you will need to start a simple server in the repository. the easiest way to do that is to `npm run server` from the command line or by using the npm run scrpt command in VSCode. This will serve the files at `localhost:8080`; if you navigate there in your browser, you will see the live files. Your work may not always update automatically. In Chrome, open devtools and then click and hold the refresh button o n the toolbar; choose "Empty Cashe and Reload".  In Firefox, [follow these instructions](https://support.mozilla.org/en-US/questions/1103414).
@@ -62,18 +62,6 @@ In some of your assignments, it may be useful to create tables. Here's an exampl
 
 Notice the addition of a pair of curly brackets containing a CSS celector below the table -- this wil appy the class `striped` to the table when it is rendered in HTML. 
 
-### Tables
-
-In some of your assignments, it may be useful to create tables. Here's an example: 
-| Heading | Columns |
-| -----   | ----    |
-| test    | data    |
-| test    | data    |
-| test    | data    |
-{.striped}
-
-Notice the addition of a pair of curly brackets containing a CSS celector below the table -- this wil appy the class `striped` to the table when it is rendered in HTML.
-
 ## Viewing the Live Repo
 
 It is **really easy** to flip a switch and make this repo go live! Near the top of this page you will see a :gear: gear icon -- this is the settings page. Navigate to that page and scroll odwn to the heading labeled `Github Pages`.  There's a drop-down menu there currently reading "none".  Click on the box and select `master branch` instead.  Moments later, your site will appear live at the URL now displayed in a blue box within ht eGithub Pages section.
@@ -84,6 +72,6 @@ That's it! You're Live! [You can read more about Github Pages here](https://help
 
 At this point, you have a functioning website. If you want to keep it permanently as a personal website, you should probably assume control of it. You have two choices. 
 
-- from the settings page (see above) scrol ldown to `Danger Zone` and choose `Transfer ownership`. Go through the multi-stage confirmation process. Once you're done, the repo will belong entirely to you -- there will no longer be a copy in the class Github Roganization. **Don't do this before the end of the semester!**
+- from the settings page (see above) scroll down to `Danger Zone` and choose `Transfer ownership`. Go through the multi-stage confirmation process. Once you're done, the repo will belong entirely to you -- there will no longer be a copy in the class Github Roganization. **Don't do this before the end of the semester!**
 - alternatively, just fork your repo using the `Fork` button near the top of the page on the **root page** of your repository (probably this page!). You will probably have to set up publishing again -- see [viewing the live repo](#viewing-the-live-repo), above. 
 
