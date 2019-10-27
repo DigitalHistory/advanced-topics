@@ -21,8 +21,10 @@
         <!-- consider adding your own API key if you want to keep using this -->
         <!-- https://developers.google.com/maps/documentation/javascript/get-api-key -->
         <!-- my key will *only* work on github.io and your local computer  -->
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJxAlu3l5sKbilIJst2_0RFF7ATv0jTuA"></script>
+        <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJxAlu3l5sKbilIJst2_0RFF7ATv0jTuA"></script> -->
 
+
+        
         <!-- call all our CSS files: chota, site-wide mods, and page-specific mods -->
        
         <link rel="stylesheet" href="../css/chota.css" type="text/css" media="screen" />
@@ -67,7 +69,17 @@
         <footer id="page-footer">
             
         </footer> 
-       
+
+        <!-- Switching to leaflet! CSS first -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+              integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+              crossorigin=""/>
+        <!-- Leaflet also requires JS -->
+        <!-- Make sure you put this AFTER Leaflet's CSS -->
+        <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+                integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+                crossorigin=""></script>
+
         <!-- this line calls your custom js -->
         <script src="../js/maps-setup.js"></script>
         <script>
@@ -105,8 +117,8 @@
                          renderedcontent2 = md.render(content);
                      $("#maintext").html(mainContent + renderedcontent2);
                  }, 'text')
-                 initializeMap();
              }, 'text');
+             initializeMap();
              
          };
         </script>
