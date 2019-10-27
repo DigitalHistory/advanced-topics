@@ -5,11 +5,11 @@ Congratulations, you have finished all the "basic skills" assignments. All of th
 
 These three assignments share some basic infrastructure.  This is on purpose.  If you do all three of them, you should be able to very easily turn this repository into a small "digital portfolio" showcasing your work for this class. Not all of you will want to do this, but it's nice to have the option.
 
-There's a lot more to read here, but for now what you probably want is [a link to assignment 4](./spatial-history/README.org).
+There's a lot more to read here, but for now what you probably want is [a link to assignment 4](./spatial-history/README.org), the spatial history assignment.
 
-And doubtless also [a link to assignment 5](./oral-history).
+And doubtless also [a link to assignment 5](./oral-history), the oral history assignment.
 
-[Assignment 6](./project-proposal) remains somewhat skeletally defined for now. 
+[Assignment 6](./project-proposal), the project proposal, remains somewhat skeletally defined for now. 
 
 ## **PLEASE DO NOT MAKE CHANGES OUTSIDE OF ASSIGNMENT 4-RELATED FILES UNTIL I TELL YOU IT'S SAFE TO DO SO!**
 
