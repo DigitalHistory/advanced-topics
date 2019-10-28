@@ -1,4 +1,4 @@
-/* global L:false */
+/* global L:false document:false */
 //////////////////////////
 // Globally Scoped Vars //
 //////////////////////////
@@ -136,8 +136,12 @@ let romeRectangle = L.rectangle([
     opacity: 0.8,
     weight: 2,
     fillColor: 'saddlebrown',
-    fillOpacity: 0.35
+    fillOpacity: 0.35,
+    infoHTML: 'ROMAN RECTANGLE',
+    windowContent: `<h3>ROMAN RECTANGLE</h3><p>I'm a rectangle</p3>`
 });
+romeRectangle.bindPopup(romeRectangle.options.windowContent)
+romeRectangle.bindTooltip(romeRectangle.options.infoHTML );  
 
 let romeCircle = L.circle([41.8900, 12.4900], {
     color: 'darkgreen',
@@ -149,11 +153,12 @@ let romeCircle = L.circle([41.8900, 12.4900], {
     infoHTML: 'ROMAN CIRCLE',
     windowContent: `<h3>ROMAN CIRCLE</h3><p>I am a circle.</p>`
 });
-
-
 romeCircle.bindPopup(romeCircle.options.windowContent)
 romeCircle.bindTooltip(romeCircle.options.infoHTML );  
 
+
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////
