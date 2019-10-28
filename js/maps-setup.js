@@ -10,10 +10,9 @@
 // whenever we need to -- they have 'global scope'
 
 // map initialization variables
-let my_map, // this will hold the map
+let projectMap, // this will hold the map
     myCenter = [41.8986, -90.4768], // *latitude*, then longitude
-    myZoom = 4, // set your preferred zoom here
-    legendHTML = ''; // this doesn't need to be in global scope
+    myZoom = 4; // set your preferred zoom here
 
 
 // I'm complicating things a bit with this next set of variables, which will help us
@@ -96,7 +95,7 @@ let markerAssociations = [
 
 // With this powerful feature you can add arbitrary
 // data layers to your map.  It's cool. Learn more at:
-// https://developers.google.com/maps/documentation/javascript/datalayer#load_geojson
+// https://leafletjs.com/examples/geojson/
 // but essentially: we can add all kinds of features here, including polygons and other shapes
 // you can create geoJSON layers here: http://geojson.io/
 // and learn more about the format here: https://en.wikipedia.org/wiki/GeoJSON
@@ -127,9 +126,8 @@ const myGeoJSON= {
  
 // create a rectangle and a circle
 // for more info on shapes you can draw, look at the
-// API docs: https://developers.google.com/maps/documentation/javascript/examples/polygon-simple
-// https://developers.google.com/maps/documentation/javascript/examples/rectangle-simple
-// etc. 
+// API docs: https://leafletjs.com/reference-1.5.0.html#polygon
+//  (keep scrolling for docs on rectangles and circles)
 let romeRectangle = L.rectangle([
     [41.920, 12.501],
     [41.900, 12.485]
@@ -208,7 +206,7 @@ function populateMarkerLayer (markers, layerGroup) {
             .bindPopup('<h1>' + m.title + '</h1>' + m.description);
         layerGroup.addLayer(marker);
     }
-    layerGroup.addTo(my_map);
+    layerGroup.addTo(projectMap);
     return layerGroup
 }
 
@@ -223,7 +221,7 @@ function addLayerToLegendHTML (layerGroup, querySelector) {
         let info = current.options.infoHTML ? layerGroup._layers[l].options.infoHTML :
             current.options.title || 'no title';
         output +=  `
-<div class="pointer" onclick="locateMarker(my_map._layers[${layerGroup._leaflet_id}]._layers[${l}])"> 
+<div class="pointer" onclick="locateMarker(projectMap._layers[${layerGroup._leaflet_id}]._layers[${l}])"> 
     ${info} 
 </div>`;
     }
@@ -238,7 +236,7 @@ function initializeMap() {
 
     // this one line creates the actual map
     // it calls a simple 2-line function defined above
-    my_map = createMap('map_canvas');
+    projectMap = createMap('map_canvas');
     // set the legend location
     let legendSelector = '#map_legend';
 
@@ -269,12 +267,12 @@ function initializeMap() {
                 layer.options.title = feature.properties.title}
         },
         description: 'geoJSON Objects'
-    }).addTo(my_map);
+    }).addTo(projectMap);
 
     addLayerToLegendHTML(mapJSON, legendSelector);
     
     // add shapes layer as well
-    let shapes = L.layerGroup([romeRectangle, romeCircle], {description: 'Some Random Shapes'}).addTo(my_map);
+    let shapes = L.layerGroup([romeRectangle, romeCircle], {description: 'Some Random Shapes'}).addTo(projectMap);
     addLayerToLegendHTML(shapes, legendSelector);
 
     // add a layers control to the map
@@ -286,17 +284,17 @@ function initializeMap() {
                      "Red Markers": redMarkers,
                      "GeoJSON": mapJSON,
                      "Shapes": shapes};
-    L.control.layers(null, layerListObject).addTo(my_map);
+    L.control.layers(null, layerListObject).addTo(projectMap);
 }
 
 
 // probably always want to use this toggle function instead!!
 function toggleLayer (layer, layerHidden) {
     if (layerHidden) {
-        my_map.addLayer(layer);
+        projectMap.addLayer(layer);
         console.log("hidden true")
     } else {
-        my_map.removeLayer(layer);
+        projectMap.removeLayer(layer);
         console.log("hidden false")
     }
     layerHidden = !layerHidden;
@@ -319,8 +317,7 @@ let blueMarkersHidden = false,
 // I added this for fun.  It allows you to trigger the infowindow
 // from outside the map.  
 function locateMarker (marker) {
-    marker.getLatLng ? my_map.panTo(marker.getLatLng()).setZoom(13) : my_map.fitBounds(marker.getBounds()); 
-    //my_map.panTo( marker.getLatLng ?  marker.getLatLng() : marker.getBounds().getCenter() ).setZoom(12)
+    marker.getLatLng ? projectMap.panTo(marker.getLatLng()).setZoom(13) : projectMap.fitBounds(marker.getBounds()); 
     marker.openPopup();
 }
 
