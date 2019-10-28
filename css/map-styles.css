@@ -40,7 +40,7 @@ div#map_legend {
     justify-content: space-around;
     gap: 5px;
     flex-wrap: wrap;
-    grid-template-columns: repeat(auto-fit, 300px);
+    grid-template-columns: repeat(auto-fit, 45%);
 
 }
 div#map_legend div.pointer {
@@ -62,6 +62,14 @@ div.pointer img {
     border: 1px solid black;
     padding: 5px;
     margin: 5px;
+}
+
+/* Leaflet Popups crate 2 divs each: div.leaflet-popup-content-wrapper and 
+   div.leaflet-popup-content. You can ddress them as you like.*/
+div.leaflet-popup-content {
+}
+
+div.leaflet-popup-content img {
 }
 
 @media only screen and (max-width:1200px) {

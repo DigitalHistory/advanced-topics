@@ -21,7 +21,6 @@ let projectMap, // this will hold the map
 const blueURL = 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
       redURL = 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png';
 
-
 // create new icon classes
 const myIconClass = L.Icon.extend({
     options: {
