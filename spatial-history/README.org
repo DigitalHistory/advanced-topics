@@ -54,6 +54,9 @@ npm run server
 #+end_src
 
 Then point your browser at ~localhost:8080~ and all the assignments in this repository will be available for you to browse.  
+
+** Tests
+At present, *there are no working tests*. If I'm able to get them up and running before it becomes irrelevant, I will push changes to all of your repos!
 ** Expectations
 Push your code to the master branch as usual. The state of the master branch on Github at the due date will constitute your submission!
 
