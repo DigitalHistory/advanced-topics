@@ -386,38 +386,3 @@ function initializeMap() {
     // while the values are actual Leaflet Layer Objects
     L.control.layers(null, layerListObject).addTo(projectMap);
 }
-
-
-// probably always want to use this toggle function instead!!
-function toggleLayer (layer, layerHidden) {
-    if (layerHidden) {
-        projectMap.addLayer(layer);
-        console.log("hidden true")
-    } else {
-        projectMap.removeLayer(layer);
-        console.log("hidden false")
-    }
-    layerHidden = !layerHidden;
-}
-
-function toggleLayers (layers) {
-    for (l of layers ) {
-        toggleLayer (l.main, l.hidden);
-    }
-}
-//global variable to track state of markers
-let gryfMarkersHidden = false,
-    slythMarkersHidden = false,
-    jsonHidden = false,
-    shapesHidden = false,
-    markerLayers = [{main: gryfMarkers, hidden: gryfMarkersHidden},
-                    {main: slythMarkers, hidden: slythMarkersHidden}]
-
-
-// I added this for fun.  It allows you to trigger the infowindow
-// from outside the map.  
-function locateMapFeature (marker) {
-    marker.getLatLng ? projectMap.panTo(marker.getLatLng()).setZoom(16) : projectMap.fitBounds(marker.getBounds()); 
-    marker.openPopup();
-}
-
