@@ -1,36 +1,36 @@
-// initialize the variables we need
+/* global L:false */
+//////////////////////////
+// Globally Scoped Vars //
+//////////////////////////
+
+// In order to access map data, we need some of these variables to
+// be defined in global scope. In some cases we can assign values here;
+// in others we'll wait till we run the initialization function
 // we do this here to make sure we can access them
 // whenever we need to -- they have 'global scope'
-let my_map, // this will hold the map
-    my_map_options, // this will hold the options we'll use to create the map
-    myCenter = [41.8986, -90.4768], // *latitude*, then longitude
-    myZoom = 4,
-    // my_markers = [], // we use this in the main loop below to hold the markers
-    // // this one is strange.  In google maps, there is usually only one
-    // // infowindow object -- its content and position change when you click on a
-    // // marker.  This is counterintuitive, but we need to live with it.  
-    // infowindow = new google.maps.InfoWindow({content: ""}),
-    legendHTML = "",
-    myJSON,
-    blueMarkers,
-    redMarkers,
-    allMarkers;
 
+// map initialization variables
+let my_map, // this will hold the map
+    myCenter = [41.8986, -90.4768], // *latitude*, then longitude
+    myZoom = 4, // set your preferred zoom here
+    legendHTML = ''; // this doesn't need to be in global scope
 
 
 // I'm complicating things a bit with this next set of variables, which will help us
 // to make multi-colored markers
-const blueURL = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
-      redURL = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+// other color options are green, orange, yellow, violet, grey, black
+const blueURL = 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
+      redURL = 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png';
+
 
 // create new icon classes
 const myIconClass = L.Icon.extend({
     options: {
-        //iconSize:     [38, 95],
-	//shadowSize:   [50, 64],
-	//iconAnchor:   [22, 94],
-	//shadowAnchor: [4, 62],
-	//popupAnchor:  [-3, -76]
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
     }});
 // create the new icon types -- cf. https://leafletjs.com/examples/custom-icons/ and
 // also https://leafletjs.com/reference-1.5.0.html#icon
@@ -38,168 +38,255 @@ const blueIcon = new myIconClass({iconUrl: blueURL}),
       redIcon = new myIconClass({iconUrl: redURL});
 
 
-// this is for fun, if you want it.  With this powerful feature you can add arbitrary
+///////////////////////////////////////////////////////////////////////
+// CHANGE THESE VARIABLE NAMES AND THEIR VALUES TO SUIT YOUR PROJECT //
+///////////////////////////////////////////////////////////////////////
+
+
+//////////////////////////////////
+// MAP DATA PART 1: MARKER INFO //
+//////////////////////////////////
+
+// 'L' is the Leaflet object.
+let blueMarkers = L.layerGroup([], {description: 'Blue Markers', defaultIcon: blueIcon}),
+    redMarkers  = L.layerGroup([], {description: 'Red Markers', defaultIcon: redIcon}),
+    allMarkers = L.layerGroup([]);
+
+
+    ///////////////////////////////
+    // YOU NEED TO CHANGE THESE! //
+    ///////////////////////////////
+
+// This is a placeholder array; we use it to generate other JS variables
+// that will be more useful to us later on
+// but writing it this way keeps the code as D.R.Y. as possible
+let redMarkerInfo =
+    [
+        {position: [41.8986,12.4768],
+         icon: redIcon, // this sets the image that represents the marker in the map
+         title: "third Marker",
+         description: '<img title="Picture of Quote. Src: someone, some year"  src="https://s-media-cache-ak0.pinimg.com/736x/6d/e2/25/6de2251b8b4be709dcc936ae4f0caaaf.jpg"/>' +
+         '<blockquote>quote quote quote quote</blockquote>'
+        }
+    ],
+    blueMarkerInfo =
+    [{position: [41.9000,12.5000],
+      icon: blueIcon, // this sets the image that represents the marker in the map to the one
+      // located at the URL which is given by the variable blueURL, see above
+      title: "first Marker",
+      description: "<p> and this would be the extended description</p>"
+     },
+     {position: [41.8902,12.4923],
+      icon: blueIcon, // this sets the image that represents the marker in the map
+      title: "second Marker",
+      description: "<p> and <a href='http://something'>this would</a> be the extended description</p>"
+     }];
+
+// associate the marker info with the right layers
+// KEEP THIS VARIABLE NAME, but change the property values
+// to match your variable name hcoices above
+let markerAssociations = [
+    {layer: blueMarkers, info: blueMarkerInfo},
+    {layer: redMarkers, info: redMarkerInfo}];
+
+
+//////////////////////////////
+// MAP DATA PART 2: GEOJSON //
+//////////////////////////////
+
+// With this powerful feature you can add arbitrary
 // data layers to your map.  It's cool. Learn more at:
 // https://developers.google.com/maps/documentation/javascript/datalayer#load_geojson
 // but essentially: we can add all kinds of features here, including polygons and other shapes
 // you can create geoJSON layers here: http://geojson.io/
 // and learn more about the format here: https://en.wikipedia.org/wiki/GeoJSON
-// to get a fill color, you will need to set the `myColor` property as below. 
+// to set the line and fill color, you will need to set the `myColor` property as below. 
 const myGeoJSON= {
     "type":"FeatureCollection",
     "features":
     [{"type":"Feature",
-      "properties":{myColor: 'red'},
+      "properties":{"title": 'Red Polygon',myColor: 'red'},
       "geometry":{"type":"Polygon",
                   "coordinates":[[[-85.60546875,49.03786794532644],[-96.6796875,40.713955826286046],
                                   [-79.62890625,37.71859032558816],[-81.2109375,49.26780455063753],
-                                  [-85.60546875,49.03786794532644]]]}},
+                                  [-85.60546875,49.03786794532644]]]},
+     },
      {"type":"Feature",
-      "properties":{myColor: 'green'},
+      "properties":{"title": 'Green Polygon', myColor: 'green'},
       "geometry":{"type":"Polygon",
                   "coordinates":[[[-113.203125,58.35563036280967],[-114.78515624999999,51.944264879028765],
                                   [-101.6015625,51.944264879028765],[-112.32421875,58.263287052486035],
                                   [-113.203125,58.35563036280967]]]
-                 }}]};
+                 },
+      }]};
+
+ 
+////////////////////////////////////////////////////////
+// MAP DATA PART 3: DIRECT CREATION OF SHAPE OVERLAYS //
+////////////////////////////////////////////////////////
+ 
+// create a rectangle and a circle
+// for more info on shapes you can draw, look at the
+// API docs: https://developers.google.com/maps/documentation/javascript/examples/polygon-simple
+// https://developers.google.com/maps/documentation/javascript/examples/rectangle-simple
+// etc. 
+let romeRectangle = L.rectangle([
+    [41.920, 12.501],
+    [41.900, 12.485]
+], {
+    color: 'maroon',
+    opacity: 0.8,
+    weight: 2,
+    fillColor: 'saddlebrown',
+    fillOpacity: 0.35
+});
+
+let romeCircle = L.circle([41.8900, 12.4900], {
+    color: 'darkgreen',
+    opacity: 0.8,
+    weight: 2,
+    fillColor: 'forestgreen',
+    fillOpacity: 0.35,
+    radius: 1000,
+    infoHTML: 'ROMAN CIRCLE',
+    windowContent: `<h3>ROMAN CIRCLE</h3><p>I am a circle.</p>`
+});
 
 
-/* a function that will run when the page loads.  It creates the map
-   and the initial marker.  If you want to create more markers, do it here. */
-function initializeMap() {
-    // my_map_options = {
-    //   center:  my_center, // to change this value, change my_center above
-    //   zoom: 13,  // higher is closer-up
-    //   mapTypeId: google.maps.MapTypeId.HYBRID // you can also use TERRAIN, STREETMAP, SATELLITE
-    // };
+romeCircle.bindPopup(romeCircle.options.windowContent)
+romeCircle.bindTooltip(romeCircle.options.infoHTML );  
 
-    // this one line creates the actual map
-    my_map = L.map('map_canvas').setView(myCenter, myZoom);
+
+
+/////////////////////////////////////////////
+// FUNCTIONS FUNCTIONS FUNCTIONS FUNCTIONS //
+/////////////////////////////////////////////
+
+
+/**
+ * create a Leaflet map inside an element, add base layer and return the map as a return value
+ * @param {HTMLElement|string} element: can be either a full HTMLElement or the ID attribute
+ * of a DOM node
+ * @returns {Object} a Leaflet map object 
+ */
+function createMap (element) {
+    const map = L.map(element).setView(myCenter, myZoom);
     // now we add the base layer
+    // you can change this if you want!
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
 	attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
 	maxZoom: 18,
 	id: 'mapbox.streets',
 	accessToken: 'pk.eyJ1IjoidGl0YW5pdW1ib25lcyIsImEiOiJjazF0bTdlNXQwM3gxM2hwbXY0bWtiamM3In0.FFPm7UIuj_b15xnd7wOQig'
     })
-        .addTo(my_map);
+        .addTo(map);
+    return map
+}
 
 
-
-    // and marker layers -- for now, red and blue
-    blueMarkers = L.layerGroup([]).addTo(my_map);
-    redMarkers = L.layerGroup([]).addTo(my_map);
-    allMarkers = L.layerGroup([]).addTo(my_map);
-    // my_map = new google.maps.Map(document.getElementById("map_canvas"),
-    //                              my_map_options);
-    // this is an *array* that holds all the marker info
-    ///////////////////////////////
-    // YOU NEED TO CHANGE THESE! //
-    ///////////////////////////////
-
-    let all_my_markers =
-        [{position: [41.9000,12.5000],
-          icon: blueIcon, // this sets the image that represents the marker in the map to the one
-          // located at the URL which is given by the variable blueURL, see above
-          title: "first Marker",
-          window_content: "<h1>Marker1</h1><p> and this would be the extended description</p>"
-         },
-         {position: [41.8902,12.4923],
-          icon: blueIcon, // this sets the image that represents the marker in the map
-          title: "second Marker",
-          window_content: "<h1>Marker2</h1><p> and <a href='http://something'>this would</a> be the extended description</p>"
-         },
-         {position: [41.8986,12.4768],
-          icon: redIcon, // this sets the image that represents the marker in the map
-          title: "third Marker",
-          window_content: '<h1>Marker3</h1><img title="Picture of Quote. Src: someone, some year"  src="https://s-media-cache-ak0.pinimg.com/736x/6d/e2/25/6de2251b8b4be709dcc936ae4f0caaaf.jpg"/>' +
-          '<blockquote>quote quote quote quote</blockquote>'
-         }
-        ];
+function populateMarkerLayer (markers, layerGroup) {
+    // we use the global vars defined at top of
+    // this file -- we will need to access them later
+    // you may wantto change these names later
 
     // iterate over the marker array, adding to the main marker layer but
     // *also* to another layer if the icon property is set. 
-    for (const m of all_my_markers) {
+    for (const m of markers) {
+        console.log(m);
+        // define a Leaflet marker object for each marker
+        // we pas two parameters: a position (2-value array of lat & lng vals)
+        // and an object containing marker properties
         let marker =  L.marker (m.position, {
-            icon: m.icon,
-            title: m.title})
-            .bindPopup(m.window_content);
-        switch (m.icon) {
-        case (blueIcon): {blueMarkers.addLayer(marker)}
-        case (redIcon): {redMarkers.addLayer(marker)}
-        //default: {marker.addTo(my_map)}
-        }
-        allMarkers.addLayer(marker);
-   
-        
-    //     // these next lines are ugly, and you could change it to be prettier.
-    //     // be careful not to introduce syntax errors though.  
-    //     legendHTML +=
-    //         "<div class=\"pointer\" onclick=\"locateMarker(my_markers[" + j + "])\"> " +
-    //         marker.window_content + "</div>";
-    //     marker.info = new google.maps.InfoWindow({content: marker.window_content});
-    //     let listener = google.maps.event.addListener(marker, 'click', function() {
-    //         // if you want to allow multiple info windows, uncomment the next line
-    //         // and comment out the two lines that follow it
-            
-    //         //this.info.open(this.map, this);
-    //         infowindow.setContent (this.window_content);
-    //         infowindow.open(my_map, this);
-    //     });
-    //     my_markers.push({marker:marker, listener:listener});
-    //     if (all_my_markers[j].icon === blueURL ) {
-    //         blue_markers.push({marker:marker, listener:listener});
-    //     } else if (all_my_markers[j].icon === redURL ) {
-    //         red_markers.push({marker:marker, listener:listener});
-    //     }
-        
-    // }
-    // // actually set the legend HTML
-    // $('#map_legend').html(legendHTML);
+            // We set the icon 
+            icon: m.icon || layerGroup.options.defaulIcon || L.Icon.Default,
+            title: m.title,
+            // This is what we'll use to build the description below
+            // you may wantto modify this
+            infoHTML: '<h3>' + m.title + '</h3>'
+        })
+            // now we add the popup window html
+            .bindPopup('<h1>' + m.title + '</h1>' + m.description);
+        layerGroup.addLayer(marker);
+    }
+    layerGroup.addTo(my_map);
+    return layerGroup
+}
 
-    // for fun, add some geoJSON from above
-    // here we use the myColor attributes of the geoJSON objects from above
-    // to actually set the color of the jeogson features
-    // strokeWeight "5" is awfully thick and probalby not what you want!
-    mapJSON = L.geoJSON(myGeoJSON, {
-        style: function(feature) {
-            let c = feature.properties.myColor;
-            return {color: c, weight: 3, fillColor: c, fillOpacity: 0.5}
-        }
-    }).addTo(my_map);
+function addLayerToLegendHTML (layerGroup, querySelector) {
+    console.log(layerGroup);
+    let el = document.querySelector(querySelector),
+        output = `<div class='legend-content-group-wrapper'><h2>${layerGroup.options.description}</h2>`;
+    for (let l in layerGroup._layers) {
+        // this is hideously ugly! very roundabout way
+        // to access anonymous marker from outside the map
+        let current = layerGroup._layers[l];
+        let info = current.options.infoHTML ? layerGroup._layers[l].options.infoHTML :
+            current.options.title || 'no title';
+        output +=  `
+<div class="pointer" onclick="locateMarker(my_map._layers[${layerGroup._leaflet_id}]._layers[${l}])"> 
+    ${info} 
+</div>`;
+    }
+    output += '</div>'
+    el.innerHTML += output;
+    return el.innerHTML
+}
+
+/* a function that will run when the page loads.  It creates the map
+   and the initial marker.  If you want to create more markers, do it here. */
+function initializeMap() {
+
+    // this one line creates the actual map
+    // it calls a simple 2-line function defined above
+    my_map = createMap('map_canvas');
+    // set the legend location
+    let legendSelector = '#map_legend';
+
+    // add markers to map and to legend
+    for (let l of markerAssociations) {
+        console.log(l);
+        populateMarkerLayer(l.info, l.layer);
+        addLayerToLegendHTML(l.layer, legendSelector)
+    }
 
     
-    // create a rectangle and a circle
-    // for more info on shapes you can draw, look at the
-    // API docs: https://developers.google.com/maps/documentation/javascript/examples/polygon-simple
-    // https://developers.google.com/maps/documentation/javascript/examples/rectangle-simple
-    // etc. 
-    let romeRectangle = L.rectangle([
-        [41.920, 12.501],
-        [41.900, 12.485]
-    ], {
-        color: 'maroon',
-        opacity: 0.8,
-        weight: 2,
-        fillColor: 'saddlebrown',
-        fillOpacity: 0.35
-    });
+    // also add some geoJSON
+    // if you're not using this, comment it out
+    // here we use the myColor attributes of the geoJSON objects from above
+    // to actually set the color of the jeogson features
+    mapJSON = L.geoJSON(myGeoJSON, {
+        // the 'style' option is a *function* that modifies some
+        // feature properties.  
+        // cf https://leafletjs.com/reference-1.5.0.html#geojson-style
+        style: function(feature) {
+            let c = feature.properties.myColor;
+            return {color: c, weight: 3, fillColor: c, fillOpacity: 0.5};
+        },
+        onEachFeature: function (feature, layer) {
+            console.log(feature);
+            if (feature.properties && feature.properties.title) {
+	        layer.bindPopup(feature.properties.title);
+                layer.options.title = feature.properties.title}
+        },
+        description: 'geoJSON Objects'
+    }).addTo(my_map);
 
-    let romeCircle = L.circle([41.8900, 12.4900], {
-        color: 'darkgreen',
-        opacity: 0.8,
-        weight: 2,
-        fillColor: 'forestgreen',
-        fillOpacity: 0.35,
-        radius: 1000
-    });  
+    addLayerToLegendHTML(mapJSON, legendSelector);
+    
+    // add shapes layer as well
+    let shapes = L.layerGroup([romeRectangle, romeCircle], {description: 'Some Random Shapes'}).addTo(my_map);
+    addLayerToLegendHTML(shapes, legendSelector);
 
-    let shapes = L.layerGroup([romeRectangle, romeCircle]).addTo(my_map);
-
-    let layerList = {"Blue Markers": blueMarkers,
+    // add a layers control to the map
+    // you will want to change this to reflect your own layers
+    //  in this strange object, the property names are strings
+    // that will be displayed in the map layer control,
+    // while the values are actual Leaflet Layer Objects
+    let layerListObject = {"Blue Markers": blueMarkers,
                      "Red Markers": redMarkers,
                      "GeoJSON": mapJSON,
                      "Shapes": shapes};
-    L.control.layers(null, layerList).addTo(my_map);
+    L.control.layers(null, layerListObject).addTo(my_map);
 }
 
 
@@ -226,13 +313,14 @@ let blueMarkersHidden = false,
     jsonHidden = false,
     shapesHidden = false,
     markerLayers = [{main: blueMarkers, hidden: blueMarkersHidden},
-                    {}]
+                    {main: redMarkers, hidden: redMarkersHidden}]
 
 
 // I added this for fun.  It allows you to trigger the infowindow
 // from outside the map.  
 function locateMarker (marker) {
-    console.log(marker);
-    my_map.panTo(marker.marker.position);
-    google.maps.event.trigger(marker.marker, 'click');
+    marker.getLatLng ? my_map.panTo(marker.getLatLng()).setZoom(13) : my_map.fitBounds(marker.getBounds()); 
+    //my_map.panTo( marker.getLatLng ?  marker.getLatLng() : marker.getBounds().getCenter() ).setZoom(12)
+    marker.openPopup();
 }
+
