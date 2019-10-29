@@ -347,6 +347,16 @@ function processManualLayers (layerArray, options = {description: 'Unnamed Layer
 }
 
 
+/**
+ * For every element of `layerGroup`, add an entry to the innerHTML of
+ * the element matched by `querySelector`, consisting of a div whose
+ * `onclick` attribute is a call to `locateMapFeature` which navigates to, and
+ * opens the popup window of, that feature.  The link text will be one of `options.infoHTML`,
+ * `options.title`, or 'no title', in that order.
+ * @param {Array} layerGroup
+ * @param {string} querySelector
+ * @returns {string} innerHTML content of the legend element 
+ */
 function addLayerToLegendHTML (layerGroup, querySelector) {
     let el = document.querySelector(querySelector),
         output = `<div class="legend-content-group-wrapper"><h2>${layerGroup.options.description}</h2>`;
@@ -354,7 +364,7 @@ function addLayerToLegendHTML (layerGroup, querySelector) {
         // this is hideously ugly! very roundabout way
         // to access anonymous marker from outside the map
         let current = layerGroup._layers[l];
-        let info = current.options.infoHTML ? layerGroup._layers[l].options.infoHTML :
+        let info = current.options.infoHTML ? current.options.infoHTML :
             current.options.title || 'no title';
         output +=  `
 <div class="pointer" onclick="locateMapFeature(projectMap._layers[${layerGroup._leaflet_id}]._layers[${l}])"> 
@@ -388,10 +398,18 @@ function initializeMap() {
     }
 
     
-    // add a layers control to the map
-    // you will want to change this to reflect your own layers
-    //  in this strange object, the property names are strings
-    // that will be displayed in the map layer control,
-    // while the values are actual Leaflet Layer Objects
+    // add a layers control to the map, using the layer list object
+    // assigned above
     L.control.layers(null, layerListObject).addTo(projectMap);
 }
+
+/**
+ * pan to object if it's a marker; otherwise use the `fitBounds` method on the feature
+ * Then open the marker popup.
+ * @param {Object} marker
+ */
+function locateMapFeature (marker) {
+    marker.getLatLng ? projectMap.panTo(marker.getLatLng()).setZoom(16) : projectMap.fitBounds(marker.getBounds()); 
+    marker.openPopup();
+}
+
