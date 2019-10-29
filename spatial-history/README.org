@@ -53,7 +53,7 @@ Fortunately, there are many solutions. One is to use the ~Preview HTML~ function
 npm run server
 #+end_src
 
-Then point your browser at ~localhost:8080~ and all the assignments in this repository will be available for you to browse.  If you want the browser to update automatically, run ~npm run wtch~ instead, but be warned that the map updates a little oddly when run this way. 
+Then point your browser at ~localhost:8080~ and all the assignments in this repository will be available for you to browse.  If you want the browser to update automatically, run ~npm run watch~ instead, but be warned that the map updates a little oddly when run this way. 
 
 ** Tests
 At present, *there are no working tests*. If I'm able to get them up and running before it becomes irrelevant, I will push changes to all of your repos!
