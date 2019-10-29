@@ -109,8 +109,7 @@
              // also load the google map
              $.get("./intro.md", function (response) {
                  let content = response,
-                     renderedcontent = md.render(content);
-                 console.log(typeof(response));
+                     renderedcontent = md.render(content);  
                  $("#intro").html(introContent + renderedcontent);
                  $.get("./index.md", function (response2) {
                      let content = response2,

@@ -34,7 +34,8 @@ let projectMap, // this will hold the map once it's initialized
 // color options are red, blue, green, orange, yellow, violet, grey, black
 // just substitute the color name in the URL value (just before `.png`)
 const greenURL = 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
-      yellowURL = 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-yellow.png';
+      yellowURL = 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-yellow.png',
+      greyURL = 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-grey.png';
 
 // create new icon classes
 // I've added this just in case you want very fine control over your marker placement
@@ -49,7 +50,8 @@ const myIconClass = L.Icon.extend({
 // create the new icon types -- cf. https://leafletjs.com/examples/custom-icons/ and
 // also https://leafletjs.com/reference-1.5.0.html#icon
 const gryfIcon = new myIconClass({iconUrl: yellowURL}),
-      slythIcon = new myIconClass({iconUrl: greenURL});
+      slythIcon = new myIconClass({iconUrl: greenURL}),
+      mysteryIcon = new myIconClass({iconUrl: greyURL});
 
 
 // storing colors in variables, to make it easier to change all the related features at once
@@ -94,7 +96,14 @@ let slythMarkerInfo =
         },
         {position: [55.61679475360749,-1.6392910480499268],
          title: "Isle of the Locket",
-         description: `<p>A forlorn and terrifying sea cave, guarded by an army of the undead and many other magical protections</p>`}
+         description: `<p>A forlorn and terrifying sea cave, guarded by an army of the undead and many other magical protections</p>`},
+        {position: [ 55.49086601004396, -1.5939261297996548 ],
+         title: "Draco Malfoy",
+         description: "<p>Weak-willed, dissatisfied, and a natural bully, Draco Malfoy has nonetheless plotted the murder of his own headmaster.</p>"},
+        {position: [ 55.49046495468512, -1.5939583064545149 ],
+         title: "Severus Snape",
+         icon: mysteryIcon,
+         description: `<p>what drives him? How has he survived so long with so much decption, such intense longing, guilt, and hatred?`}
     ],
     gryfMarkerInfo =
     [{position: [55.49058639152367,-1.5951092937469482],
@@ -248,13 +257,18 @@ let allLayers = [gryfMarkers, slythMarkers, towns, houses, paths];
  * @returns {Object} a Leaflet map object 
  */
 function createMap (element) {
-    const map = L.map(element).setView(myCenter, myZoom);
+    const map = L.map(element, {renderer:L.canvas(), preferCanvas: true}).setView(myCenter, myZoom);
     // now we add the base layer
     // you can change this if you want!
-    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    // if your tiles seem to load very slowly, you may want to generate your own accessToken
+    // and insert the value in `accessToken`, below. 
+    // see: https://docs.mapbox.com/help/how-mapbox-works/access-tokens/#creating-and-managing-access-tokens
+    // to change the tile layer, change the `id` attribute below.
+    // some valid options include: mapbox.streets, mapbox.light, mapbox.satellite, mapbox.dark, mapbox.outdoors 
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}', {
 	attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
 	maxZoom: 18,
-	id: 'mapbox.streets',
+	id: 'mapbox.dark',
 	accessToken: 'pk.eyJ1IjoidGl0YW5pdW1ib25lcyIsImEiOiJjazF0bTdlNXQwM3gxM2hwbXY0bWtiamM3In0.FFPm7UIuj_b15xnd7wOQig'
     })
         .addTo(map);
@@ -280,7 +294,7 @@ function processMarkerLayer (markerInfo, options) {
         // and an object containing marker propertie
         let marker =  L.marker (m.position, {
             // We set the icon 
-            icon:   m.icons || layerGroup.options.defaultIcon || L.Icon(),
+            icon:   m.icon || layerGroup.options.defaultIcon || L.Icon(),
             title: m.title,
             // This is what we'll use to build the description below
             // you may wantto modify this
@@ -316,7 +330,6 @@ function processJSONLayer (jsonData) {
             return {color: c, weight: 3, fillColor: c, fillOpacity: 0.5};
         },
         onEachFeature: function (feature, layer) {
-            console.log(feature);
             if (feature.properties && feature.properties.title) {
 	        layer.bindPopup(feature.properties.title);
                 layer.options.title = feature.properties.title} else {
@@ -401,6 +414,10 @@ function initializeMap() {
     // add a layers control to the map, using the layer list object
     // assigned above
     L.control.layers(null, layerListObject).addTo(projectMap);
+
+    // You'll want to comment this out before handing in, but it makes life a bit easier.
+    // while you're developing
+    coordHelp();
 }
 
 /**
@@ -413,3 +430,8 @@ function locateMapFeature (marker) {
     marker.openPopup();
 }
 
+function coordHelp () {
+    projectMap.on('click', function(e) {
+        console.log("Lat, Lon : [ " + e.latlng.lat + ", " + e.latlng.lng + " ]")
+    });
+}
