@@ -10,7 +10,7 @@
              programs way beyond our capacities to construct; but we can
              make use of them nonetheless -->
         <!-- jQuery is an important framework used by many web projects  -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
 
         <!-- markdown-it is our markdown parser, which translates markdown into HTML -->
         <script src="https://cdn.jsdelivr.net/npm/markdown-it@8.4.2/dist/markdown-it.min.js"></script>
@@ -77,20 +77,27 @@
         <!-- this line calls your custom js -->
         <script src="../js/maps-setup.js"></script>
         <script>
+         // we're going to load the md twice so let's abstract the logic here
+         // async function in theory should speed things up
+         // using .then promise syntax really simplifies the code -- sorry we
+         // haven't learned it in class!
+         const addMD = async function (url, selector, parser) {
+             return fetch(url)
+                 .then( response => response.text())
+                 .then( (response =>
+                     document.querySelector(selector).innerHTML += parser.render(response)))
+         }
          // we define the main actions of the script as a function which wil lbe run when the
          // page resources have been completely loaded.
          //window.
-         const initializePage = function() {
+         const initializePage = async function() {
              // instantiate the parser object and declare the
              // placeholder variable for the rendered content
              // while storing the original content so as not to lose it
              let md = window.markdownit('commonmark', {
                  html: true,
                  linkify: true}),
-                 renderedcontent = "",
-                 introContent = $("#intro").html(),
-                 mainContent = $("#maintext").html();
-
+                 renderedcontent = "";
              /* use footnote, attribute and emoji plugins */
              md.use(window.markdownItAttrs)
              md.use(window.markdownitFootnote)
@@ -99,18 +106,10 @@
              md.enable('table')
 
              //retrieve the markdown files, parse them,
-             // and use it to replace the contents of #intro and #maintext
-             // also load the google map
-             $.get("./intro.md", function (response) {
-                 let content = response,
-                     renderedcontent = md.render(content);  
-                 $("#intro").html(introContent + renderedcontent);
-                 $.get("./index.md", function (response2) {
-                     let content = response2,
-                         renderedcontent2 = md.render(content);
-                     $("#maintext").html(mainContent + renderedcontent2);
-                 }, 'text')
-             }, 'text');
+             // and add to content of relevant sections
+             let intro = addMD('intro.md', '#intro', md);
+             let main = addMD('index.md', '#maintext', md);
+             // load the map
              initializeMap();
              
          };

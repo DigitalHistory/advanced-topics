@@ -421,7 +421,7 @@ function addLayerToLegendHTML (layerGroup, querySelector) {
    instead, change data and variable names above, or change some of the helper functions that
    precede this function.
  */
-function initializeMap() {
+async function initializeMap() {
 
     // this one line creates the actual map
     // it calls a simple 2-line function defined above
