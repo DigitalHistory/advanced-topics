@@ -89,13 +89,16 @@ let slythMarkerInfo =
          description: '<p>one half of the Cabinet is located here.</p>'
         },
         {position: [55.49058639152367,-1.5940092937469482],
-         title: "Werewolf",
-         description: '<p>He thirsts for blood.</p>'
-        }
+         title: "Fenrir Greyback",
+         description: `<p>An evil and spiteful werewolf, he thirsts for blood and impatiently awaits Dumbledore's demise.</p>`
+        },
+        {position: [55.61679475360749,-1.6392910480499268],
+         title: "Isle of the Locket",
+         diescription: `<p>A forlorn and terrifying sea cave, guarded by an army of the undead and many other magical protections</p>`}
     ],
     gryfMarkerInfo =
     [{position: [55.49058639152367,-1.5951092937469482],
-      title: "Dunbledore Lies Dying",
+      title: "Dumbledore Lies Dying",
       description: "<p>Afflicted by a curse for over a year, and gravely weakened by a powerful poison, Dumbledore lies on the ground, barely mobile.</p>"
      }];
 
@@ -193,6 +196,7 @@ let houses = processManualLayers([gryffindor, slytherin, headmasterTower],
 
 // Polyline Objects and Layer Group ("paths")
 let vanishingPath = L.polyline([[51.37178037591737, -0.2197265625],
+                                [55.36857598381045, -1.7512893676757812],
                                 [55.48997247517858,-1.5944015979766843 ]], {
                                     color: slythCol,
                                     weight: 6,
@@ -205,10 +209,15 @@ let tunnelPath = L.polyline([[55.49065933144361,-1.6042077541351318],
                                     color: gryfCol,
                                     weight: 6,
                                     infoHTML: 'Tunnel to Hogsmeade',
-                                    windowContent: `<h3>Marauders' Map TUnnel</h3><p>Not really sure why this worked in the first ocuple of books.</p>`})
+                                    windowContent: `<h3>Marauders' Map Tunnel</h3><p>Not really sure why this worked in the first ocuple of books.</p>`})
 
-
-let paths = processManualLayers([vanishingPath, tunnelPath], {description: 'Paths'})
+let horcruxPath = L.polyline([[55.49058639152367,-1.5951092937469482],
+                              [55.61679475360749,-1.6392910480499268]], {
+                                  color: gryfCol,
+                                  weight: 4,
+                                  infoHTML: 'Return from Horcrux quest',
+                                  windowContent: `<h3>Return Disapparation from Failed Horcrux quest</h3><p>Exhaisted and grieviously injured, Dumbledore returns to find the trap he had so long expected has been sprung.</p>`})
+let paths = processManualLayers([vanishingPath, tunnelPath, horcruxPath], {description: 'Paths'})
 
 
 ////////////////////////////////////////////////
@@ -275,7 +284,7 @@ function processMarkerLayer (markerInfo, options) {
             title: m.title,
             // This is what we'll use to build the description below
             // you may wantto modify this
-            infoHTML: '<h3>' + m.title + '</h3>'
+            infoHTML:  m.title 
         })
             // now we add the popup window html
             .bindPopup('<h1>' + m.title + '</h1>' + m.description);
