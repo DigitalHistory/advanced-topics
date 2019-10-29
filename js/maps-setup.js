@@ -94,7 +94,7 @@ let slythMarkerInfo =
         },
         {position: [55.61679475360749,-1.6392910480499268],
          title: "Isle of the Locket",
-         diescription: `<p>A forlorn and terrifying sea cave, guarded by an army of the undead and many other magical protections</p>`}
+         description: `<p>A forlorn and terrifying sea cave, guarded by an army of the undead and many other magical protections</p>`}
     ],
     gryfMarkerInfo =
     [{position: [55.49058639152367,-1.5951092937469482],
