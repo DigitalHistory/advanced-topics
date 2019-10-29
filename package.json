@@ -1,6 +1,6 @@
 {
   "name": "advanced-topics",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "exercises for learning Digital History",
   "main": "index.js",
   "scripts": {
@@ -13,8 +13,8 @@
     "server": "node node_modules/http-server/bin/http-server -o"
   },
   "author": "Matt Price",
-  "license": "AGPL-3.0",
-  "repository": "https://github.com/DigitalHistory/00-git-and-github",
+  "license": "GPL-3.0",
+  "repository": "https://github.com/DigitalHistory/advanced-topics",
   "dependencies": {
     "chai": "4.2.0",
     "chai-fs": "2.0.0",
@@ -23,12 +23,13 @@
     "git-state": "4.1.0",
     "html-word-count": "2.0.0",
     "http-server": "^0.11.1",
-    "jsdom": "^13.2.0",
+    "jsdom": "^15.2.0",
     "json-validation": "1.0.4",
     "jsonlint": "1.6.3",
-    "markdown-it": "^8.4.2",
-    "mocha": "6.0.2",
+    "live-server": "^1.2.1",
+    "markdown-it": "^10.0.0",
+    "mocha": "6.2.2",
     "mocha-pretty-spec-reporter": "0.1.0-beta.2",
-    "mochawesome": "3.1.1"
+    "mochawesome": "4.1.0"
   }
 }
