@@ -365,10 +365,8 @@ function processJSONLayer (jsonData) {
 function processManualLayers (layerArray, options = {description: 'Unnamed Layer'}) {
     for (const l of layerArray) {
         let t = assembleTexts(l);
-        console.log(t);
         l.bindPopup(t.popup);
         l.bindTooltip(t.tooltip, {sticky: true});
-        console.log(l._tooltip);
     }
     return L.layerGroup(layerArray, options)
 }
