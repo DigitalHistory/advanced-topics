@@ -6,11 +6,11 @@
   "scripts": {
     "test": "mocha -t 0 test/test.js  --reporter mochawesome --reporter-options reportDir=TestResults,reportFilename=testresults",
     "test-less-confusing": "mocha -t 0 test/test.js --reporter mochawesome --reporter-options reportDir=TestResults,reportFilename=testresults || true",
-    "watch": "mocha -t 0 test/test.js   --reporter mochawesome --reporter-options reportDir=TestResults,reportFilename=testresults -w",
+    "watch": "node node_modules/live-server/live-server",
     "test-maps": "mocha -t 0 test/test.js --grep \"Spatial History\" --reporter mochawesome --reporter-options reportDir=TestResults,reportFilename=testresults",
     "test-oh": "mocha -t 0 test/test.js --grep \"Oral History\" --reporter mochawesome --reporter-options reportDir=TestResults,reportFilename=testresults",
     "test-proposal": "mocha -t 0 test/test.js --grep \"Proposal\" --reporter mochawesome --reporter-options reportDir=TestResults,reportFilename=testresults",
-    "server": "node node_modules/live-server/live-server"
+    "server": "node node_modules/http-server/bin/http-server -o"
   },
   "author": "Matt Price",
   "license": "GPL-3.0",
@@ -22,6 +22,7 @@
     "git-config": "0.0.7",
     "git-state": "4.1.0",
     "html-word-count": "2.0.0",
+    "http-server": "^0.11.1",
     "jsdom": "^15.2.0",
     "json-validation": "1.0.4",
     "jsonlint": "1.6.3",
