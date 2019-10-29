@@ -302,7 +302,7 @@ describe('Test if map divs are contained in markdown file', function() {
 //     window=dom.window;
 //     document=window.document;
 //     var jqel = document.createElement("script");
-//     jqel.src = "http://code.jquery.com/jquery-3.3.1.js";
+//     jqel.src = "http://code.jquery.com/jquery-3.4.1.slim.min.js";
 //     document.body.appendChild(jqel);
 
 //     var mapsel = document.createElement("script");
