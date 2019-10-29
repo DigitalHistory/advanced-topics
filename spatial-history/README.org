@@ -23,7 +23,7 @@ Build a web page that includes a Leaflet Map (complete with markers) as part of 
 
 - Map :: Your map should have at least 5 markers, and could have many more.  You can explore more complex objects -- such as polygons -- using the geoJSON import features of Leaflet Maps, or the native Rectangle, Circle, and Polygon classes.  There are links to the API documentation in the code, as well as to https://geojson.io, where you can create geoJSON interactively. This is convenient for e.g. mapping complex borders. [[https://github.com/tmcw/awesome-geojson][There are lots of other geoJSON resources out there as well]].
 
-     The assignment template uses a [[http://www.w3schools.com/js/js_loop_for.asp][/for/ loop]] to /iterate/, that is, repeat, a set of actions for a group of markers.  See the template for details.  Each marker's popup info window contents should contain, at minimum, a brief headline and some explanatory text.  Your essay should refer back to the markers, and you are free to refer to your essay in the marker text itself.
+     The assignment template uses a [[http://www.w3schools.com/js/js_loop_for.asp][/for/ loop]] to /iterate/ a set of actions for a group of markers.  See the template for details.  Each marker's popup info window contents should contain, at minimum, a brief headline and some explanatory text.  Your essay should refer back to the markers, and you are free to refer to your essay in the marker text itself.
 
 - Styling :: The bulk of the work is accomplished for us by the /markdown-it/ script that we load at the top of the page, and then initialized in our onload script. We also use the tiny [[https://jenil.github.io/chota/][Chota CSS framework]] to give us some reasonable CSS defaults for font styles and sizes.  It also adds a number of utility classes which you can [[https://jenil.github.io/chota/#docs][read about in the docs]] and use as you see fit.  The classes [[https://jenil.github.io/chota/#utilities][are described here]]. In addition, there are two small style files that you can edit, [[../css/site-styles.css]] and [[../css/map-styles.css]]. You may e.g. want to edit some of the color variables at the top of ~site-styles.css~, and/or edit some of the grid areas or devault layouts in ~map-styles.css~. 
 
@@ -53,8 +53,7 @@ Fortunately, there are many solutions. One is to use the ~Preview HTML~ function
 npm run server
 #+end_src
 
-
-Then point your browser at ~localhost:8080~ and all the assignments in this repository will be available for you to browse.  
+Then point your browser at ~localhost:8080~ and all the assignments in this repository will be available for you to browse.  If you want the browser to update automatically, run ~npm run wtch~ instead, but be warned that the map updates a little oddly when run this way. 
 
 ** Tests
 At present, *there are no working tests*. If I'm able to get them up and running before it becomes irrelevant, I will push changes to all of your repos!
@@ -63,21 +62,43 @@ At present, *there are no working tests*. If I'm able to get them up and running
 Push your code to the master branch as usual. The state of the master branch on Github at the due date will constitute your submission!
 
 - Your code should work!
+- Remember: minimum 5 markers, but other layers can also add a *lot* of depth, so consider them seriously.
 - The map should provide *substantive information* on the topic of your essay, not merely pretty illustration
 - the essay should meet the criteria for a B or B+ essay: it should be well-organized; it should make a compelling argument for a coherent thesis; it should display a level of historical understanding appropriate for a mid-level undergraduate course.
 - As it stands, there are some minor ugly spots in the CSS for the project. You should try to improve these at least a little bit, using [[../css/map-styles.css and ../css/site-styles.css]]. 
 
 ** Further brief notes on the code
-   :PROPERTIES:
-   :CUSTOM_ID: the-code
-   :END:
+:PROPERTIES:
+:CUSTOM_ID: the-code
+:END:
 
 *** Javascript
-    :PROPERTIES:
-    :CUSTOM_ID: javascript
-    :END:
+:PROPERTIES:
+:CUSTOM_ID: javascript
+:END:
+
+Most of the work involves the JavaScript file. It is structured as follows:
+
+**** Global Variables at the top
+for various reasons, I found it easier to declare a whole bunch of variables (via ~let~ and ~const~) at the top. Some of these you will not want to touch. Others you will *definitely* want to rename; I suggest doing this with a global search-and-replace through the whole file so you do not end up with undeclared variables causing syntax errors. 
+
+**** Datasets
+I have included sample data which demonstrates the layer creation process.  
+- *marker sets* of simple objects which get turned into marker layerGroup objects by ~processMarkerLayer()~
+- a *geoJSON set* which gets turned into a geoJSON layer by ~processJSONLayer()~
+- two *groups of manually-created features (shapes and lines)* which get turned into layerGroups by ~processManualLayers()~.
+**** Functions 
+The rest of the file consists mostly of helper functions, and ~initializeMap()~, which is called by the onload event of the page, and displays the map. The main functions are:
+- *createMap()*, which instantiates the map on the page and adds the base tile layer. You can change this layer if you wish.
+- *processXXXLayer()* functions, which return a leaflet [[https://leafletjs.com/reference-1.0.0.html#layergroup][LayerGroup Object]] whose content is a set of [[https://leafletjs.com/reference-1.0.0.html#layer][Leaflet Layers]]. These helper functions look for two custom properties -- ~title~ and ~description~ -- which will be used to generate the legend, the tooltip, and the popup window content. ~title~ should be a plain text string, while ~description~ can contain arbitrary HTML
+- *assembleTexts()*, which standardizes the creation of all those texts in the different layer types
+- *addLayerToLegendHTML()*, which adds a block of HTML to the Legend for a given layer
+- *locateMapFeature()*, which is used to navigate the map to a given marker or feature
+- *coordHelp()*, which may be useful while you're developing; it logs a line to the console for every mouse click in the map with the latitude and longitude of the point clicked. This will hopefully allow you to quickly acquire the points you need.
 
 I have made the Javascript as simple as I can -- except where I got carried away -- and documented it extensively. There are more efficient and interesting ways to do this, but most of them are a little more complex. To make your markers -- and to re-centre your map -- you will need to modify the Javascript directly. The file you are looking for will be [[../js/maps-setup.js]]. You'll also want to take a look at the function ~initializePage~, which is defined in index.html; and finally, please just set your name in [[../js/static-parts.js]], so it will appear properly in the footer. 
+
+
 
 *** HTML
     :PROPERTIES:
