@@ -136,7 +136,7 @@ const townsData={
   "features": [
     {
       "type": "Feature",
-        "properties": {myColor: hogCol, title: "Hogwarts School" },
+        "properties": {myColor: hogCol, title: "Hogwarts School", description: "Terrifying events are commonplace here." },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -146,7 +146,7 @@ const townsData={
     },
     {
       "type": "Feature",
-        "properties": {myColor: meadeCol, title: "Town of Hogsmeade" },
+        "properties": {myColor: meadeCol, title: "Town of Hogsmeade", description: "Home of Butterbeer"},
       "geometry": {
         "type": "Polygon",
         "coordinates": [[[-1.6042613983154297,55.490701879667895],[-1.6042077541351318,55.49065933144361],[-1.6042184829711914,55.49068364472025],[-1.604926586151123,55.49031894399501],[-1.607351303100586,55.49065933144361],[-1.6081881523132324,55.489923847732406],[-1.6085636615753174,55.48901815057725],[-1.6068792343139648,55.48843460312515],[-1.6042506694793701,55.487723392980776],[-1.6029417514801023,55.48743161074576],[-1.600785255432129,55.48822792799636],[-1.5991652011871336,55.48898167911473],[-1.599959135055542,55.490033259401876],[-1.5986931324005127,55.491479896236754],[-1.5987253189086914,55.49171694510582],[-1.5996050834655762,55.49194791442662],[-1.6010427474975586,55.49192360193031],[-1.6019654273986814,55.49204516426178],[-1.6025233268737793,55.491795961078495],[-1.6033065319061277,55.491340097517046],[-1.6042613983154297,55.490701879667895]]        ]
@@ -172,7 +172,7 @@ let gryffindor = L.rectangle([[ 55.49021561150901, -1.5941441059112549],
     weight: 2,
     fillColor: gryfCol,
     fillOpacity: 0.35,
-    infoHTML: 'Gryffindor',
+    title: 'Gryffindor',
     windowContent: `<h3>Gryffindor</h3><p>The Good Guys Live here</p3>`
 });
 
@@ -182,7 +182,7 @@ let slytherin = L.rectangle([[ 55.48954090449621, -1.5956997871398926], [55.4902
     weight: 2,
     fillColor: slythCol,
     fillOpacity: 0.35,
-    infoHTML: 'Slytherin',
+    title: 'Slytherin',
     windowContent: `<h3>Slytherin</h3><p>The Bad Guys Live here</p3>`
 });
 
@@ -193,7 +193,7 @@ let headmasterTower = L.circle([55.4907, -1.5944], {
     fillColor: towerCol,
     fillOpacity: 0.35,
     radius: 40,
-    infoHTML: 'Headmaster\'s Tower',
+    title: 'Headmaster\'s Tower',
     windowContent: `<h3>Headmaster's Tower</h3><p>Scene of the the Fatal Act.</p>`
 });
 
@@ -209,7 +209,7 @@ let vanishingPath = L.polyline([[51.37178037591737, -0.2197265625],
                                 [55.48997247517858,-1.5944015979766843 ]], {
                                     color: slythCol,
                                     weight: 6,
-                                    infoHTML: 'DeathEaters Travel',
+                                    title: 'DeathEaters Travel',
                                     windowContent: `<h3>Line of Travel for Deatheaters</h3><p>From the twin Vanishing Cabinet, the Deatheraters can travel directly from Bourquin and Burkes</p>`})
 
 
@@ -217,14 +217,14 @@ let tunnelPath = L.polyline([[55.49065933144361,-1.6042077541351318],
                                 [55.49027247517858,-1.5943015979766843 ]], {
                                     color: gryfCol,
                                     weight: 6,
-                                    infoHTML: 'Tunnel to Hogsmeade',
+                                    title: 'Tunnel to Hogsmeade',
                                     windowContent: `<h3>Marauders' Map Tunnel</h3><p>Not really sure why this worked in the first ocuple of books.</p>`})
 
 let horcruxPath = L.polyline([[55.49058639152367,-1.5951092937469482],
                               [55.61679475360749,-1.6392910480499268]], {
                                   color: gryfCol,
                                   weight: 4,
-                                  infoHTML: 'Return from Horcrux quest',
+                                  title: 'Return from Horcrux quest',
                                   windowContent: `<h3>Return Disapparation from Failed Horcrux quest</h3><p>Exhaisted and grieviously injured, Dumbledore returns to find the trap he had so long expected has been sprung.</p>`})
 let paths = processManualLayers([vanishingPath, tunnelPath, horcruxPath], {description: 'Paths'})
 
@@ -290,21 +290,22 @@ function processMarkerLayer (markerInfo, options) {
     // *also* to another layer if the icon property is set. 
     for (const m of markerInfo) {
         // define a Leaflet marker object for each marker
-        // we pas two parameters: a position (2-value array of lat & lng vals)
+        // we pass two parameters: a position (2-value array of lat & lng vals)
         // and an object containing marker propertie
         let marker =  L.marker (m.position, {
             // We set the icon 
             icon:   m.icon || layerGroup.options.defaultIcon || L.Icon(),
             title: m.title,
-            // This is what we'll use to build the description below
-            // you may wantto modify this
-            infoHTML:  m.title 
-        })
-            // now we add the popup window html
-            .bindPopup('<h1>' + m.title + '</h1>' + m.description);
+            description: m.description,
+            windowContent: m.windowContent //this is obsolete
+        });
+        let t = assembleTexts(marker);
+        marker.bindPopup(t.popup);
+        // this seems to be unnecessary on modern browsers for some reason
+        //marker.bindTooltip(t.tooltip);
         layerGroup.addLayer(marker);
     }
-    return layerGroup
+    return layerGroup;
 }
 
 /**
@@ -330,10 +331,18 @@ function processJSONLayer (jsonData) {
             return {color: c, weight: 3, fillColor: c, fillOpacity: 0.5};
         },
         onEachFeature: function (feature, layer) {
-            if (feature.properties && feature.properties.title) {
-	        layer.bindPopup(feature.properties.title);
-                layer.options.title = feature.properties.title} else {
-                layer.options.title = 'Untitled Feature'}
+            layer.options.description = '';
+            if (feature.properties ) {
+                if (feature.properties.title) {
+                    layer.options.title = feature.properties.title;
+                }
+                if (feature.properties.description) {
+                    layer.options.description = feature.properties.description;
+                }
+            }
+            let t = assembleTexts(layer);
+            layer.bindPopup(t.popup);
+            layer.bindTooltip(t.tooltip, {sticky: true});
         },
         description: jsonData.description || "GeoJSON Objects"
     });
@@ -341,10 +350,11 @@ function processJSONLayer (jsonData) {
 
 /**
  * create a layerGroup from an array of individual Layer objects.
- * If the non-standard options `windowContent` and `infoHTML` have been
+ * If the non-standard options `windowContent`, `title`, and/or `description` have been
  * set, they will be used to create a popup window and tooltip now, and
  * to generate legend text in `addLayerToLegendHTML` later on.
  * The `options` parameter should include a `description` property,
+ * (NOTE: this is *separate* from the description of the individual layers!!)
  * which will also be used by `addLayerToLegendHTML` and in the layers
  * control box. 
  * @param {} layerArray
@@ -353,13 +363,32 @@ function processJSONLayer (jsonData) {
  */
 function processManualLayers (layerArray, options = {description: 'Unnamed Layer'}) {
     for (const l of layerArray) {
-        l.bindPopup(l.options.windowContent);
-        l.bindTooltip(l.options.infoHTML ); 
+        let t = assembleTexts(l);
+        console.log(t);
+        l.bindPopup(t.popup);
+        l.bindTooltip(t.tooltip, {sticky: true});
+        console.log(l._tooltip);
     }
     return L.layerGroup(layerArray, options)
 }
 
 
+function assembleTexts (feature) {
+    let opts = feature.options,
+        tooltip = 'Untitled Tooltip',
+        popup = '<h2>Untitled</h2>',
+        legend = 'Untitled';
+    
+    if (opts.title) {
+        popup = `<h2>${opts.title}</h2>` + (opts.description || '');
+        tooltip = opts.title;
+        legend = opts.title;
+    }
+    if (opts.windowContent) {
+        popup = opts.windowContent;
+    }
+    return {tooltip: tooltip, popup: popup, legend: legend};
+}
 /**
  * For every element of `layerGroup`, add an entry to the innerHTML of
  * the element matched by `querySelector`, consisting of a div whose
@@ -377,8 +406,7 @@ function addLayerToLegendHTML (layerGroup, querySelector) {
         // this is hideously ugly! very roundabout way
         // to access anonymous marker from outside the map
         let current = layerGroup._layers[l];
-        let info = current.options.infoHTML ? current.options.infoHTML :
-            current.options.title || 'no title';
+        let info = assembleTexts(current).legend;
         output +=  `
 <div class="pointer" onclick="locateMapFeature(projectMap._layers[${layerGroup._leaflet_id}]._layers[${l}])"> 
     ${info} 
