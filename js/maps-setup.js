@@ -398,9 +398,8 @@ function assembleTexts (feature) {
  * @param {string} querySelector
  * @returns {string} innerHTML content of the legend element 
  */
-function addLayerToLegendHTML (layerGroup, querySelector) {
-    let el = document.querySelector(querySelector),
-        output = `<div class="legend-content-group-wrapper"><h2>${layerGroup.options.description}</h2>`;
+function addLayerToLegendHTML (layerGroup, el) {
+    let output = `<div class="legend-content-group-wrapper"><h2>${layerGroup.options.description}</h2>`;
     for (let l in layerGroup._layers) {
         // this is hideously ugly! very roundabout way
         // to access anonymous marker from outside the map
@@ -427,18 +426,17 @@ async function initializeMap() {
     // it calls a simple 2-line function defined above
     projectMap = createMap('map_canvas');
     // set the legend location
-    let legendSelector = '#map_legend';
+    let legendEl = document.querySelector('#map_legend');
 
     let layerListObject = {};
     // add markers to map and to legend, then add a toggle switch to layers control panel
     for (let l of allLayers) {
         l.addTo(projectMap);
-        addLayerToLegendHTML(l, legendSelector);
+        addLayerToLegendHTML(l, legendEl);
         layerListObject[l.options.description] = l;
     }
 
-    
-    // add a layers control to the map, using the layer list object
+   // add a layers control to the map, using the layer list object
     // assigned above
     L.control.layers(null, layerListObject).addTo(projectMap);
 
@@ -453,7 +451,7 @@ async function initializeMap() {
  * @param {Object} marker
  */
 function locateMapFeature (marker) {
-    marker.getLatLng ? projectMap.panTo(marker.getLatLng()).setZoom(16) : projectMap.fitBounds(marker.getBounds()); 
+    marker.getLatLng ? projectMap.panTo(marker.getLatLng(), {animate: true, duration: 1.5}).setZoom(16) : projectMap.fitBounds(marker.getBounds()); 
     marker.openPopup();
 }
 
@@ -461,4 +459,8 @@ function coordHelp () {
     projectMap.on('click', function(e) {
         console.log("Lat, Lon : [ " + e.latlng.lat + ", " + e.latlng.lng + " ]")
     });
+}
+
+function resetMap (map) {
+    map.setView(myCenter, myZoom).closePopups()
 }
