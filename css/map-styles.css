@@ -126,7 +126,7 @@ button.rounded {
 button#hide {
   background:orange;
 }
-button#show {
+button#reset {
   background:green;
 }
 
