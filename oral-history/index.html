@@ -59,8 +59,8 @@
     <body onload="initializePage()">
 
         <header id="page-header" class="nav">
-
-            <a class="navbar-brand pull-right" href="#">Title Here | by Your Name</a> <!-- should be descriptive -->
+            <!-- Don't forget yoru name and title!! -->
+            <a class="navbar-brand pull-right" href="#">Title Here | by Your Name</a> 
             <!-- Collect the nav links, forms, and other content for toggling -->
         </header>
         
@@ -119,20 +119,20 @@
                          renderedcontent2 = md.render(content);
                      $("#maintext").html(mainContent + renderedcontent2);
                  }, 'text')
+                 // also load popcorn!!
                  loadPopcorn();
              }, 'text');
 
          }
          // declare a function to seek to a timecode in the #media object
-         var seek = function (time) {
+         // use it like this: <a href="javascript:seek(75)">click here to seek to 1:15</a>
+         const seek = function (time) {
              document.getElementById("media").currentTime= time;
          };
-         // seek(75);
-        </script>
 
-        <script>
-         var setTime = function (time) {
-             var a = document.getElementById("media");
+         // this is *exactly* the same but leaving here just in case it's somehow necessary
+         const setTime = function (time) {
+             const a = document.getElementById("media");
              a.currentTime = time;
          }
         </script>
