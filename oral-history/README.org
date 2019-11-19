@@ -1,9 +1,9 @@
 * Assignment 05: Oral History
 
-In the final segment of our class, we discuss the use of non-textual media in history, especially /oral histories/. This final, short project asks you to take an existing piece of oral history and build a small web page around it. We will use a very similar set of templates to those we used last assignment; but instead of dealing with Google Maps, we'll use the [[https://github.com/menismu/popcorn-js][Popcorn]] events framework for creating a simple multi-media history essay out of HTML.  As with our last assignment, this is a little bit like using [[https://www.youtube.com/watch?v=Q8gGsuWouDE][hand-carved wooden Emoji]]: obviously there are much more sophisticated ways to interact with video on the web; our aim is to use this simple tool as a way to think about several issues: 
+In the final segment of our class, we discuss the use of non-textual media in history, especially /oral histories/. This final, short project asks you to take an existing piece of oral history and build a small web page around it. We will use a very similar set of templates to those we used last assignment; but instead of dealing with Leaflet Maps, we'll use the [[https://github.com/menismu/popcorn-js][Popcorn]] events framework for creating a simple multi-media history essay out of HTML.  As with our last assignment, this is a little bit like using [[https://www.youtube.com/watch?v=Q8gGsuWouDE][hand-carved wooden Emoji]]: obviously there are much more sophisticated ways to interact with video on the web; our aim is to use this simple tool as a way to think about several issues: 
 - How do aural and visual media change the nature of historical narrative?
 - What are the challenges of building an historical narrative around an oral history, especially one that you did not conduct yourself?
-- How does technical infrastructure (like [[https://github.com/menismu/popcorn-js][Popcorn]] and [[http://docs.google.com][Google Docs]]) change the nature of historical narrative?
+- How does technical infrastructure (like [[https://github.com/menismu/popcorn-js][Popcorn]] and [[http://docs.google.com][Google Sheets]]) change the nature of historical narrative?
 
 ** How This Project Works
 This is a very small(single-page!) website organized around an audio element. Though it might be used as a part of a larger project, it can also stand on its own.  It looks pretty good, but most of the heavy lifting is done by outside libraries:
@@ -19,19 +19,21 @@ Your project has just a few files:
 - [[./index.html][index.html]], which loads the frameworks described above, adds a little extra Javascript which you can change if you want (but don't need to), and sets up a basic HTML framework to give structure to the page (which you're welcome to change and probably will want to).
 - [[./index.md][index.md]] and [[./intro.md][intro.md]], where you will actually write your assignment! You'll do it in Markdown, introducing fragments of HTML as you go where you need them. The current content of that file has examples of most of the syntax you'll want to use (though obviously you'll have to write the content yourself). Markdown file will be loaded by ~markdown-it~ and inserted into otherwise empty ~sections~ in ~index.html~.
 - [[../css/oh-styles.css][oh-styles.css]] and [[../css/site-styles.css][site-styles.css]], which add some modest additional style information, and which, again, you are likely to want to change
-- [[popcorn-data.js]] or [[popcorn-data-from-google.js]], at your discretion (I strongly recommend using the Google sheets method)
-- *your audio file*, which is not being stored in this repository because it's not such good practice to have a big file like that in the repository if no one's going to use it. You will have to either (a) add the file to the repository, or (b) find an existing audio file from the web (recommended). In either case, make sure the ~<audio> <source>~ points to it.
-- I also include local copies of [[popcorn-complete.js][the popcorn]] and [[tabletop.js][tabletop libraries]].  The local popcorn, in particular, contains some small updates to keep the plugins working.  
-
-You should edit your files in Atom and make sure you have the ~htnl-preview~ package installed (go to ~Settings -> Install~ and search for "html preview".  ~Remarkable~ will only be able to access the contents of ~index.md~ properly when ~index.html~ being served by a webserver -- fortunately the html preview runs a tiny server for you inside your editor.  But if you try to just double click on ~index.html~ and open it in Google Chrome, you'll be disappointed.
+- [[popcorn-data.js]] or [[popcorn-data-from-google.js]], at your discretion (I *strongly* recommend using the Google sheets method)
+- *your audio file*. I'm  not storing mine this repository because it's not such good practice to have a big file like that in the repository if no one's going to use it. You will have to either (a) add the file to the repository, or (b) find an existing audio file from the web (recommended). In either case, make sure the ~<audio> <source>~ points to it.
+- I also include local copies of [[popcorn-complete.js][the popcorn]] and [[tabletop.js][tabletop libraries]].  The local popcorn, in particular, contains some significant updates to keep the plugins working.  
 
 ** Checking Your Work
 As we move closer to a real-world task, we start to encounter more real-world problems. ~Markdown-it~ needs to acquire the contents of ~index.md~ so that that file can be processed and fed to ~index.html~. But for [[https://en.wikipedia.org/wiki/JavaScript#Security][many good reasons]], the browser does not allow JavaScript to access local files. So our project will only work inside a web server.  This makes debugging your work much harder!
 
-Fortunately, there are many solutions. One is to use the ~Preview HTML~ functionality in Atom. You can even open a DevTools window (right click in the preview pane) to look at your error messages.  However, sometimes it's easier to just work in the full browser environment. That's why I've added a server to the  ~npm~ dependencies of this repository.  This allows you to see your work in a regular browser tab. Simply navigate to the repository root directory in a terminal, and run ~npm install~ one more time, to fetch the new dependencies. Now whenever you want to look at your work, you can just run:
+Fortunately, there are many solutions. One is to use the ~Preview HTML~ functionality in VSCode. You can even open a DevTools window (right click in the preview pane) to look at your error messages.  However, sometimes it's easier to just work in the full browser environment. That's why I've added a server to the  ~npm~ dependencies of this repository.
 
 #+begin_src sh
 npm run server
+
+or
+
+npm run watch
 #+end_src
 
 Then point your browser at ~localhost:8080~ and all the assignments in this repository will be available for you to browse. 
@@ -43,8 +45,8 @@ Then point your browser at ~localhost:8080~ and all the assignments in this repo
 ** Assignment
 - Choose a short, online oral history audio clip (approximately 3 minutes in length). I recommend [[http://storycorps.org/][StoryCorps]] as a source, though there are many oral history archives online that are equally suitable. You will need to locate the *actual media element in the oral history* -- this may be somewhat hidden, but searching for ~mp3~ or ~<audio>~ in the source code or via the browser developer tools should help.  
 - Listen to it carefully. What historical themes are suggested by it? What kinds of annotations might heighten the impact at crucial moments, or fill in background information at other times?
-- Create a short "video" to accompany the audio clip; use a variety of Popcorn plugins to accomplish this. In general, for 180 seconds you will likely need at least 15 events for the the video to feel approximately "full".
-- Write a short essay, approximately 800 words in length, addressing any of the historical issues raised by the audio clip.  Refer specifically to quotations from the clip.  You may want to provide [[https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Using_HTML5_audio_and_video#Specifying_playback_range][links to specific timecodes]] from the audio, though integrating that with Popcorn playback is unfortunately a little tricky.  As in your last assignment, use simple links for citations, though you should provide page numbers wherever possible).
+- Create a short "video" to accompany the audio clip; use a variety of Popcorn plugins to accomplish this. In general, for 180 seconds you will likely need at least 15 events for the annotations to feel approximately "full".
+- Write a short essay, approximately 900 words in length, addressing any of the historical issues raised by the audio clip.  Refer specifically to quotations from the clip.  You may want to provide [[https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Using_HTML5_audio_and_video#Specifying_playback_range][links to specific timecodes]] from the audio, though integrating that with Popcorn playback is unfortunately a little tricky.  As in your last assignment, use simple links for citations, though you should provide page numbers wherever possible).
 ** Expectations
 Your essay should meet the ordinary criteria for an historical essay: it should be clearly written, providing adequate evidence, have minimal spelling and grammatical errors, etc. The relationship between topic and clip should not be artificial -- the essay should clarify or enlarge the historical circumstances that are brought to life by the clip.  
 
@@ -52,8 +54,11 @@ Your popcorn events should be keyed to the rhythms of the clip itself, appearing
 
 If you change the styling, you should not create a terrible mess! Certainly I think the page could be prettier and I welcome your improvements.  
 ** Technical Help
-As usual, I am pretty much available to answer your questions.  I also urge you to read [[http://digital.hackinghistory.ca/tools/understanding-popcorn-2/][this post]], which has a fair amount of technical detail and also gives links to further documentation.  [[https://menismu.github.io/popcorn-docs/][Documentation of the popcorn event plugins is once again online, though some of it is a little out of date]]. See [[https://github.com/menismu/popcorn-docs/pulls][my open pull requests on the docs repo]] for a couple of small updates.  
+As usual, I am pretty much available to answer your questions.  I also urge you to read [[https://digitalhistory.github.io/tools/understanding-popcorn][this post]], which has a fair amount of technical detail and also gives links to further documentation. *I will be updating this post with answers to your questions as you pose them!*
+
+[[https://menismu.github.io/popcorn-docs/][Documentation of the popcorn event plugins is once again online, though much of it is a little out of date]]. See [[https://github.com/menismu/popcorn-docs/pulls][my open pull requests on the docs repo]] for a couple of significant  updates; source code links in the assignment are also a good resource. 
+
 ** Submission
 As usual, I will mark your assignment on the basis of *the state of the master branch at the submission deadline*. If you finish your work in on time, there's no need to make any special branches.  
 
-+For late work or resubmission of non-passing assignments, please create a new branch for me to look over. Because this repository contains several assignments, please name your resubmission branch ~resubmit-oh-1~. Subsequent branches should be called ~resubmit-oh-2~, ~resubmit-oh-3~, etc.+ Since we havne't used resubmit branches much this smester, don't try to learn them this late i n the game. However, bear in mind that I will have limited time to do regrades this time around. I'll check in for updated repos at regular intervals and will only be able to give limite dfeedback.   
++For late work or resubmission of non-passing assignments, please create a new branch for me to look over. Because this repository contains several assignments, please name your resubmission branch ~resubmit-oh-1~. Subsequent branches should be called ~resubmit-oh-2~, ~resubmit-oh-3~, etc.+ Since we haven't used resubmit branches much this smester, don't try to learn them this late in the game. However, bear in mind that we will have limited time to do regrades this time around. We'll check in for updated repos at regular intervals and will only be able to give limited feedback.   
