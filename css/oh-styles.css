@@ -13,24 +13,45 @@ section#intro {
     border: 1px solid var(--color-custom-borders);
 }
 
-
+/* popcorn event container: 
+   - make it a flexbox container
+   - add events horizontally, but allow wrapping when too wide
+   - overflow-y scroll so we don't overwrite other elements
+   - don't grow too big
+ */
 aside#popcorn-container {
     grid-area: popcorn;
     background-color: var(--color-highlight2);
     border: 1px solid var(--color-custom-borders);
-}
-
-
-#popcorn-container img {
-    max-width: 100%;
+    display: flex;
+    flex-direction: row;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    flex-wrap: wrap;
     max-height: 100%;
-    margin: auto;    
 }
 
-#popcorn-container a {
-    display: contents;
+aside#popcorn-container > * {
+    /* default base width for plugins */
+    flex-basis: 30em;
 }
 
+
+/* most of the plugins will create divs or other elements w/ class "pluginname-plugin" */
+/* here's one example of styling particular plugins differently from others */
+#popcorn-container figure.figure-plugin {
+    /* don't allow the figure to overflow the box on its own */
+    /* an example of setting the figures a bit more easily.  */
+    flex-basis: 40em;
+}
+
+#popcorn-container .leaflet-plugin {
+    /* don't allow the figure to overflow the box on its own */
+    /* an example of setting the figures a bit more easily.  */
+    flex-basis: 100%;
+}
+
+/* you can also use the `id` column to address *most* plugins (but not all!) */
 
 section#maintext {
     grid-area: main;
