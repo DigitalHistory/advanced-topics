@@ -1,5 +1,5 @@
 /*
- * popcorn.js version 5fa48aa
+ * popcorn.js version accd1a4
  * http://popcornjs.org
  *
  * Copyright 2011, Mozilla Foundation
@@ -102,7 +102,7 @@
   };
 
   //  Popcorn API version, automatically inserted via build system.
-  Popcorn.version = "5fa48aa";
+  Popcorn.version = "accd1a4";
 
   //  Boolean flag allowing a client to determine if Popcorn can be supported
   Popcorn.isSupported = true;
@@ -865,8 +865,8 @@
       // If an array of default configurations is provided,
       // iterate and apply each to this instance
       if ( Popcorn.isArray( plugin ) ) {
-          let currentInstance = this;
-          plugin.forEach( (p) => {console.log(p); currentInstance.defaults (p, defaults)})
+        let currentInstance = this;
+        plugin.forEach( (p) => {currentInstance.defaults (p, defaults);});
         return this;
       }
 
@@ -4899,7 +4899,7 @@
             player.unbind( SC.Widget.Events.PAUSE );
 
             // Play/Pause cycle is done, restore volume and continue loading.
-            player.setVolume( 1 );
+            player.setVolume( 70 );
             player.bind( SC.Widget.Events.SEEK, function() {
               player.unbind( SC.Widget.Events.SEEK );
               onLoaded();
@@ -5215,11 +5215,11 @@
 
       if( !playerReady ) {
         addPlayerReadyCallback( function() {
-          setVolume( aValue );
+          setVolume( aValue  );
         });
         return;
       }
-      player.setVolume( aValue );
+      player.setVolume( aValue  );
       self.dispatchEvent( "volumechange" );
     }
 
@@ -5370,7 +5370,7 @@
           return getVolume();
         },
         set: function( aValue ) {
-          if( aValue < 0 || aValue > 1 ) {
+          if( aValue < 0 || aValue > 100 ) {
             throw "Volume value must be between 0.0 and 1.0";
           }
           setVolume( aValue );
@@ -7525,6 +7525,7 @@ api - https://github.com/documentcloud/document-viewer/blob/master/public/javasc
    *    });
    **/
 
+  var i = 0;
   Popcorn.plugin( "footnote", {
 
     manifest: {
@@ -7550,6 +7551,11 @@ api - https://github.com/documentcloud/document-viewer/blob/master/public/javasc
           type: "text",
           label: "Text"
         },
+        id: {
+          elem: "input",
+          type: "text",
+          label: "ID"
+        },
         target: "footnote-container"
       }
     },
@@ -7560,8 +7566,10 @@ api - https://github.com/documentcloud/document-viewer/blob/master/public/javasc
 
       options._container = document.createElement( "div" );
       options._container.style.display = "none";
+      options._container.id = options.id || `footnotediv${i}`;
+      options._container.classList.add("footnote-plugin");
       options._container.innerHTML  = options.text;
-
+      i++;
       target.appendChild( options._container );
     },
 
@@ -8669,6 +8677,7 @@ document.addEventListener( "click", function( event ) {
    *   Start: Is the time that you want this plug-in to execute
    *   End: Is the time that you want this plug-in to stop executing
    *   Text: Is the text that you want to appear in the target
+   *   ID: ID for div (defaults to `textdiv${i}`)
    *   Escape: {true|false} Whether to escape the text (e.g., html strings)
    *   Multiline: {true|false} Whether newlines should be turned into <br>s
    *   Target: Is the ID of the element where the text should be placed. An empty target
@@ -8726,7 +8735,7 @@ document.addEventListener( "click", function( event ) {
    * HTML escape code from mustache.js, used under MIT Licence
    * https://github.com/janl/mustache.js/blob/master/mustache.js
    **/
-  var escapeMap = {
+  const escapeMap = {
     "&": "&amp;",
     "<": "&lt;",
     ">": "&gt;",
@@ -8776,45 +8785,11 @@ document.addEventListener( "click", function( event ) {
 
     return ctxContainer;
   }
+  var i = 0;
 
-  Popcorn.plugin( "text", {
-
-    manifest: {
-      about: {
-        name: "Popcorn Text Plugin",
-        version: "0.1",
-        author: "@humphd"
-      },
-      options: {
-        start: {
-          elem: "input",
-          type: "number",
-          label: "Start"
-        },
-        end: {
-          elem: "input",
-          type: "number",
-          label: "End"
-        },
-        text: {
-          elem: "input",
-          type: "text",
-          label: "Text",
-          "default": "Popcorn.js"
-        },
-        escape: {
-          elem: "input",
-          type: "checkbox",
-          label: "Escape"
-        },
-        multiline: {
-          elem: "input",
-          type: "checkbox",
-          label: "Multiline"
-        }
-      }
-    },
-
+  Popcorn.plugin( "text", function (options ) {
+    
+    return {
     _setup: function( options ) {
 
       var target,
@@ -8822,7 +8797,10 @@ document.addEventListener( "click", function( event ) {
           container = options._container = document.createElement( "div" );
 
       container.style.display = "none";
-
+      container.id = options.id || `textdiv${i}`;
+      container.classList.add("text-plugin");
+      i++;
+      console.log(container.classList)
       if ( options.target ) {
         // Try to use supplied target
         target = Popcorn.dom.find( options.target );
@@ -8887,6 +8865,47 @@ document.addEventListener( "click", function( event ) {
         target.removeChild( options._container );
       }
     }
+    }
+  }, {
+      about: {
+        name: "Popcorn Text Plugin",
+        version: "0.1",
+        author: "@humphd"
+      },
+      options: {
+        start: {
+          elem: "input",
+          type: "number",
+          label: "Start"
+        },
+        end: {
+          elem: "input",
+          type: "number",
+          label: "End"
+        },
+        text: {
+          elem: "input",
+          type: "text",
+          label: "Text",
+          "default": "Popcorn.js"
+        },
+        escape: {
+          elem: "input",
+          type: "checkbox",
+          label: "Escape"
+        },
+        multiline: {
+          elem: "input",
+          type: "checkbox",
+          label: "Multiline"
+        },
+        id: {
+          elem: "input",
+          type: "text",
+          label: "ID",
+          optional: true
+        }
+      }
   });
 })( Popcorn );
 // PLUGIN: Timeline
@@ -8925,50 +8944,57 @@ document.addEventListener( "click", function( event ) {
         contentDiv = document.createElement( "div" ),
         container,
         goingUp = true;
-
-    if ( target && !target.firstChild ) {
-      target.appendChild ( container = document.createElement( "div" ) );
-      container.style.width = "inherit";
-      container.style.height = "inherit";
-      container.style.overflow = "auto";
-    } else {
-      container = target.firstChild;
-    }
-
-    contentDiv.style.display = "none";
-    contentDiv.id = "timelineDiv" + i;
-
-    //  Default to up if options.direction is non-existant or not up or down
-    options.direction = options.direction || "up";
-    if ( options.direction.toLowerCase() === "down" ) {
-
-      goingUp = false;
-    }
-
-    if ( target && container ) {
-      // if this isnt the first div added to the target div
-      if( goingUp ){
-        // insert the current div before the previous div inserted
-        container.insertBefore( contentDiv, container.firstChild );
-      }
-      else {
-
-        container.appendChild( contentDiv );
-      }
-
-    }
-
-    i++;
-
-    //  Default to empty if not used
-    //options.innerHTML = options.innerHTML || "";
-
-    contentDiv.innerHTML = "<p><span id='big' style='font-size:24px; line-height: 130%;' >" + options.title + "</span><br />" +
-    "<span id='mid' style='font-size: 16px;'>" + options.text + "</span><br />" + options.innerHTML;
-
     return {
 
-      start: function( event, options ) {
+      _setup: function ( options ) {
+        options.id = options.id || "timelineDiv" + i;
+        if (!target) {
+          target = document.querySelector('body').appendChild(document.createElement('div'));
+          target.id = options.target;
+        }
+        container = target.querySelector(`#${options.id}`);
+
+        if ( !container ) {
+          container = document.createElement( "div" );
+          target.appendChild ( container );
+          container.style.width = "inherit";
+          container.style.height = "inherit";
+          container.style.overflow = "auto";
+          container.id = options.id;
+          container.classList.add("timeline-plugin");
+        } 
+
+        //  Default to up if options.direction is non-existant or not up or down
+        options.direction = options.direction || "up";
+        if ( options.direction.toLowerCase() === "down" ) {
+          goingUp = false;
+        }
+ 
+        // if this isnt the first div added to the target div
+        if( goingUp ){
+          // console.log('going up');
+          // insert the current div before the previous div inserted
+          container.insertBefore( contentDiv, container.firstChild );
+          }
+        else {
+
+            container.appendChild( contentDiv );
+        }
+        contentDiv.style.display = "none";
+        contentDiv.classList.add("timeline-plugin-item");
+
+        options.innerHTML = options.innerHTML || "";
+
+        contentDiv.innerHTML =`${options.title ?"<h3 >" + options.title + "</h3>" : ""}
+${options.text? "<p>" + options.text + "</p>" : ""} ${options.innerHTML}`;
+
+
+        // console.log(contentDiv.textContent);
+        i++;
+
+      },
+
+    start: function( event, options ) {
         contentDiv.style.display = "block";
 
         if( options.direction === "down" ) {
@@ -9061,6 +9087,7 @@ document.addEventListener( "click", function( event ) {
         } )
    *
    */
+  var i = 0;
   Popcorn.plugin( "webpage" , {
     manifest: {
       about: {
@@ -9107,12 +9134,12 @@ document.addEventListener( "click", function( event ) {
       options._iframe = document.createElement( "iframe" );
       options._iframe.classList.add("webpage-plugin")
       options._iframe.style.width = "100%" ;
+      options._iframe.style.display = "none";
       // not sure what a good default would actually look like
       // for now setting in CSS using new class
       //options._iframe.style.minHeight = "100%";
-      options._iframe.id = options.id;
+      options._iframe.id = options.id || `webpageframe${i}`;
       options._iframe.src = options.src;
-      options._iframe.style.display = "none";
 
       // add the hidden iframe to the DOM
       target && target.appendChild( options._iframe );
@@ -9235,7 +9262,7 @@ document.addEventListener( "click", function( event ) {
           options._container = document.createElement( "div" );
           options._container.id = "wikidiv" + i;
           i++;
-          
+          options._container.classList.add("wikipedia-plugin");
           options._container.innerHTML = `<h1><a href="${options.src} target="_blank">${options.title || apiResp.title}</a></h1>`;
           
           // insert the content of the wiki article
@@ -9434,7 +9461,7 @@ document.addEventListener( "click", function( event ) {
   }
 
   function flyMap (map, flyOptions) {
-      console.log(typeof(flyOptions));
+    // console.log(flyOptions);
     setTimeout ( function () {
      map.panTo(flyOptions.endpoint, {animate: true, duration: flyOptions.flightLength});
     }, flyOptions.wait * 1000);
@@ -9454,7 +9481,9 @@ document.addEventListener( "click", function( event ) {
     // create a new div within the target div
     // this is later passed on to the maps api
     newdiv = document.createElement( "div" );
+    newdiv.style.display = "none";
     newdiv.id = "leafletdiv" + i;
+    newdiv.classList.add("leaflet-plugin");
     newdiv.style.width = "100%";
     newdiv.style.height = "100%";
     i++;
@@ -9591,7 +9620,6 @@ document.addEventListener( "click", function( event ) {
             
             if ( options.map ) {
               options.map.div = newdiv;
-              newdiv.style.display = "none";
             }
           }
         };
@@ -9761,7 +9789,7 @@ document.addEventListener( "click", function( event ) {
    *
    *   target: a String -- the target div's id.
    *
-   *   markdown: the markdown to be rendered using the markdown template.  Should be a string.
+   *   text: the markdown text to be rendered using the markdown template.  Should be a string.
    *
    *
    * Example:
@@ -9803,6 +9831,7 @@ Paragraph with **bold** _ital_ and :rocket: emoji`
     
     newdiv = document.createElement( "div" );
     newdiv.id = "markdowndiv" + i;
+    newdiv.classList.add("markdown-plugin");
     newdiv.style.display = "none";
     i++;
     if (target)
@@ -9888,45 +9917,46 @@ Paragraph with **bold** _ital_ and :rocket: emoji`
 
 (function ( Popcorn ) {
 
-  var container = {},
+  let container = {},
       spanLocation = 0,
-      setupContainer = function( target ) {
+      i = 0,
+      setupContainer = function( target, container) {
 
-        container[ target ] = document.createElement( "div" );
+        let element = document.createElement( "div" );
 
-        var t = document.getElementById( target );
-        t && t.appendChild( container[ target ] );
+        var t = document.querySelector ( `#${target}`);
+        t && t.appendChild( element );
 
-        container[ target ].style.height = "100%";
-        container[ target ].style.position = "relative";
-
-        return container[ target ];
+        element.style.height = "100%";
+        element.style.position = "relative";
+        element.id = container;
+        element.classList.add("wordriver-plugin");
+        // console.log (container)
+        return element;
       },
       // creates an object of supported, cross platform css transitions
       span = document.createElement( "span" ),
-      prefixes = [ "webkit", "Moz", "ms", "O", "" ],
+      prefixes = ["", "Moz", "webkit", "ms", "O" ],
       specProp = [ "Transform", "TransitionDuration", "TransitionTimingFunction" ],
       supports = {},
       prop;
 
   document.getElementsByTagName( "head" )[ 0 ].appendChild( span );
 
+  // this will always break on unprefixed b/c of lowercase first letter
+  // in those prop names.  oh well!
   for ( var sIdx = 0, sLen = specProp.length; sIdx < sLen; sIdx++ ) {
-
     for ( var pIdx = 0, pLen = prefixes.length; pIdx < pLen; pIdx++ ) {
-
       prop = prefixes[ pIdx ] + specProp[ sIdx ];
-
       if ( prop in span.style ) {
-
         supports[ specProp[ sIdx ].toLowerCase() ] = prop;
         break;
       }
     }
   }
-
+  // console.log(supports);
   // Garbage collect support test span
-  document.getElementsByTagName( "head" )[ 0 ].appendChild( span );
+  document.getElementsByTagName( "head" )[ 0 ].removeChild( span );
 
   /**
    * Word River popcorn plug-in
@@ -9943,7 +9973,7 @@ Paragraph with **bold** _ital_ and :rocket: emoji`
           end: 15,                       // When to finish the Word River animation
           text: 'Hello World',           // The text you want to be displayed by Word River
           target: 'wordRiverDiv',        // The target div to append the text to
-          color: "blue"                  // The color of the text. (can be Hex value i.e. #FFFFFF )
+          color: "blue"                  // The color of the text. (can be any valid CSS color )
         } )
    *
    */
@@ -9976,8 +10006,13 @@ Paragraph with **bold** _ital_ and :rocket: emoji`
             elem: "input",
             type: "text",
             label: "Color",
-            "default": "Green",
+            "default": "green",
             optional: true
+          },
+          id: {
+            elem: "input",
+            type: "text",
+            label: "ID"
           }
         }
       },
@@ -9985,7 +10020,13 @@ Paragraph with **bold** _ital_ and :rocket: emoji`
       _setup: function( options ) {
 
         options._duration = options.end - options.start;
-        options._container = container[ options.target ] || setupContainer( options.target );
+
+        // we're using the `id` in a strange way which allows the plugin to
+        // reuse an existing wordriver if we want.
+        // so we will check to see if this element exists before creating it
+        options.id = options.id || `wordriver${i}`;
+        i++;
+        options._container =  document.querySelector (`#${options.target} #${options.id}`) || setupContainer( options.target, options.id );
 
         options.word = document.createElement( "span" );
         options.word.style.position = "absolute";
@@ -10002,7 +10043,7 @@ Paragraph with **bold** _ital_ and :rocket: emoji`
         options.word.style[ supports.transitiontimingfunction ] = "linear";
 
         options.word.innerHTML = options.text;
-        options.word.style.color = options.color || "black";
+        options.word.style.color = options.color || "green";
       },
       start: function( event, options ){
 
@@ -10011,6 +10052,8 @@ Paragraph with **bold** _ital_ and :rocket: emoji`
         // Resets the transform when changing to a new currentTime before the end event occurred.
         options.word.style[ supports.transform ] = "";
 
+        // I think we should beable to do bette rwith these trnasforms, which are a bit
+        // funkily coded.
         options.word.style.fontSize = ~~( 30 + 20 * Math.random() ) + "px";
         spanLocation = spanLocation % ( options._container.offsetWidth - options.word.offsetWidth );
         options.word.style.left = spanLocation + "px";
@@ -10031,6 +10074,7 @@ Paragraph with **bold** _ital_ and :rocket: emoji`
 
         // manually clears the word based on user interaction
         options.word.style.opacity = 0;
+        options.word.style.display = none;
       },
       _teardown: function( options ) {
 
@@ -10039,13 +10083,164 @@ Paragraph with **bold** _ital_ and :rocket: emoji`
         options.word.parentNode && options._container.removeChild( options.word );
 
         // if no more word spans exist in container, remove container
-        container[ options.target ] &&
-          !container[ options.target ].childElementCount &&
+        container &&
+          !container.childElementCount &&
           target && target.removeChild( container[ options.target ] ) &&
-          delete container[ options.target ];
+          delete container;
       }
   });
 
+})( Popcorn );
+// PLUGIN: FIGURE
+
+(function ( Popcorn ) {
+
+/**
+ * Figures popcorn plug-in
+ * Shows an figure element
+ * Options parameter will need a start, end, href, target and src.
+ * Start is the time that you want this plug-in to execute
+ * End is the time that you want this plug-in to stop executing
+ * href is the url of the destination of a anchor - optional
+ * Target is the id of the document element that the iframe needs to be attached to,
+ * this target element must exist on the DOM
+ * Src is the url of the image that you want to display
+ * text is the overlayed text on the figure - optional
+ *
+ * @param {Object} options
+ *
+ * Example:
+   var p = Popcorn('#video')
+      .figure({
+        start: 5, // seconds
+        end: 15, // seconds
+        href: 'http://www.drumbeat.org/',
+        src: 'http://www.drumbeat.org/sites/default/files/domain-2/drumbeat_logo.png',
+        text: 'DRUMBEAT',
+        target: 'figurediv'
+      } )
+ *
+ */
+
+  let i=0;
+
+  Popcorn.plugin( "figure", function (options) {
+
+    return {
+      _setup: function( options ) {
+        // console.log(options);
+      let figure = options.figure =  document.createElement( "figure" ),
+          img = document.createElement( "img" ),
+          target = document.getElementById( options.target );
+      figure.appendChild(img);
+      figure.style.display = "none";
+      figure.classList.add("figure-plugin");
+      figure.id = options.id || `popcorn-figure${i}`;
+      i++;
+      if (options.text) {
+        let caption = document.createElement ("figcaption");
+        caption.innerHTML = options.text;
+        figure.appendChild(caption);
+      }
+        // options.anchor = document.createElement( "a" );
+        // options.anchor.style.position = "relative";
+        // options.anchor.style.textDecoration = "none";
+        // options.anchor.style.display = "none";
+
+        // add the widget's div to the target div.
+        // if target is <video> or <audio>, create a container and routinely
+        // update its size/position to be that of the media
+        if ( target ) {
+            target.appendChild( options.figure );
+        }
+
+
+        img.src = options.src;
+
+        // options.toString = function() {
+        //   var string = options.src || options._natives.manifest.options.src[ "default" ],
+        //       match = string // .replace( /.*\//g, "" );
+        //   return match.length ? match : string;
+        // };
+      },
+
+      /**
+       * @member figure
+       * The start function will be executed when the currentTime
+       * of the video  reaches the start time provided by the
+       * options variable
+       */
+    start: function( event, options ) {
+      // options.anchor.style.display = "inline";
+      options.figure.style.display = "block";
+      },
+      /**
+       * @member figure
+       * The end function will be executed when the currentTime
+       * of the video  reaches the end time provided by the
+       * options variable
+       */
+      end: function( event, options ) {
+        options.figure.style.display = "none";
+      },
+      _teardown: function( options ) {
+        if ( options.trackedContainer ) {
+          options.trackedContainer.destroy();
+        }
+        else if ( options.anchor.parentNode ) {
+          options.figure.parentNode.removeChild( options.figure );
+        }
+      }
+    };
+  },
+                  
+  {
+    about: {
+      name: "Popcorn Figure Plugin",
+      version: "0.1",
+      author: "Scott Downe, Matt Price",
+      website: "http://scottdowne.wordpress.com/"
+    },
+    options: {
+      start: {
+        elem: "input",
+        type: "number",
+        label: "Start"
+      },
+      end: {
+        elem: "input",
+        type: "number",
+        label: "End"
+      },
+      src: {
+        elem: "input",
+        type: "url",
+        label: "Figure URL",
+        "default": "http://mozillapopcorn.org/wp-content/themes/popcorn/images/for_developers.png"
+      },
+      href: {
+        elem: "input",
+        type: "url",
+        label: "Link",
+        "default": "http://mozillapopcorn.org/wp-content/themes/popcorn/images/for_developers.png",
+        optional: true
+      },
+      id: {
+        elem: "input",
+        type: "text",
+        label: "Figure ID",
+        optional: true
+      },
+      target: "figure-container",
+      text: {
+        elem: "input",
+        type: "text",
+        label: "Caption",
+        "default": "popcorn-container",
+        optional: true
+      }
+    }
+  });
 })( Popcorn );
 // PARSER: 0.3 JSON
 
