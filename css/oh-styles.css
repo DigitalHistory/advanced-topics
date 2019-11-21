@@ -1,5 +1,11 @@
-
 /* We start with the spatial history assignment */
+:root {
+    /* variable to control widths in one place */
+    /* we set it here and then again in our media queries */
+    /* This means we can generally only see 2 plugins on the screen at once! */
+    --default-width: 50%;
+    box-sizing: border-box;
+}
 
 .main-container {
     grid-template-areas: "intro popcorn" "main main";
@@ -29,25 +35,28 @@ aside#popcorn-container {
     overflow-x: hidden;
     flex-wrap: wrap;
     max-height: 100%;
+    /* space things out! */
+    justify-content: space-around;
 }
 
 aside#popcorn-container > * {
     /* default base width for plugins */
-    flex-basis: 30em;
+    flex-basis: var(--default-width);
+    flex-shrink: 1;
+    flex-grow: 1;
 }
 
 
 /* most of the plugins will create divs or other elements w/ class "pluginname-plugin" */
 /* here's one example of styling particular plugins differently from others */
 #popcorn-container figure.figure-plugin {
-    /* don't allow the figure to overflow the box on its own */
-    /* an example of setting the figures a bit more easily.  */
-    flex-basis: 40em;
+    /* an example of setting the figure as a bit larger than the others.  */
+    flex-basis: calc(var(--default-width)*4/3);
+    max-width: 100%;
 }
 
-#popcorn-container .leaflet-plugin {
-    /* don't allow the figure to overflow the box on its own */
-    /* an example of setting the figures a bit more easily.  */
+#popcorn-container .leaflet-plugin, #popcorn-container .googlemap-plugin {
+    /* make these full-width by default */
     flex-basis: 100%;
 }
 
@@ -60,11 +69,23 @@ section#maintext {
 }
 
 
-@media only screen and (max-width:1200px) {
+@media only screen and (max-width:1199px) {
     .main-container {
         grid-template-areas: "popcorn" "intro" "main";
+        --default-width: 100%;
+        grid-template-rows: minmax(200px,auto);
     }
+    
 }
+
+
+@media only screen and (min-width:1200px) and (max-width:1500px) {
+    .main-container {
+        --default-width: 20em;
+    }
+    
+}
+
 
 
 
