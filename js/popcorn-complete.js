@@ -6441,7 +6441,7 @@
       playerVars.iv_load_policy = playerVars.iv_load_policy || 3;
 
       // Disable keyboard controls by default
-      playerVars.disablekb = playerVars.disablekb || 1;
+      playerVars.disablekb = playerVars.disablekb || 0;
 
       // Don't show video info before playing
       playerVars.showinfo = playerVars.showinfo || 0;
@@ -6452,7 +6452,7 @@
       playerVars.origin = playerVars.origin || domain;
 
       // Show/hide controls. Sync with impl.controls and prefer URL value.
-      playerVars.controls = playerVars.controls || impl.controls ? 2 : 0;
+      playerVars.controls = playerVars.controls || impl.controls ? 2 : 1;
       impl.controls = playerVars.controls;
 
       // Set wmode to transparent to show video overlays
@@ -7732,7 +7732,8 @@ var googleCallback;
     // create a new div this way anything in the target div is left intact
     // this is later passed on to the maps api
     newdiv = document.createElement( "div" );
-    newdiv.id = "actualmap" + i;
+    newdiv.id = "googlemapdiv" + i;
+    newdiv.classList.add(`googlemap-plugin`);
     newdiv.style.width = options.width || "100%";
 
     // height is a little more complicated than width.
@@ -8847,7 +8848,7 @@ document.addEventListener( "click", function( event ) {
      * options variable
      */
     start: function( event, options ) {
-      options._container.style.display = "inline";
+      options._container.style.display = null;
     },
 
     /**
@@ -8957,11 +8958,10 @@ document.addEventListener( "click", function( event ) {
         if ( !container ) {
           container = document.createElement( "div" );
           target.appendChild ( container );
-          container.style.width = "inherit";
-          container.style.height = "inherit";
           container.style.overflow = "auto";
           container.id = options.id;
           container.classList.add("timeline-plugin");
+          container.style.display = "none";
         } 
 
         //  Default to up if options.direction is non-existant or not up or down
@@ -8995,15 +8995,24 @@ ${options.text? "<p>" + options.text + "</p>" : ""} ${options.innerHTML}`;
       },
 
     start: function( event, options ) {
-        contentDiv.style.display = "block";
-
-        if( options.direction === "down" ) {
-          container.scrollTop = container.scrollHeight;
-        }
-      },
+      contentDiv.style.display = null;
+      container.style.display = null;
+      if( options.direction === "down" ) {
+        container.scrollTop = container.scrollHeight;
+      }
+    },
 
       end: function( event, options ) {
         contentDiv.style.display = "none";
+        let containerEmpty = true;
+        let kids = container.children;
+        for (child of kids) {
+          console.log(child.style.display);
+          if (!child.style.display === "none") {
+            containerEmpty = null;
+          }
+        };
+        if (containerEmpty) {container.style.display = "none";}
       },
 
       _teardown: function( options ) {
@@ -9154,7 +9163,7 @@ ${options.text? "<p>" + options.text + "</p>" : ""} ${options.innerHTML}`;
     start: function( event, options ){
       // make the iframe visible
       options._iframe.src = options.src;
-      options._iframe.style.display = "inline";
+      options._iframe.style.display = null;
     },
     /**
      * @member webpage
@@ -9510,7 +9519,7 @@ ${options.text? "<p>" + options.text + "</p>" : ""} ${options.innerHTML}`;
         if ( !window.L ) {
           head.appendChild(link);
           Popcorn.getScript( "https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" , function() {
-              console.log('empty callback');
+              // console.log('empty callback');
             // insert jquery -- not sure why I need this though!
             //  Popcorn.getScript( "https://code.jquery.com/jquery-3.4.1.min.js" );
           } );
@@ -9598,7 +9607,7 @@ ${options.text? "<p>" + options.text + "</p>" : ""} ${options.innerHTML}`;
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               })
                 .addTo(options.map);
-  
+              break;
             default: /* case "ROADMAP": */
                 // add OpenStreetMap layer
               L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -9923,7 +9932,7 @@ Paragraph with **bold** _ital_ and :rocket: emoji`
       setupContainer = function( target, container) {
 
         let element = document.createElement( "div" );
-
+        element.style.display = "none";
         var t = document.querySelector ( `#${target}`);
         t && t.appendChild( element );
 
@@ -10027,8 +10036,10 @@ Paragraph with **bold** _ital_ and :rocket: emoji`
         options.id = options.id || `wordriver${i}`;
         i++;
         options._container =  document.querySelector (`#${options.target} #${options.id}`) || setupContainer( options.target, options.id );
+               
+        options.word = document.createElement( "span");
+        options.word.style.display = "none";
 
-        options.word = document.createElement( "span" );
         options.word.style.position = "absolute";
 
         options.word.style.whiteSpace = "nowrap";
@@ -10044,11 +10055,13 @@ Paragraph with **bold** _ital_ and :rocket: emoji`
 
         options.word.innerHTML = options.text;
         options.word.style.color = options.color || "green";
+        console.log(options.word.style.display);
+
       },
       start: function( event, options ){
-
+        options._container.style.display = null;
+        options.word.style.display = null;        
         options._container.appendChild( options.word );
-
         // Resets the transform when changing to a new currentTime before the end event occurred.
         options.word.style[ supports.transform ] = "";
 
@@ -10070,11 +10083,22 @@ Paragraph with **bold** _ital_ and :rocket: emoji`
         // ensures at least one second exists, because the fade animation is 1 second
 		    }, ( ( (options.end - options.start) - 1 ) || 1 ) * 1000 );
       },
-      end: function( event, options ){
-
+    end: function( event, options ){
+        console.log(options);
+        console.log(event);
         // manually clears the word based on user interaction
         options.word.style.opacity = 0;
         options.word.style.display = none;
+        let containerEmpty = true;
+        let kids = options._container.children;
+        for (child of kids) {
+          console.log(child.style.display);
+          if (!child.style.display === "none") {
+            containerEmpty = null;
+          }
+        };
+
+        if (containerEmpty) {options._container.style.display = "none";}
       },
       _teardown: function( options ) {
 
