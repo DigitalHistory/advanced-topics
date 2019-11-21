@@ -22,9 +22,10 @@ var loadPopcorn = function(){
     
 
     // Next we need to identify which Google spreadsheet we're going to want to use.  
-    // You'll need to change the key to match your spreadsheet.  Remember, this is the 
-    // part in the spreadsheet URL that comes between "key=" and "&"
-    // It's very important, though, to keep the same column headers as in our example spreadsheet!
+    // You'll need to change the key to match your spreadsheet. 
+    // Instructions are here: https://github.com/jsoma/tabletop#1-publishing-your-google-sheet
+    // It's very important, though, to keep the same column headers as in our example spreadsheet:
+    // https://docs.google.com/spreadsheets/d/1pL_Lj62_ZcW7iawTCQ_5BQsmdynCtC8y5BCNy3k2LOM/
     let public_spreadsheet_key = 'https://docs.google.com/spreadsheets/d/1pL_Lj62_ZcW7iawTCQ_5BQsmdynCtC8y5BCNy3k2LOM/pubhtml?gid=0&single=true';
 
     // now we are going to use the tabletop.js library, which was called in our 

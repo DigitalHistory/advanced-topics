@@ -3,7 +3,7 @@
 In the final segment of our class, we discuss the use of non-textual media in history, especially /oral histories/. This final, short project asks you to take an existing piece of oral history and build a small web page around it. We will use a very similar set of templates to those we used last assignment; but instead of dealing with Leaflet Maps, we'll use the [[https://github.com/menismu/popcorn-js][Popcorn]] events framework for creating a simple multi-media history essay out of HTML.  As with our last assignment, this is a little bit like using [[https://www.youtube.com/watch?v=Q8gGsuWouDE][hand-carved wooden Emoji]]: obviously there are much more sophisticated ways to interact with video on the web; our aim is to use this simple tool as a way to think about several issues: 
 - How do aural and visual media change the nature of historical narrative?
 - What are the challenges of building an historical narrative around an oral history, especially one that you did not conduct yourself?
-- How does technical infrastructure (like [[https://github.com/menismu/popcorn-js][Popcorn]] and [[http://docs.google.com][Google Sheets]]) change the nature of historical narrative?
+- How does technical infrastructure (like [[https://github.com/menismu/popcorn-js][Popcorn]] and [[http://sheets.google.com][Google Sheets]]) change the nature of historical narrative?
 
 ** How This Project Works
 This is a very small(single-page!) website organized around an audio element. Though it might be used as a part of a larger project, it can also stand on its own.  It looks pretty good, but most of the heavy lifting is done by outside libraries:
