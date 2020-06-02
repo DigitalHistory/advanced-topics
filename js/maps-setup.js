@@ -265,11 +265,13 @@ function createMap (element) {
     // and insert the value in `accessToken`, below. 
     // see: https://docs.mapbox.com/help/how-mapbox-works/access-tokens/#creating-and-managing-access-tokens
     // to change the tile layer, change the `id` attribute below.
-    // some valid options include: mapbox.streets, mapbox.light, mapbox.satellite, mapbox.dark, mapbox.outdoors 
-    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}', {
+    // some valid options include: mapbox/streets-v11, mapbox/light-v10, mapbox/satellite-v9, mapbox/satellite-streets-v11 mapbox/dark-v10, mapbox/outdoors-v11
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
 	attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
 	maxZoom: 18,
-	id: 'mapbox.dark',
+	id: 'mapbox/dark-v10',
+        tileSize: 512,
+        zoomOffset: -1,
 	accessToken: 'pk.eyJ1IjoidGl0YW5pdW1ib25lcyIsImEiOiJjazF0bTdlNXQwM3gxM2hwbXY0bWtiamM3In0.FFPm7UIuj_b15xnd7wOQig'
     })
         .addTo(map);
