@@ -9555,7 +9555,7 @@ ${options.text? "<p>" + options.text + "</p>" : ""} ${options.innerHTML}`;
             options.type = options.type || "ROADMAP";// XXX: 
             switch( options.type ) {
             case "SATELLITE" :
-              L.tileLayer(`https://api.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoidGl0YW5pdW1ib25lcyIsImEiOiJjazF0bTdlNXQwM3gxM2hwbXY0bWtiamM3In0.FFPm7UIuj_b15xnd7wOQig`, {
+              L.tileLayer(`https://api.mapbox.com/styles/v1/mapbox/satellite/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoidGl0YW5pdW1ib25lcyIsImEiOiJjazF0bTdlNXQwM3gxM2hwbXY0bWtiamM3In0.FFPm7UIuj_b15xnd7wOQig`, {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               })
                 .addTo(options.map);
@@ -9563,7 +9563,7 @@ ${options.text? "<p>" + options.text + "</p>" : ""} ${options.innerHTML}`;
               break;
             case "TERRAIN":
               // add terrain map ( USGS )
-              L.tileLayer(`https://api.mapbox.com/v4/mapbox.outdoors/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoidGl0YW5pdW1ib25lcyIsImEiOiJjazF0bTdlNXQwM3gxM2hwbXY0bWtiamM3In0.FFPm7UIuj_b15xnd7wOQig`, {
+              L.tileLayer(`https://api.mapbox.com/styles/v1/mapbox/outdoors/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoidGl0YW5pdW1ib25lcyIsImEiOiJjazF0bTdlNXQwM3gxM2hwbXY0bWtiamM3In0.FFPm7UIuj_b15xnd7wOQig`, {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               })
                 .addTo(options.map);
@@ -9586,9 +9586,6 @@ ${options.text? "<p>" + options.text + "</p>" : ""} ${options.innerHTML}`;
 	        maxZoom: 20,
 	        ext: 'png'
               })
-              // L.tileLayer(`https://api.mapbox.com/v4/mapbox.comic/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoidGl0YW5pdW1ib25lcyIsImEiOiJjazF0bTdlNXQwM3gxM2hwbXY0bWtiamM3In0.FFPm7UIuj_b15xnd7wOQig`, {
-              //   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              // })
                 .addTo(options.map);
               break;
             case "STAMEN-TERRAIN":
@@ -9601,9 +9598,11 @@ ${options.text? "<p>" + options.text + "</p>" : ""} ${options.innerHTML}`;
 	        ext: 'png'
               })
                 .addTo(options.map);
-              break;
+                break;
             case "COMIC":
-              L.tileLayer(`https://api.mapbox.com/v4/mapbox.comic/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoidGl0YW5pdW1ib25lcyIsImEiOiJjazF0bTdlNXQwM3gxM2hwbXY0bWtiamM3In0.FFPm7UIuj_b15xnd7wOQig`, {
+                // the comic style is now broken b/c of long-past deprecation of old styles
+                // need to fix this but don't have time right now. 
+              L.tileLayer(`https://api.mapbox.com/styles/v1/mapbox/comic/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoidGl0YW5pdW1ib25lcyIsImEiOiJjazF0bTdlNXQwM3gxM2hwbXY0bWtiamM3In0.FFPm7UIuj_b15xnd7wOQig`, {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               })
                 .addTo(options.map);
