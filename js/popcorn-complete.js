@@ -9514,11 +9514,11 @@ ${options.text? "<p>" + options.text + "</p>" : ""} ${options.innerHTML}`;
         var link = document.createElement('link');
         link.rel = 'stylesheet';  
         link.type = 'text/css'; 
-        link.href = "https://unpkg.com/leaflet@1.5.1/dist/leaflet.css";
+        link.href = "https://unpkg.com/leaflet@1.6.0/dist/leaflet.css";
         // insert leaflet api script once
         if ( !window.L ) {
           head.appendChild(link);
-          Popcorn.getScript( "https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" , function() {
+          Popcorn.getScript( "https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" , function() {
               // console.log('empty callback');
             // insert jquery -- not sure why I need this though!
             //  Popcorn.getScript( "https://code.jquery.com/jquery-3.4.1.min.js" );
