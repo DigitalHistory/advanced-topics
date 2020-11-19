@@ -9,14 +9,14 @@ There's a lot more to read here, but for now what you probably want is [a link t
 
 And doubtless also [a link to assignment 5](./oral-history), the oral history assignment.
 
-[Assignment 6](./project-proposal), the project proposal, remains somewhat skeletally defined for now. 
+[Assignment 6](./project-proposal), the project proposal, is also available. 
 
 ## **PLEASE DO NOT MAKE CHANGES OUTSIDE OF ASSIGNMENT 4-RELATED FILES UNTIL I TELL YOU IT'S SAFE TO DO SO!**
 
 Also: **it will never be safe to edit readme and test files**. They are subject to updates at any time. Ditto for `package.json`. 
 
 ## Viewing the repo
-Because of browser security settings, this repository will not display properly when you try to view the files directly in your browser.  **This is good -- you don't want your browser to read and write sensitive files on your computer!** However, it's a bit inconvenient for us. In order to check your work, you will need to start a simple server in the repository. the easiest way to do that is to `npm run server` from the command line or by using the npm run scrpt command in VSCode. This will serve the files at `localhost:8080`; if you navigate there in your browser, you will see the live files. Your work will not always update automatically. In Chrome, open devtools and then click and hold the refresh button on the toolbar; choose "Empty Cashe and Reload".  In Firefox, [follow these instructions](https://support.mozilla.org/en-US/questions/1103414). For live reload, run `npm run watch` instead; however, this can lead to some display problems with dynamic content such as maps. 
+Because of browser security settings, this repository will not display properly when you try to view the files directly in your browser.  **This is good -- you don't want your browser to read and write sensitive files on your computer!** However, it's a bit inconvenient for us. In order to check your work, you will need to start a simple server in the repository. the easiest way to do that is to `npm run server` from the command line or by using the npm run scrpt command in VSCode. This will serve the files at `localhost:8080`; if you navigate there in your browser, you will see the live files. Your work will not always update automatically. In Chrome, open devtools and then click and hold the refresh button on the toolbar; choose "Empty Cashe and Reload".  In Firefox, [follow these instructions](https://support.mozilla.org/en-US/questions/1103414). For live reload, run `npm run watch` instead; however, this can lead to some display problems with dynamic content such as maps. I've also added some convenience functions for the individual assignments: `npm run servemap`, `npm run servestory`, `npm run serveproject` 
 
 
 ## Markdown rendering in this repo
