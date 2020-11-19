@@ -37,6 +37,7 @@ The proposal should be composed of the following elements (word lengths are appr
 - Methods (500 words) :: Describe the tools you intend to use, and your plans for both research and dissemination of results
 - Timeline (500 words) :: Describe the work that will be required to complete this project, and how much time you and your potential collaborators or research assistants will require to bring it to completion
 - Importance (500 words) :: Discuss the importance of this research, and its place in a broader historical conversation
+- Bibliography (minimum 5 sources) :: Place your project in the context of other people's work
 - Budget (1 Spreadsheet page) :: Outline and justify the costs of the project. [Note to students of Digital History: we recognize that your costs may be, er, rough ballpark estimates. You won't be graded on the accuracy of your budget, but make a serious effort to include all the categories of cost.]
 
 ** Expectations
