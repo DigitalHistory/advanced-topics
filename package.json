@@ -10,7 +10,11 @@
     "test-maps": "mocha -t 0 test/test.js --grep \"Spatial History\" --reporter mochawesome --reporter-options reportDir=TestResults,reportFilename=testresults",
     "test-oh": "mocha -t 0 test/test.js --grep \"Oral History\" --reporter mochawesome --reporter-options reportDir=TestResults,reportFilename=testresults",
     "test-proposal": "mocha -t 0 test/test.js --grep \"Proposal\" --reporter mochawesome --reporter-options reportDir=TestResults,reportFilename=testresults",
-    "server": "node node_modules/http-server/bin/http-server -o"
+    "server": "node node_modules/http-server/bin/http-server -o",
+    "servemap": "node node_modules/http-server/bin/http-server -o ./spatial-history",
+    "servestory": "node node_modules/http-server/bin/http-server -o ./oral-history",
+    "serveproposal": "node node_modules/http-server/bin/http-server -o ./project-proposal"
+
   },
   "author": "Matt Price",
   "license": "GPL-3.0",
