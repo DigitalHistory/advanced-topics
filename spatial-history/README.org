@@ -8,7 +8,7 @@ Build a web page that includes a Leaflet Map (complete with markers) as part of 
 
 - Essay :: You should write a short essay, approximately 900 words (~ 3-4 pages double-spaced, if we were using word processors) addressing a small, specific historical topic /with a spatial history component/. That is, the "spatial" element shouldn't just be an afterthought, but should be at the centre of your analysis.
 
-     Here are some plausible examples of appropriate topics:
+  Here are some plausible examples of appropriate topics:
   - Corridor of Power: Berlin's Friedrichstrasse in the Nazi Era
   - End of an Era: Toronto's last meatpacking plants
   - An Empire at Home: Conservative Think Tanks in Washington, D.C.
@@ -37,6 +37,19 @@ machine-to-machine communication channels.
 
 You don't have to understand the Leaflet Maps API very thoroughly to be able to do this assignment. The code comes pre-written; all you have to do is hack at it till it does what you want it to.
 
+*** Changing Basemaps
+Especially if you are writing about ancient times, you may well want to use a less **busy** map than you get by default.  Leaflet has a very flexible system for making use of base maps from various providers. The code I've provided you with lets you use any public "tileset" (basemap layer) from mapbox.com. Look at the function `createMap` in ../js/maps-setup.js, near line 288 in my version:
+```jsL.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	attribution: 'Map data &copy; <href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+	maxZoom: 18,
+  id: 'mapbox/dark-v10',
+  // id: 'titaniumbones/ckhnvk5pl18o71apeq8q1duhc',
+  tileSize: 512,
+  zoomOffset: -1,
+	accessToken: 'pk.eyJ1IjoidGl0YW5pdW1ib25lcyIsImEiOiJjazF0bTdlNXQwM3gxM2hwbXY0bWtiamM3In0.FFPm7UIuj_b15xnd7wOQig'
+    })
+```
+Note the `id` property in the parameter, which is written once, properly, and a second time, commented out.  Toggle the commenting on those two lines and the standard 'dark-v10' map style by mapbox user 'mapbox' will be replaced by a custom map style by mapbox user 'titaniumbones'. If you'd like to make your own style, read the brief instructions in the code comments a few lines earlier in the file, create an account at mapbox.com, and edit away. 
 ** Using Markdown
    :PROPERTIES:
    :CUSTOM_ID: using-markdown
@@ -50,10 +63,10 @@ As we move closer to a real-world task, we start to encounter more real-world pr
 Fortunately, there are many solutions. One is to use the ~Preview HTML~ functionality in VSCode. However, sometimes it's easier to just work in the full browser environment, especially when you want access to your Dev Tools. That's why I've added a server to the  ~npm~ dependencies of this repository.  This allows you to see your work in a regular browser tab. Simply navigate to the repository root directory in a terminal, and run ~npm install~. Now whenever you want to look at your work, you can just run:
 
 #+begin_src sh
-npm run server
+npm run servemap
 #+end_src
 
-Then point your browser at ~localhost:8080~ and all the assignments in this repository will be available for you to browse.  If you want the browser to update automatically, run ~npm run watch~ instead, but be warned that the map updates a little oddly when run this way. 
+Your browser should open a new tab at ~localhost:8080/spatial-history~, pointed at your project.  If you want the browser to update automatically, run ~npm run watch~ instead, but be warned that the map updates a little oddly when run this way. 
 
 ** Tests
 At present, *there are no working tests*. If I'm able to get them up and running before it becomes irrelevant, I will push changes to all of your repos!
