@@ -1,5 +1,5 @@
 /* global L:false document:false $:false */
-// that first line stops your editor form complaining about these variables
+// that first line stops your editor from complaining about these variables
 // being undefined, but it will still get mad at you if you accidentlaly try to change
 // their values (which you must not do!!)
 // `L` is the global Leaflet API object, which must be defined before this
@@ -25,14 +25,15 @@
 
 // map initialization variables
 let projectMap, // this will hold the map once it's initialized
-    myCenter = [ 55.4907, -1.594], // *latitude*, then longitude
-    myZoom = 7; // set your preferred zoom here. higher number is closer in.
+    myCenter = [ 52.90024141178471, -1.2631566904279536 ], // [ 55.4907, -1.594], // *latitude*, then longitude
+    myZoom = 6; // set your preferred zoom here. higher number is closer in.
                 // I set the zoom wide to give access to context before zooming in
 
 
 // I'm complicating things a bit with this next set of variables, which will help us
-// to make multi-colored markers
+// to make multi-colored markers.
 // color options are red, blue, green, orange, yellow, violet, grey, black
+// to use one of the ones I haven't provided here, 
 // just substitute the color name in the URL value (just before `.png`)
 const greenURL = 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
       yellowURL = 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-yellow.png',
@@ -42,7 +43,7 @@ const greenURL = 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/im
 // I've added this just in case you want very fine control over your marker placement
 const myIconClass = L.Icon.extend({
     options: {
-        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
         iconSize: [25, 41],
         iconAnchor: [12, 41],
         popupAnchor: [1, -34],
@@ -56,6 +57,7 @@ const gryfIcon = new myIconClass({iconUrl: yellowURL}),
 
 
 // storing colors in variables, to make it easier to change all the related features at once
+// you should probably do this too. 
 let gryfCol = 'yellow',
     slythCol = 'green',
     hogCol = 'grey',
@@ -64,6 +66,8 @@ let gryfCol = 'yellow',
 
 ///////////////////////////////////////////////////////////////////////
 // CHANGE THESE VARIABLE NAMES AND THEIR VALUES TO SUIT YOUR PROJECT //
+// It's easy to do this in VSCode: right-click on a variable name    //
+// and choose "rename symbol"                                        //
 ///////////////////////////////////////////////////////////////////////
 
 
@@ -178,7 +182,7 @@ let gryffindor = L.rectangle([[ 55.49021561150901, -1.5941441059112549],
 });
 
 let slytherin = L.rectangle([[ 55.48954090449621, -1.5956997871398926], [55.490288552115494, -1.594712734222412]], {
-    color: gryfCol,
+    color: 'blue',
     opacity: 0.8,
     weight: 2,
     fillColor: slythCol,
@@ -264,12 +268,28 @@ function createMap (element) {
     // if your tiles seem to load very slowly, you may want to generate your own accessToken
     // and insert the value in `accessToken`, below. 
     // see: https://docs.mapbox.com/help/how-mapbox-works/access-tokens/#creating-and-managing-access-tokens
+
     // to change the tile layer, change the `id` attribute below.
-    // some valid options include: mapbox/streets-v11, mapbox/light-v10, mapbox/satellite-v9, mapbox/satellite-streets-v11 mapbox/dark-v10, mapbox/outdoors-v11
+    // some valid options include:
+    // mapbox/streets-v11
+    // mapbox/outdoors-v11
+    // mapbox/light-v10
+    // mapbox/dark-v10
+    // mapbox/satellite-v9
+    // mapbox/satellite-streets-v11
+
+    // I've also created a simple style using studio.mapbox.com, which you can access
+    // with this id:
+    // titaniumbones/ckhnvk5pl18o71apeq8q1duhc
+    // You can modify it yourself using this link: 
+    // https://api.mapbox.com/styles/v1/titaniumbones/ckhnvk5pl18o71apeq8q1duhc.html?fresh=true&title=copy&access_token=pk.eyJ1IjoidGl0YW5pdW1ib25lcyIsImEiOiJjazF0bTdlNXQwM3gxM2hwbXY0bWtiamM3In0.FFPm7UIuj_b15xnd7wOQig
+    // Here's a green and blue one for good measure:
+    // https://api.mapbox.com/styles/v1/titaniumbones/ckhnvqfda18qu19o2oool6h2c.html?fresh=true&title=copy&access_token=pk.eyJ1IjoidGl0YW5pdW1ib25lcyIsImEiOiJjazF0bTdlNXQwM3gxM2hwbXY0bWtiamM3In0.FFPm7UIuj_b15xnd7wOQig
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
 	attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
 	maxZoom: 18,
-	id: 'mapbox/dark-v10',
+        id: 'mapbox/dark-v10',
+        // id: 'titaniumbones/ckhnvk5pl18o71apeq8q1duhc',
         tileSize: 512,
         zoomOffset: -1,
 	accessToken: 'pk.eyJ1IjoidGl0YW5pdW1ib25lcyIsImEiOiJjazF0bTdlNXQwM3gxM2hwbXY0bWtiamM3In0.FFPm7UIuj_b15xnd7wOQig'
@@ -453,7 +473,7 @@ async function initializeMap() {
  * @param {Object} marker
  */
 function locateMapFeature (marker) {
-    marker.getLatLng ? projectMap.panTo(marker.getLatLng(), {animate: true, duration: 1.5}).setZoom(16) : projectMap.fitBounds(marker.getBounds()); 
+    marker.getLatLng ? projectMap.flyTo(marker.getLatLng(), 16, {animate: true, duration: 1.5}) : projectMap.fitBounds(marker.getBounds(), {animate: true, duration: 1.5}); 
     marker.openPopup();
 }
 
@@ -464,5 +484,5 @@ function coordHelp () {
 }
 
 function resetMap (map) {
-    map.setView(myCenter, myZoom).closePopups()
+    map.setView(myCenter, myZoom, {animate: true, duration: 1.5}).closePopups()
 }
