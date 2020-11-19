@@ -4,6 +4,7 @@
 .main-container {
     grid-template-areas: "intro map legend" "main main main";
     grid-auto-columns: 1fr;
+    grid-template-rows: 85vh 1fr;
 }
 
 section#intro {
@@ -17,6 +18,7 @@ section#map_canvas {
     grid-area: map;
     background-color: var(--color-highlight2);
     border: 1px solid var(--color-custom-borders);
+    height: 85vh
 }
 
 section#legend {
@@ -43,18 +45,23 @@ div#map_legend {
     grid-template-columns: repeat(auto-fit, 45%);
 
 }
+
+/* reduce insane line heights */
+.legend-content-group-wrapper h2 {
+    line-height: 1em;
+}
+
 div#map_legend div.pointer {
     border: 1px black solid;
     border-radius: 10px;
-    margin-left: 5px;
-    margin-right: 5px;
+    margin: 2px 5px 2px 5px;
     /* flex-basis: 500px; */
     cursor:pointer;
+    padding: 2px 2px 2px 5px;
 }
 
 div.pointer h1 {
     font-size: 1.5em;
-    image
 }
 
 div.pointer img {
