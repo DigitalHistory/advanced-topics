@@ -9460,6 +9460,7 @@ ${options.text? "<p>" + options.text + "</p>" : ""} ${options.innerHTML}`;
 
   function toggle( container, display ) {
     if ( container.map ) {
+      container.map.invalidateSize();
       container.map.div.style.display = display;
       return;
     }
@@ -9471,6 +9472,7 @@ ${options.text? "<p>" + options.text + "</p>" : ""} ${options.innerHTML}`;
 
   function flyMap (map, flyOptions) {
     // console.log(flyOptions);
+    map.invalidateSize();
     setTimeout ( function () {
      map.panTo(flyOptions.endpoint, {animate: true, duration: flyOptions.flightLength});
     }, flyOptions.wait * 1000);
@@ -9503,6 +9505,12 @@ ${options.text? "<p>" + options.text + "</p>" : ""} ${options.innerHTML}`;
     var center;
 
 
+    let tileLayerRefs = {
+      SATELLITE: `https://api.mapbox.com/styles/v1/mapbox/satellite`,
+      TERRAIN: `https://api.mapbox.com/styles/v1/mapbox/outdoors`,
+      SATELLITE: `mapbox/satellite`,
+      SATELLITE: `mapbox/satellite`,
+    }
     return {
       /**
        * @member leaflet
@@ -9514,14 +9522,61 @@ ${options.text? "<p>" + options.text + "</p>" : ""} ${options.innerHTML}`;
         var link = document.createElement('link');
         link.rel = 'stylesheet';  
         link.type = 'text/css'; 
-        link.href = "https://unpkg.com/leaflet@1.6.0/dist/leaflet.css";
+        link.href = "https://unpkg.com/leaflet@1.7.1/dist/leaflet.css";
+        let token = 'pk.eyJ1IjoidGl0YW5pdW1ib25lcyIsImEiOiJjazF0bTdlNXQwM3gxM2hwbXY0bWtiamM3In0.FFPm7UIuj_b15xnd7wOQig';
         // insert leaflet api script once
         if ( !window.L ) {
           head.appendChild(link);
-          Popcorn.getScript( "https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" , function() {
+          Popcorn.getScript( "https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" , function() {
               // console.log('empty callback');
             // insert jquery -- not sure why I need this though!
-            //  Popcorn.getScript( "https://code.jquery.com/jquery-3.4.1.min.js" );
+            Popcorn.getScript( "https://code.jquery.com/jquery-3.4.1.min.js" );
+            // inserting the whole edgeBuffer plugin script, which is MIT licesnced
+            // TODO: fix licensing, think about maybe including i na dfferent way osmehow.
+            // For instance, do I really want an AMD module? Need to make some decisions about modules etc
+            // also, hate to introduce even more of these self-executing functions
+            // which I find confusing to read an dunhelpful!!
+            (function (factory, window) {
+              // define an AMD module that relies on 'leaflet'
+              if (typeof define === 'function' && define.amd) {
+                define(['leaflet'], factory);
+
+                // define a Common JS module that relies on 'leaflet'
+              } else if (typeof exports === 'object') {
+                module.exports = factory(require('leaflet'));
+              }
+
+              // attach your plugin to the global 'L' variable
+              if (typeof window !== 'undefined' && window.L && !window.L.EdgeBuffer) {
+                factory(window.L);
+              }
+            }(function (L) {
+              L.EdgeBuffer = {
+                previousMethods: {
+                  getTiledPixelBounds: L.GridLayer.prototype._getTiledPixelBounds
+                }
+              };
+
+              L.GridLayer.include({
+
+                _getTiledPixelBounds : function(center, zoom, tileZoom) {
+                  var pixelBounds = L.EdgeBuffer.previousMethods.getTiledPixelBounds.call(this, center, zoom, tileZoom);
+
+                  // Default is to buffer one tiles beyond the pixel bounds (edgeBufferTiles = 1).
+                  var edgeBufferTiles = 1;
+                  if ((this.options.edgeBufferTiles !== undefined) && (this.options.edgeBufferTiles !== null)) {
+                    edgeBufferTiles = this.options.edgeBufferTiles;
+                  }
+
+                  if (edgeBufferTiles > 0) {
+                    var pixelEdgeBuffer = L.GridLayer.prototype.getTileSize.call(this).multiplyBy(edgeBufferTiles);
+                    pixelBounds = new L.Bounds(pixelBounds.min.subtract(pixelEdgeBuffer), pixelBounds.max.add(pixelEdgeBuffer));
+                  }
+                  return pixelBounds;
+                }
+              });
+
+            }, window));
           } );
         }
 
@@ -9550,70 +9605,77 @@ ${options.text? "<p>" + options.text + "</p>" : ""} ${options.innerHTML}`;
             // console.log ('center is ' + center + options.location || '');
 
             persistentmap = options.map = L.map(newdiv).setView(center, options.zoom || 12);
-
+            
+            persistentmap.invalidateSize();
             // persistentmap ? console.log('pmap exists') : console.log ('pmap does NOT exist');
-            options.type = options.type || "ROADMAP";// XXX: 
+            options.type = options.type || "ROADMAP";// XXX:
+            let baseLayer;
             switch( options.type ) {
             case "SATELLITE" :
-              L.tileLayer(`https://api.mapbox.com/styles/v1/mapbox/satellite/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoidGl0YW5pdW1ib25lcyIsImEiOiJjazF0bTdlNXQwM3gxM2hwbXY0bWtiamM3In0.FFPm7UIuj_b15xnd7wOQig`, {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              baseLayer = L.tileLayer(`https://api.mapbox.com/styles/v1/mapbox/satellite-v9/tiles/{z}/{x}/{y}?access_token={accessToken}`, {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                accessToken: token,
+                edgeBufferTiles: 5
+
               })
-                .addTo(options.map);
               // console.log(options.map);
               break;
             case "TERRAIN":
               // add terrain map ( USGS )
-              L.tileLayer(`https://api.mapbox.com/styles/v1/mapbox/outdoors/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoidGl0YW5pdW1ib25lcyIsImEiOiJjazF0bTdlNXQwM3gxM2hwbXY0bWtiamM3In0.FFPm7UIuj_b15xnd7wOQig`, {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              baseLayer = L.tileLayer(`https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoidGl0YW5pdW1ib25lcyIsImEiOiJjazF0bTdlNXQwM3gxM2hwbXY0bWtiamM3In0.FFPm7UIuj_b15xnd7wOQig`, {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                edgeBufferTiles: 5                
               })
-                .addTo(options.map);
               break;
             case "STAMEN-TONER":
-             L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext}', {
+              baseLayer = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext}', {
 	        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 	        subdomains: 'abcd',
 	        minZoom: 0,
 	        maxZoom: 20,
+                edgeBufferTiles: 5,                
 	        ext: 'png'
               })
-                .addTo(options.map);
                 break;
             case "STAMEN-WATERCOLOR":
-              L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}{r}.{ext}', {
+              baseLayer = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}{r}.{ext}', {
 	        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 	        subdomains: 'abcd',
 	        minZoom: 0,
 	        maxZoom: 20,
+                edgeBufferTiles: 5,
 	        ext: 'png'
               })
-                .addTo(options.map);
               break;
             case "STAMEN-TERRAIN":
               console.log("st terrain")
-              L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}{r}.{ext}', {
+              baseLayer = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}{r}.{ext}', {
 	        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 	        subdomains: 'abcd',
 	        minZoom: 0,
 	        maxZoom: 20,
+                edgeBufferTiles: 5,
 	        ext: 'png'
               })
-                .addTo(options.map);
                 break;
             case "COMIC":
                 // the comic style is now broken b/c of long-past deprecation of old styles
                 // need to fix this but don't have time right now. 
-              L.tileLayer(`https://api.mapbox.com/styles/v1/mapbox/comic/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoidGl0YW5pdW1ib25lcyIsImEiOiJjazF0bTdlNXQwM3gxM2hwbXY0bWtiamM3In0.FFPm7UIuj_b15xnd7wOQig`, {
+              baseLayer = L.tileLayer(`https://api.mapbox.com/styles/v1/mapbox/comic/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoidGl0YW5pdW1ib25lcyIsImEiOiJjazF0bTdlNXQwM3gxM2hwbXY0bWtiamM3In0.FFPm7UIuj_b15xnd7wOQig`, {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               })
-                .addTo(options.map);
               break;
             default: /* case "ROADMAP": */
                 // add OpenStreetMap layer
-              L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              }).addTo(options.map);
+              baseLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                edgeBufferTiles: 5
+              })
                 break;
             }
+
+            baseLayer.addTo(options.map);
+            
             if (options.fly && options.fly.endpoint ) {
               switch (typeof (options.fly.endpoint)) {
               case "string":
@@ -9644,7 +9706,9 @@ ${options.text? "<p>" + options.text + "</p>" : ""} ${options.innerHTML}`;
 
             // default zoom is 2
             options.zoom = options.zoom || 2;
+            persistentmap ? console.log('pmap exists at isread') : console.log ('pmap does NOT exist at isready');
 
+            persistentmap.invalidateSize();
             // make sure options.zoom is a number
             if ( options.zoom && typeof options.zoom !== "number" ) {
               options.zoom = +options.zoom;
@@ -9681,8 +9745,8 @@ ${options.text? "<p>" + options.text + "</p>" : ""} ${options.innerHTML}`;
        * options variable
        */
       start: function( event, options ) {
-        //persistentmap ? console.log('pmap exists') : console.log ('pmap does NOT exist');
-
+        persistentmap ? console.log('pmap exists') : console.log ('pmap does NOT exist');
+        persistentmap.invalidateSize();
         toggle( options, "block" );
         if (options.fly) {
           //console.log (persistentmap)
