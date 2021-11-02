@@ -66,7 +66,7 @@ Notice the addition of a pair of curly brackets containing a CSS celector below 
 
 ## Viewing the Live Repo
 
-It is **really easy** to flip a switch and make this repo go live! Near the top of this page you will see a :gear: gear icon -- this is the settings page. Navigate to that page and scroll odwn to the heading labeled `Github Pages`.  There's a drop-down menu there currently reading "none".  Click on the box and select `master branch` instead.  Moments later, your site will appear live at the URL now displayed in a blue box within ht eGithub Pages section.
+It is **really easy** to flip a switch and make this repo go live! Near the top of this page you will see a :gear: gear icon -- this is the settings page. Navigate to that page and scroll down to the heading labeled `Github Pages`.  There's a drop-down menu there currently reading "none".  Click on the box and select `master branch` instead.  Moments later, your site will appear live at the URL now displayed in a blue box within the Github Pages section.
 
 That's it! You're Live! [You can read more about Github Pages here](https://help.github.com/en/articles/what-is-github-pages)
 

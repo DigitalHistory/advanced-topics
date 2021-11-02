@@ -1,3 +1,8 @@
+# Part 2: Unions and union Busting
+
+It's not possible in markdown to write a javascript-style href property, so to use this cool trick  we need to write aout a full HTML tag,<a href="javascript:seek(75)"> like this one which seeks to 1:15</a>.
+
+
 # Your Title should go in the appropriate place in `index.html`, not here! Title is itself set only in the `<head>` element
 
 ## Use headings only if you want to have subsections in your essay
